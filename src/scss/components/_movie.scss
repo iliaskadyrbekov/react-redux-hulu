@@ -1,25 +1,43 @@
 .movie {
-  background-color: #e7e7e7;
   margin-bottom: 20px;
+  cursor: pointer;
 
   &__wrapper-image {
-    max-width: 190px;
-    max-height: 200px;
+    width: 185px;
+    max-height: 140px;
     height: 100%;
-
+    border-radius: 5px;
+    &--template {
+      background-color: #5b5b5b;
+    }
     .movie__image {
       max-width: 100%;
       height: 100%;
       object-fit: cover;
-      cursor: pointer;
-      border-radius: 3px;
     }
   }
   &__info {
     margin: 2px 5px 3px;
+
+    &-title {
+      color: white;
+
+    }
     &-additional {
       display: flex;
-      justify-content: space-between;
+      .movie__info-rating {
+        color: #f39c12;
+        display: flex;
+        align-items: center;
+        margin-right: 10px;
+        &-number {
+          color: inherit;
+          margin-right: 1px;
+        }
+      }
+      .movie__info-year {
+        color: white;
+      }
     }
   }
 }

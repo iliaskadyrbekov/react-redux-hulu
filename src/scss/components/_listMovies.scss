@@ -1,5 +1,17 @@
 .movies {
-  display: flex;
-  justify-content: space-between;
-  flex-wrap: wrap;
+  margin-bottom: 100px;
+  &__list {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    grid-gap: 18px;
+    //grid-template-rows: repeat(2);
+    //justify-content: space-between;
+    //flex-wrap: wrap;
+  }
+  &__loader {
+    display: flex;
+    justify-content: center;
+    margin-top: 50px;
+    font-size: 18px;
+  }
 }

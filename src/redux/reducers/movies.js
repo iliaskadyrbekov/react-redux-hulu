@@ -5,9 +5,11 @@ const initialState = {
 const moviesReducer = (state = initialState, action) => {
   switch (action.type) {
     case 'SET_MOVIES':
-      return {
-        ...state,
-        movies: action.payload
+      return { // TODO
+        movies: [
+          ...state.movies,
+          ...action.payload,
+        ]
       };
     default:
       return state;
