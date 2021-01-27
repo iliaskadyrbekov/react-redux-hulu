@@ -3,3 +3,8 @@ export const setMovies = (movies) => ({
   payload: movies,
 });
 
+export const setGenres = (genres) => ({
+  type: 'SET_GENRES',
+  payload: genres,
+});
+

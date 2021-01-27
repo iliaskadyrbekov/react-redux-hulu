@@ -1,23 +1,31 @@
-import React from "react";
+import React, {useState} from "react";
 import StarBorderIcon from '@material-ui/icons/StarBorder';
+import Preview from "./Preview";
 
-const Movie = ({movie}) => {
-  const {title, backdrop_path, release_date, vote_average} = movie;
+const Movie = ({movie, genres}) => {
+  const [isShown, setIsShown] = useState(false);
+
+  const {title, backdrop_path, release_date, vote_average, original_language, genre_ids, overview} = movie;
   const image = `https://image.tmdb.org/t/p/w500/${backdrop_path}`;
-  const formatTitle = title.length > 20 ? title.slice(0, 20).trim() + '...' : title;
   const formatDate = release_date ? release_date.slice(0, 4) : 'soon';
   const formatRatings = vote_average.toString().length === 1 ? vote_average + '.0' : vote_average;
-  const templateClassName = !backdrop_path && "movie__wrapper-image--template";
-  console.log(movie)
+  const templateClassName = !backdrop_path ? " movie__wrapper-image--template" : "";
+  const imageClassName = isShown ? " movie__image--active" : "";
+
   return (
-    <div className="movie">
-      <div className={"movie__wrapper-image " + templateClassName}>
-        <img className="movie__image" src={image} alt=""/>
+    <div className="movie"
+         onMouseEnter={() => setIsShown(true)}
+         onMouseLeave={() => setIsShown(false)}
+    >
+      <div className={"movie__wrapper-image" + templateClassName}>
+        <img className={"movie__image" + imageClassName} src={image} alt=""/>
+        {isShown && <Preview lang={original_language} genresID={genre_ids} genres={genres} overview={overview}/>}
+        {/*{<Preview lang={original_language} genresID={genre_ids} genres={genres} overview={overview}/>}*/}
       </div>
       <div className="movie__info">
-        <span className="movie__info-title">
-          {formatTitle}
-        </span>
+        <p className="movie__info-title">
+          {title}
+        </p>
         <div className="movie__info-additional">
           <div className="movie__info-rating">
             <span className="movie__info-rating-number">

@@ -1,27 +1,34 @@
 .movie {
-  margin-bottom: 20px;
+  margin-bottom: 10px;
   cursor: pointer;
-
+  width: 185px;
   &__wrapper-image {
-    width: 185px;
     max-height: 140px;
     height: 100%;
     border-radius: 5px;
+    position: relative;
+    transition: transform .3s;
     &--template {
-      background-color: #5b5b5b;
+      background-color: #777777;
     }
     .movie__image {
       max-width: 100%;
       height: 100%;
       object-fit: cover;
+      &--active {
+        opacity: .2;
+      }
+    }
+    &:hover {
+      transform: scale(1.05);
     }
   }
   &__info {
-    margin: 2px 5px 3px;
-
-    &-title {
-      color: white;
-
+    margin: 5px 5px 3px;
+    .movie__info-title {
+      text-overflow: ellipsis;
+      overflow: hidden;
+      white-space: nowrap;
     }
     &-additional {
       display: flex;
@@ -36,7 +43,6 @@
         }
       }
       .movie__info-year {
-        color: white;
       }
     }
   }

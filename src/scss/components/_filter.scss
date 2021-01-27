@@ -1,0 +1,16 @@
+.filter {
+  margin-bottom: 30px;
+  &__btn-wrapper {
+    display: block;
+    .filter__button {
+      cursor: pointer;
+      background-color: inherit;
+      border-radius: 25px;
+      border: 2px solid white;
+      color: white;
+      padding: 7px 35px;
+      text-align: center;
+      font-size: 16px;
+    }
+  }
+}
