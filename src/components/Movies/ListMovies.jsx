@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */ //TODO
 import React, {useEffect, useState} from "react";
 import Movie from "./Movie";
 import {useDispatch, useSelector} from "react-redux";
@@ -9,8 +10,10 @@ const ListMovies = () => {
   const dispatch = useDispatch();
   const genres = useSelector(({moviesReducer}) => moviesReducer.genres);
   const movies = useSelector(({moviesReducer}) => moviesReducer.movies);
+  const searchMovies = useSelector(({searchReducer}) => searchReducer.searchMovies);
+  const isSearching = useSelector(({searchReducer}) => searchReducer.isSearching);
 
-  const [isFetching, setIsFetching] = useState(false);
+  const [isFetchingMovies, setIsFetchingMovies] = useState(false);
   let [pageId, setPageId] = useState(1);
 
   useEffect(() => {
@@ -28,17 +31,17 @@ const ListMovies = () => {
         dispatch(setGenres(data.genres))
       });
     return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  }, []);// TODO
 
   useEffect(() => {
-    if (isFetching) {
+    if (isFetchingMovies) {
       fetchMoreMovies().then();
     }
-  }, [isFetching]);
+  }, [isFetchingMovies]);//TODO
 
   const handleScroll = () => {
     if (window.innerHeight + document.documentElement.scrollTop + 20 >= document.documentElement.offsetHeight) {
-      setIsFetching(true);
+      setIsFetchingMovies(true);
     }
   };
 
@@ -52,24 +55,26 @@ const ListMovies = () => {
       console.log(error);
     }
     setPageId(++pageId);
-    setIsFetching(false);
+    setIsFetchingMovies(false);
   };
 
-  const moviesFormat = movies.map((movie) => { // TODO key unique logic
-    return movie.backdrop_path && <Movie
-      movie={movie}
-      key={movie.id}
-      genres={genres}
-    />
-  });
+  const resultMovies = (movies) => {
+    return movies && movies.map((movie) => { // TODO key unique logic
+      return movie.backdrop_path && <Movie
+        movie={movie}
+        key={movie.id}
+        genres={genres}
+      />
+    });
+  };
 
   return (
     <div className="movies">
       <div className="movies__list">
-        {moviesFormat}
+        {!isSearching ? resultMovies(movies) : resultMovies(searchMovies)}
       </div>
       <div className="movies__loader">
-        {isFetching && <Loader/>}
+        {isFetchingMovies && <Loader/>}
       </div>
     </div>
   )

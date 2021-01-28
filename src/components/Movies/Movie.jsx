@@ -4,6 +4,7 @@ import Preview from "./Preview";
 
 const Movie = ({movie, genres}) => {
   const [isShown, setIsShown] = useState(false);
+  const [isBookmarked, setIsBookmarked] = useState(false);
 
   const {title, backdrop_path, release_date, vote_average, original_language, genre_ids, overview} = movie;
   const image = `https://image.tmdb.org/t/p/w500/${backdrop_path}`;
@@ -19,7 +20,14 @@ const Movie = ({movie, genres}) => {
     >
       <div className={"movie__wrapper-image" + templateClassName}>
         <img className={"movie__image" + imageClassName} src={image} alt=""/>
-        {isShown && <Preview lang={original_language} genresID={genre_ids} genres={genres} overview={overview}/>}
+        {isShown && <Preview lang={original_language}
+                             genresID={genre_ids}
+                             genres={genres}
+                             overview={overview}
+                             isBookmarked={isBookmarked}
+                             setIsBookmarked={setIsBookmarked}
+        />}
+
         {/*{<Preview lang={original_language} genresID={genre_ids} genres={genres} overview={overview}/>}*/}
       </div>
       <div className="movie__info">
