@@ -1,10 +1,8 @@
-import React, {useState} from "react";
+import React from "react";
 import BookmarkBorderIcon from '@material-ui/icons/BookmarkBorder';
 import BookmarkIcon from '@material-ui/icons/Bookmark';
 
-const Preview = ({lang, genresID, genres, overview}) => {
-  const [isBookmarked, setIsBookmarked] = useState(false);
-
+const Preview = ({lang, genresID, genres, overview, setIsBookmarked, isBookmarked}) => {
   const movieGenres = genres.filter((genre) => genresID.includes(genre.id)).map((genre) => genre.name).join(', ');
   const movieGenresFormat = movieGenres.charAt(0).toUpperCase() + movieGenres.toLowerCase().slice(1);
 
