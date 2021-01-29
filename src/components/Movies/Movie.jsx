@@ -27,8 +27,6 @@ const Movie = ({movie, genres}) => {
                              isBookmarked={isBookmarked}
                              setIsBookmarked={setIsBookmarked}
         />}
-
-        {/*{<Preview lang={original_language} genresID={genre_ids} genres={genres} overview={overview}/>}*/}
       </div>
       <div className="movie__info">
         <p className="movie__info-title">
