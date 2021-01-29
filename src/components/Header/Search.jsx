@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps */                                //TODO
 import React, {useEffect, useState} from "react";
 import {API_GET_SEARCH_MOVIES} from "../../api/api";
 import {useDispatch} from "react-redux";
