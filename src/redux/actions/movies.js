@@ -8,5 +8,10 @@ export const setGenres = (genres) => ({
   payload: genres,
 });
 
+export const setCountPage = (countPage) => ({
+  type: 'SET_COUNT_PAGE',
+  payload: countPage,
+});
+
 
 
