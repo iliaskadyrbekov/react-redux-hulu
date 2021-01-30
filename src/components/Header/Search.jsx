@@ -1,12 +1,13 @@
 import React, {useEffect, useState} from "react";
 import {API_GET_SEARCH_MOVIES} from "../../api/api";
-import {useDispatch} from "react-redux";
-import {setIsSearching, setSearchMovies} from "../../redux/actions/search";
+import {useDispatch, useSelector} from "react-redux";
+import {setEmptySearchMovies, setIsSearching, setQueryValue, setSearchMovies} from "../../redux/actions/search";
 import searchLoader from '../../assets/img/searchLoder.svg';
 
 const Search = () => {
   const dispatch = useDispatch();
-  const [value, setValue] = useState(' ');
+  const queryValue = useSelector(({searchReducer}) => searchReducer.queryValue);
+
   const [isLoadedSearchMovies, setIsLoadedSearchMovies] = useState(true);
 
   const loaderStyles = {
@@ -17,26 +18,27 @@ const Search = () => {
 
   useEffect(() => {
     async function fetchData() {
-      if (value.trim()) {
-        const response = await fetch(API_GET_SEARCH_MOVIES + value);
+      if (queryValue.trim()) {
+        const response = await fetch(API_GET_SEARCH_MOVIES + '&page=1&query=' + queryValue.trim());
         const json = await response.json();
+        console.log('here')
         dispatch(setSearchMovies(json.results));
       } else {
         dispatch(setIsSearching(false));
-        dispatch(setSearchMovies([]));
-        setValue(' ');
+        dispatch(setEmptySearchMovies([]));
+        dispatch(setQueryValue(' '));
       }
       setIsLoadedSearchMovies(true);
     }
 
     fetchData().then();
-  }, [value]);//TODO
+  }, [queryValue]);
 
   const searchMoviesByQuery = (event) => {
     setIsLoadedSearchMovies(false);
-    const inputValue = event.target.value;
-    setValue(inputValue);
-    if (value) {
+    dispatch(setQueryValue(event.target.value));
+    dispatch(setEmptySearchMovies([]));
+    if (queryValue) {
       dispatch(setIsSearching(true));
     } else {
       dispatch(setIsSearching(false));
@@ -50,7 +52,7 @@ const Search = () => {
       <input className="search__input"
              type="search"
              onChange={searchMoviesByQuery}
-             value={value}
+             value={queryValue}
              style={styles}
              maxLength={50}
       />
@@ -59,4 +61,3 @@ const Search = () => {
 };
 
 export default Search;
-
