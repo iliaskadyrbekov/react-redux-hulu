@@ -25,11 +25,6 @@ const moviesReducer = (state = initialState, action) => {
         ...state,
         genres: action.payload,
       };
-    case 'SET_EMPTY_SEARCH_MOVIES':
-      return {
-        ...state,
-        movies: action.payload,
-      };
     default:
       return state;
   }

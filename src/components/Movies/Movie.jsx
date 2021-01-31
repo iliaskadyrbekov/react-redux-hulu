@@ -46,6 +46,7 @@ const Movie = ({movie, genres}) => {
       </div>
     </div>
   );
+
 };
 
 
