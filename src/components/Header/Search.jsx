@@ -1,14 +1,20 @@
 import React, {useEffect, useState} from "react";
 import {API_GET_SEARCH_MOVIES} from "../../api/api";
 import {useDispatch, useSelector} from "react-redux";
-import {setEmptySearchMovies, setIsSearching, setQueryValue, setSearchMovies} from "../../redux/actions/search";
+import {
+  setCountSearchPage,
+  setEmptySearchMovies,
+  setIsSearching,
+  setQueryValue,
+  setSearchMovies
+} from "../../redux/actions/search";
 import searchLoader from '../../assets/img/searchLoder.svg';
 
 const Search = () => {
   const dispatch = useDispatch();
   const queryValue = useSelector(({searchReducer}) => searchReducer.queryValue);
 
-  const [isLoadedSearchMovies, setIsLoadedSearchMovies] = useState(true);
+  const [isLoaderActive, setIsLoaderActive] = useState(false); // for loader of search input
 
   const loaderStyles = {
     backgroundImage: `url(${searchLoader})`,
@@ -18,34 +24,30 @@ const Search = () => {
 
   useEffect(() => {
     async function fetchData() {
-      if (queryValue.trim()) {
-        const response = await fetch(API_GET_SEARCH_MOVIES + '&page=1&query=' + queryValue.trim());
+      const formatQueryValue = queryValue.trim().toLowerCase(); // ??? is it need?
+      if (formatQueryValue) {
+        const response = await fetch(API_GET_SEARCH_MOVIES + '&page=1&query=' + formatQueryValue);
         const json = await response.json();
-        console.log('here')
+        console.log(json)
         dispatch(setSearchMovies(json.results));
-      } else {
-        dispatch(setIsSearching(false));
-        dispatch(setEmptySearchMovies([]));
-        dispatch(setQueryValue(' '));
+      } else { // will enter at the first rendering and when deleting last input char
+        dispatch(setIsSearching(false)); // to show all movies when deleting last input char
       }
-      setIsLoadedSearchMovies(true);
+      setIsLoaderActive(false); // deactivate search loader
     }
 
     fetchData().then();
   }, [queryValue]);
 
   const searchMoviesByQuery = (event) => {
-    setIsLoadedSearchMovies(false);
-    dispatch(setQueryValue(event.target.value));
     dispatch(setEmptySearchMovies([]));
-    if (queryValue) {
-      dispatch(setIsSearching(true));
-    } else {
-      dispatch(setIsSearching(false));
-    }
+    // dispatch(setCountSearchPage(1));
+    setIsLoaderActive(true); // activate search loader
+    dispatch(setQueryValue(event.target.value)); // change value of input
+    dispatch(setIsSearching(true)); // set searching view mode
   }
 
-  const styles = !isLoadedSearchMovies ? loaderStyles : {};
+  const styles = isLoaderActive ? loaderStyles : {};
 
   return (
     <div className="search">

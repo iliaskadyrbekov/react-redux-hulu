@@ -1,8 +1,8 @@
 const initialState = {
   searchMovies: [],
   isSearching: false,
-  queryValue: ' ',
-  countSearchPage: 1,
+  queryValue: '',
+  countSearchPage: 2,
 };
 
 const searchReducer = (state = initialState, action) => {
@@ -15,10 +15,15 @@ const searchReducer = (state = initialState, action) => {
           ...action.payload,
         ]
       };
+    case 'SET_EMPTY_SEARCH_MOVIES':
+      return {
+        ...state,
+        searchMovies: action.payload,
+      };
     case 'SET_COUNT_SEARCH_PAGE':
       return {
         ...state,
-        countSearchPage: action.type,
+        countSearchPage: action.payload,
       };
     case 'SET_IS_SEARCHING':
       return {

@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import React, {useEffect, useState} from "react";
 import Movie from "./Movie";
 import {useDispatch, useSelector} from "react-redux";
@@ -6,6 +5,7 @@ import {setCountPage, setGenres, setMovies} from "../../redux/actions/movies";
 import {API_GET_GENRES, API_GET_MOVIES, API_GET_SEARCH_MOVIES, fetchFromAPI} from "../../api/api";
 import Loader from "./Loader";
 import {setCountSearchPage, setSearchMovies} from "../../redux/actions/search";
+import {MovieTemplate} from "./index";
 
 const ListMovies = () => {
   const dispatch = useDispatch();
@@ -21,7 +21,7 @@ const ListMovies = () => {
 
   useEffect(() => {
     setIsFetchingMovies(true);
-  }, [])
+  }, []);
 
   useEffect(() => {
     fetchFromAPI(API_GET_GENRES)
@@ -36,27 +36,26 @@ const ListMovies = () => {
   useEffect(() => {
     window.addEventListener('scroll', handleScroll);
     if (isFetchingMovies) {
-      const moviesURL = `${API_GET_MOVIES}&page=${countPage}`;
-      const searchMoviesURL = API_GET_SEARCH_MOVIES + '&page=' + countSearchPage + '&query=' + queryValue.trim();
+      const url = isSearching
+        ? API_GET_SEARCH_MOVIES + '&page=' + countSearchPage + '&query=' + queryValue.trim()
+        : `${API_GET_MOVIES}&page=${countPage}`;
 
-      const url = isSearching ? searchMoviesURL : moviesURL;
       fetchFromAPI(url)
         .then(movies => {
-          if (!isSearching) {
-            dispatch(setMovies(movies.results));
-            setIsFetchingMovies(false);
-            dispatch(setCountPage(++countPage));
-          } else {
+          if (isSearching) {
             dispatch(setSearchMovies(movies.results));
-            console.log(movies)
-            setIsFetchingMovies(false);
             dispatch(setCountSearchPage(++countSearchPage));
+          } else {
+            dispatch(setMovies(movies.results));
+            dispatch(setCountPage(++countPage));
           }
+          setIsFetchingMovies(false);
         })
         .catch(error => {
           console.log(error.message)
         });
     }
+
     return () => window.removeEventListener('scroll', handleScroll);
   }, [isFetchingMovies]);// TODO
 
@@ -75,12 +74,16 @@ const ListMovies = () => {
 
   const resultMovies = (movies) => {
     return movies && movies.map((movie) => { // TODO key unique logic
-      const {id, backdrop_path} = movie;
-      return backdrop_path && <Movie
-        movie={movie}
-        key={id}
-        genres={genres}
-      />
+      const {id} = movie;
+      if (isFetchingMovies) {
+        return <MovieTemplate/>;
+      } else {
+        return <Movie //TODO
+          movie={movie}
+          key={id}
+          genres={genres}
+        />
+      }
     });
   };
 
