@@ -18,6 +18,9 @@
       &--active {
         opacity: .2;
       }
+      &--poster {
+        width: 100%;
+      }
     }
     &:hover {
       transform: scale(1.05);
