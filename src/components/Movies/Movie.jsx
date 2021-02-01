@@ -15,10 +15,11 @@ const Movie = ({movie, genres}) => {
   const imageName = backdrop_path || poster_path;
   const imagePath = imageName ? `https://image.tmdb.org/t/p/w500/${imageName}` : defaultImage;
   const formatDate = release_date ? release_date.slice(0, 4) : 'soon';
-  const formatRatings = vote_average.toString().length === 1 ? vote_average + '.0' : vote_average;
+  const formatRatings = (vote_average.toString().length === 1 || vote_average === 10) ? vote_average + '.0' : vote_average;
   const templateClassName = !(backdrop_path || poster_path) ? " movie__wrapper-image--template" : "";
   const imageClassName = isShown ? " movie__image--active" : "";
   const imageClassPoster = !backdrop_path ? " movie__image--poster" : "";
+  const formatOverview = overview ? overview : 'Unnown description';
 
   return (
     <div className="movie"
@@ -30,7 +31,7 @@ const Movie = ({movie, genres}) => {
         {isShown && <Preview lang={original_language}
                              genresID={genre_ids}
                              genres={genres}
-                             overview={overview}
+                             overview={formatOverview}
                              isBookmarked={isBookmarked}
                              setIsBookmarked={setIsBookmarked}
         />}

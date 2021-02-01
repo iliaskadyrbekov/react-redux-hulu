@@ -4,7 +4,7 @@ import BookmarkIcon from '@material-ui/icons/Bookmark';
 
 const Preview = ({lang, genresID, genres, overview, setIsBookmarked, isBookmarked}) => {
   const movieGenres = genres.filter((genre) => genresID.includes(genre.id)).map((genre) => genre.name).join(', ');
-  const movieGenresFormat = movieGenres.charAt(0).toUpperCase() + movieGenres.toLowerCase().slice(1);
+  const movieGenresFormat = movieGenres.charAt(0).toUpperCase() + movieGenres.toLowerCase().slice(1) || 'Unnown genres';
 
   const onCnangeBookmarkStatus = () => {
     setIsBookmarked(!isBookmarked);
