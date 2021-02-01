@@ -13,9 +13,10 @@ const ListMovies = () => {
   const searchMovies = useSelector(({searchReducer}) => searchReducer.searchMovies);
   const isSearching = useSelector(({searchReducer}) => searchReducer.isSearching);
   const queryValue = useSelector(({searchReducer}) => searchReducer.queryValue);
+  const totalMovies = useSelector(({searchReducer}) => searchReducer.totalMovies);
   let countSearchPage = useSelector(({searchReducer}) => searchReducer.countSearchPage);
   let countPage = useSelector(({moviesReducer}) => moviesReducer.countPage);
-
+  console.log(totalMovies)
   const [isFetchingMovies, setIsFetchingMovies] = useState(false);
 
   useEffect(() => {
@@ -57,19 +58,26 @@ const ListMovies = () => {
           console.log(error.message)
         });
     }
-
     return () => window.removeEventListener('scroll', handleScroll);
   }, [isFetchingMovies]);
+
+  const isLastMovies = () => {
+    const currentCountMovies = isSearching ? searchMovies.length : movies.length;
+    const totalCountMovies = isSearching ? totalMovies : 10000;
+    console.log(currentCountMovies, totalCountMovies, totalMovies)
+    return currentCountMovies < totalCountMovies;
+  };
 
   const handleScroll = () => {
     const viewportHeight = window.innerHeight;
     const scrollHeight = document.documentElement.scrollTop;
     const documentHeight = document.documentElement.offsetHeight;
     const totalHeight = viewportHeight + scrollHeight + 30;
-    if (totalHeight >= documentHeight && documentHeight + 30 >= totalHeight) {
+    if (isLastMovies() && totalHeight >= documentHeight && documentHeight + 30 >= totalHeight) {
       setIsFetchingMovies(true);
     }
   };
+
 
   window.onbeforeunload = function () {
     window.scrollTo(0, 0);

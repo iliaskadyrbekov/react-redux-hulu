@@ -8,6 +8,11 @@ export const setCountSearchPage = (countSearchPage) => ({
   payload: countSearchPage,
 });
 
+export const setTotalMovies = (totalMovies) => ({
+  type: 'SET_TOTAL_MOVIES',
+  payload: totalMovies,
+});
+
 export const setEmptySearchMovies = (searchMovies) => ({
   type: 'SET_EMPTY_SEARCH_MOVIES',
   payload: searchMovies,
