@@ -26,9 +26,8 @@ const Search = () => {
     async function fetchData() {
       const formatQueryValue = queryValue.trim().toLowerCase(); // ??? is it need?
       if (formatQueryValue) {
-        const response = await fetch(API_GET_SEARCH_MOVIES + '&page=1&query=' + formatQueryValue);
+        const response = await fetch(`${API_GET_SEARCH_MOVIES}&page=1&query=${formatQueryValue}`);
         const json = await response.json();
-        console.log(json)
         dispatch(setSearchMovies(json.results));
       } else { // will enter at the first rendering and when deleting last input char
         dispatch(setIsSearching(false)); // to show all movies when deleting last input char
@@ -36,12 +35,12 @@ const Search = () => {
       setIsLoaderActive(false); // deactivate search loader
     }
 
-    fetchData().then();
+    fetchData().then(); // TODO
   }, [queryValue]);
 
   const searchMoviesByQuery = (event) => {
+    dispatch(setCountSearchPage(2));
     dispatch(setEmptySearchMovies([]));
-    // dispatch(setCountSearchPage(1));
     setIsLoaderActive(true); // activate search loader
     dispatch(setQueryValue(event.target.value)); // change value of input
     dispatch(setIsSearching(true)); // set searching view mode
