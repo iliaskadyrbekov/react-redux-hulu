@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, {useEffect, useState} from "react";
 import Movie from "./Movie";
 import {useDispatch, useSelector} from "react-redux";
@@ -16,7 +17,7 @@ const ListMovies = () => {
   const totalMovies = useSelector(({searchReducer}) => searchReducer.totalMovies);
   let countSearchPage = useSelector(({searchReducer}) => searchReducer.countSearchPage);
   let countPage = useSelector(({moviesReducer}) => moviesReducer.countPage);
-  console.log(totalMovies)
+
   const [isFetchingMovies, setIsFetchingMovies] = useState(false);
 
   useEffect(() => {
@@ -35,8 +36,6 @@ const ListMovies = () => {
   }, [dispatch]);
 
   useEffect(() => {
-    window.addEventListener('scroll', handleScroll);
-
     if (isFetchingMovies) {
       const url = isSearching
         ? `${API_GET_SEARCH_MOVIES}&page=${countSearchPage}&query=${queryValue.trim()}`
@@ -58,13 +57,16 @@ const ListMovies = () => {
           console.log(error.message)
         });
     }
-    return () => window.removeEventListener('scroll', handleScroll);
   }, [isFetchingMovies]);
 
-  const isLastMovies = () => {
+  useEffect(() => {
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [isFetchingMovies, totalMovies]);
+
+  const isNotLastMovies = () => {
     const currentCountMovies = isSearching ? searchMovies.length : movies.length;
     const totalCountMovies = isSearching ? totalMovies : 10000;
-    console.log(currentCountMovies, totalCountMovies, totalMovies)
     return currentCountMovies < totalCountMovies;
   };
 
@@ -73,17 +75,19 @@ const ListMovies = () => {
     const scrollHeight = document.documentElement.scrollTop;
     const documentHeight = document.documentElement.offsetHeight;
     const totalHeight = viewportHeight + scrollHeight + 30;
-    if (isLastMovies() && totalHeight >= documentHeight && documentHeight + 30 >= totalHeight) {
+    if (isNotLastMovies() && totalHeight >= documentHeight && documentHeight + 30 >= totalHeight) {
       setIsFetchingMovies(true);
     }
   };
-
 
   window.onbeforeunload = function () {
     window.scrollTo(0, 0);
   }
 
   const resultMovies = (movies) => {
+    if (!movies.length) {
+      return <div className="movies__message">Nothing found</div>;
+    }
     return movies && movies.map((movie) => { // TODO key unique logic
       const {id} = movie;
       // if (isFetchingMovies) {

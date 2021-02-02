@@ -2,6 +2,11 @@
 @import "libs/normilize";
 @import "components/all";
 
+html {
+  overflow: -moz-scrollbars-vertical;
+  overflow-y: scroll;
+}
+
 .container {
   max-width: 1200px;
   margin: 0 auto;
