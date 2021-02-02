@@ -27,7 +27,11 @@ const Movie = ({movie, genres}) => {
          onMouseLeave={() => setIsShown(false)}
     >
       <div className={"movie__wrapper-image" + templateClassName}>
-        <img className={"movie__image" + imageClassName + imageClassPoster} src={imagePath} alt=""/>
+        <img
+          className={"movie__image" + imageClassName + imageClassPoster}
+          src={imagePath}
+          alt=""
+        />
         {isShown && <Preview lang={original_language}
                              genresID={genre_ids}
                              genres={genres}

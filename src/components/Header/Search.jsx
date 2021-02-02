@@ -6,7 +6,8 @@ import {
   setEmptySearchMovies,
   setIsSearching,
   setQueryValue,
-  setSearchMovies, setTotalMovies
+  setSearchMovies,
+  setTotalMovies
 } from "../../redux/actions/search";
 import searchLoader from '../../assets/img/searchLoder.svg';
 
@@ -28,7 +29,8 @@ const Search = () => {
       if (formatQueryValue) {
         const response = await fetch(`${API_GET_SEARCH_MOVIES}&page=1&query=${formatQueryValue}`);
         const json = await response.json();
-        dispatch(setTotalMovies(json.total_results));
+        const {total_results} = json;
+        dispatch(setTotalMovies(total_results));
         dispatch(setSearchMovies(json.results));
       } else { // will enter at the first rendering and when deleting last input char
         dispatch(setIsSearching(false)); // to show all movies when deleting last input char
@@ -37,12 +39,11 @@ const Search = () => {
     }
 
     fetchData().then(); // TODO
-  }, [queryValue]);
+  }, [dispatch, queryValue]);
 
   const searchMoviesByQuery = (event) => {
-    // dispatch(setTotalMovies(0));
-    dispatch(setCountSearchPage(2));
     dispatch(setEmptySearchMovies([]));
+    dispatch(setCountSearchPage(2));
     setIsLoaderActive(true); // activate search loader
     dispatch(setQueryValue(event.target.value)); // change value of input
     dispatch(setIsSearching(true)); // set searching view mode
