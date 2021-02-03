@@ -1,10 +1,11 @@
-import React, {useEffect, useState} from "react";
+import React, {useEffect} from "react";
 import {API_GET_SEARCH_MOVIES} from "../../api/api";
 import {useDispatch, useSelector} from "react-redux";
 import {
   setCountSearchPage,
   setEmptySearchMovies,
   setIsSearching,
+  setIsSearchLoaderActive,
   setQueryValue,
   setSearchMovies,
   setTotalMovies
@@ -14,8 +15,7 @@ import searchLoader from '../../assets/img/searchLoder.svg';
 const Search = () => {
   const dispatch = useDispatch();
   const queryValue = useSelector(({searchReducer}) => searchReducer.queryValue);
-
-  const [isLoaderActive, setIsLoaderActive] = useState(false); // for loader of search input
+  const isSearchLoaderActive = useSelector(({searchReducer}) => searchReducer.isSearchLoaderActive);
 
   const loaderStyles = {
     backgroundImage: `url(${searchLoader})`,
@@ -35,7 +35,7 @@ const Search = () => {
       } else { // will enter at the first rendering and when deleting last input char
         dispatch(setIsSearching(false)); // to show all movies when deleting last input char
       }
-      setIsLoaderActive(false); // deactivate search loader
+      dispatch(setIsSearchLoaderActive(false)); // deactivate search loader
     }
 
     fetchData().then(); // TODO
@@ -44,12 +44,12 @@ const Search = () => {
   const searchMoviesByQuery = (event) => {
     dispatch(setEmptySearchMovies([]));
     dispatch(setCountSearchPage(2));
-    setIsLoaderActive(true); // activate search loader
+    dispatch(setIsSearchLoaderActive(true)); // activate search loader
     dispatch(setQueryValue(event.target.value)); // change value of input
     dispatch(setIsSearching(true)); // set searching view mode
   }
 
-  const styles = isLoaderActive ? loaderStyles : {};
+  const styles = isSearchLoaderActive ? loaderStyles : {};
 
   return (
     <div className="search">
