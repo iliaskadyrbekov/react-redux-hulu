@@ -28,3 +28,8 @@ export const setQueryValue = (queryValue) => ({
   payload: queryValue,
 });
 
+export const setIsSearchLoaderActive = (isSearchLoaderActive) => ({
+  type: 'SET_IS_SEARCHING_LOADER_ACTIVE',
+  payload: isSearchLoaderActive,
+});
+

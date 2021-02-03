@@ -4,6 +4,7 @@ const initialState = {
   queryValue: '',
   countSearchPage: 2,
   totalMovies: 0,
+  isSearchLoaderActive: false,
 };
 
 const searchReducer = (state = initialState, action) => {
@@ -40,6 +41,11 @@ const searchReducer = (state = initialState, action) => {
       return {
         ...state,
         queryValue: action.payload,
+      };
+    case 'SET_IS_SEARCHING_LOADER_ACTIVE':
+      return {
+        ...state,
+        isSearchLoaderActive: action.payload,
       };
     default:
       return state;

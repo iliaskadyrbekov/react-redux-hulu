@@ -1,5 +1,10 @@
 .movies {
   margin-bottom: 100px;
+  &__message {
+    font-size: 28px;
+    display: flex;
+    justify-content: center;
+  }
   &__list {
     display: grid;
     grid-template-columns: repeat(6, 1fr);
@@ -7,11 +12,6 @@
     //grid-template-rows: repeat(2);
     //justify-content: space-between;
     //flex-wrap: wrap;
-    .movies__message {
-      font-size: 28px;
-      display: flex;
-      justify-content: center;
-    }
   }
   &__loader {
     display: flex;

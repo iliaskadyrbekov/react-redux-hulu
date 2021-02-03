@@ -17,6 +17,7 @@ const ListMovies = () => {
   const totalMovies = useSelector(({searchReducer}) => searchReducer.totalMovies);
   let countSearchPage = useSelector(({searchReducer}) => searchReducer.countSearchPage);
   let countPage = useSelector(({moviesReducer}) => moviesReducer.countPage);
+  const isSearchLoaderActive = useSelector(({searchReducer}) => searchReducer.isSearchLoaderActive);
 
   const [isFetchingMovies, setIsFetchingMovies] = useState(false);
 
@@ -75,7 +76,7 @@ const ListMovies = () => {
     const scrollHeight = document.documentElement.scrollTop;
     const documentHeight = document.documentElement.offsetHeight;
     const totalHeight = viewportHeight + scrollHeight + 30;
-    if (isNotLastMovies() && totalHeight >= documentHeight && documentHeight + 30 >= totalHeight) {
+    if (isNotLastMovies() && totalHeight >= documentHeight && documentHeight + 40 >= totalHeight) {
       setIsFetchingMovies(true);
     }
   };
@@ -85,9 +86,6 @@ const ListMovies = () => {
   }
 
   const resultMovies = (movies) => {
-    if (!movies.length) {
-      return <div className="movies__message">Nothing found</div>;
-    }
     return movies && movies.map((movie) => { // TODO key unique logic
       const {id} = movie;
       // if (isFetchingMovies) {
@@ -105,14 +103,15 @@ const ListMovies = () => {
   };
 
   return (
-    <div className="movies">
+    <section className="movies">
+      {!totalMovies && !isSearchLoaderActive && isSearching && <div className="movies__message">Nothing found</div>}
       <div className="movies__list">
         {!isSearching ? resultMovies(movies) : resultMovies(searchMovies)}
       </div>
       <div className="movies__loader">
         {isFetchingMovies && <Loader/>}
       </div>
-    </div>
+    </section>
   )
 };
 

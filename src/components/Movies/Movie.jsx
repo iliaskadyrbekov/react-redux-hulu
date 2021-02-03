@@ -4,13 +4,17 @@ import Preview from "./Preview";
 import defaultImage from "../../assets/img/defaultImage.png";
 
 const Movie = ({movie, genres}) => {
-  const [isShown, setIsShown] = useState(false);
+  const [isShown, setIsShown] = useState(false); // for showing preview
   const [isBookmarked, setIsBookmarked] = useState(false);
 
   const {
     title, backdrop_path, release_date, vote_average,
     original_language, genre_ids, overview, poster_path
   } = movie;
+
+  // useEffect(() => {
+  //
+  // }, []);
 
   const imageName = backdrop_path || poster_path;
   const imagePath = imageName ? `https://image.tmdb.org/t/p/w500/${imageName}` : defaultImage;
