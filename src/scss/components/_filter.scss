@@ -1,10 +1,13 @@
 .filter {
   margin-bottom: 30px;
+
   &__menu {
     display: flex;
+    align-items: center;
     .filter__btn-wrapper {
       display: block;
       margin-right: 40px;
+
       .filter__button {
         cursor: pointer;
         background-color: inherit;
@@ -19,22 +22,38 @@
     }
 
     .filter__sort {
-      display: flex;
-      align-items: center;
-      cursor: pointer;
-      &-icon-wrapper {
-        display: inline-block;
-        height: 24px;
-      }
-      &-text {
-        font-size: 16px;
-        margin: 0 4px;
+      position: relative;
+      &-button {
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+        .filter__sort-icon-wrapper {
+          display: inline-block;
+          height: 24px;
+        }
 
+        .filter__sort-text {
+          font-size: 16px;
+          margin: 0 4px;
+        }
+
+        .filter__arrow-icon-wrapper {
+          height: 24px;
+
+          &--active {
+            height: inherit;
+            transform: rotate(180deg);
+          }
+        }
       }
-      .filter__arrow-icon-wrapper {
-        height: 24px;
+      &-dropdown {
+        z-index: 1;
+        position: absolute;
+        background-color: black;
+        width: 100%;
+        margin-top: 10px;
       }
+
     }
   }
-
 }
