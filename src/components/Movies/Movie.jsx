@@ -2,6 +2,7 @@ import React, {useState} from "react";
 import StarBorderIcon from '@material-ui/icons/StarBorder';
 import Preview from "./Preview";
 import defaultImage from "../../assets/img/defaultImage.png";
+import classNames from 'classnames';
 
 const Movie = ({movie, genres}) => {
   const [isShown, setIsShown] = useState(false); // for showing preview
@@ -20,9 +21,6 @@ const Movie = ({movie, genres}) => {
   const imagePath = imageName ? `https://image.tmdb.org/t/p/w500/${imageName}` : defaultImage;
   const formatDate = release_date ? release_date.slice(0, 4) : 'soon';
   const formatRatings = (vote_average.toString().length === 1 || vote_average === 10) ? vote_average + '.0' : vote_average;
-  const templateClassName = !(backdrop_path || poster_path) ? " movie__wrapper-image--template" : "";
-  const imageClassName = isShown ? " movie__image--active" : "";
-  const imageClassPoster = !backdrop_path ? " movie__image--poster" : "";
   const formatOverview = overview ? overview : 'Unnown description';
 
   return (
@@ -30,11 +28,19 @@ const Movie = ({movie, genres}) => {
          onMouseEnter={() => setIsShown(true)}
          onMouseLeave={() => setIsShown(false)}
     >
-      <div className={"movie__wrapper-image" + templateClassName}>
+      <div className={classNames({
+        'movie__wrapper-image': true,
+        'movie__wrapper-image--template': !(backdrop_path || poster_path),
+      })}>
         <img
-          className={"movie__image" + imageClassName + imageClassPoster}
+          className={classNames({
+            'movie__image': true,
+            'movie__image--active': isShown,
+            'movie__image--poster': !backdrop_path,
+          })}
           src={imagePath}
-          alt=""
+          loading="lazy"
+          alt="movie"
         />
         {isShown && <Preview lang={original_language}
                              genresID={genre_ids}
