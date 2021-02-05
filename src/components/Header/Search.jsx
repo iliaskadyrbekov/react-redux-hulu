@@ -59,6 +59,7 @@ const Search = () => {
              value={queryValue}
              style={styles}
              maxLength={50}
+             placeholder="Enter moveis name"
       />
     </div>
   )

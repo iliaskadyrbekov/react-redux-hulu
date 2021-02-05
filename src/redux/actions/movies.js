@@ -3,6 +3,16 @@ export const setMovies = (movies) => ({
   payload: movies,
 });
 
+export const setIsFetchingMovies = (isFetchingMovies) => ({
+  type: 'SET_IS_FETCHING_M0VIES',
+  payload: isFetchingMovies,
+});
+
+export const setEmptyMovies = (movies) => ({
+  type: 'SET_EMPTY_MOVIES',
+  payload: movies,
+});
+
 export const setGenres = (genres) => ({
   type: 'SET_GENRES',
   payload: genres,

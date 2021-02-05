@@ -2,6 +2,7 @@ const initialState = {
   movies: [],
   genres: [],
   countPage: 1,
+  isFetchingMovies: false,
 };
 
 const moviesReducer = (state = initialState, action) => {
@@ -13,6 +14,16 @@ const moviesReducer = (state = initialState, action) => {
           ...state.movies,
           ...action.payload,
         ]
+      };
+    case 'SET_IS_FETCHING_M0VIES':
+      return {
+        ...state,
+        isFetchingMovies: action.payload,
+      };
+    case 'SET_EMPTY_MOVIES':
+      return {
+        ...state,
+        movies: [],
       };
 
     case 'SET_COUNT_PAGE':

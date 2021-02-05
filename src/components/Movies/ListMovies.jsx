@@ -1,8 +1,8 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, {useEffect, useState} from "react";
+import React, {useEffect} from "react";
 import Movie from "./Movie";
 import {useDispatch, useSelector} from "react-redux";
-import {setCountPage, setGenres, setMovies} from "../../redux/actions/movies";
+import {setCountPage, setGenres, setIsFetchingMovies, setMovies} from "../../redux/actions/movies";
 import {API_GET_GENRES, API_GET_MOVIES, API_GET_SEARCH_MOVIES, fetchFromAPI} from "../../api/api";
 import Loader from "./Loader";
 import {setCountSearchPage, setSearchMovies} from "../../redux/actions/search";
@@ -17,12 +17,12 @@ const ListMovies = () => {
   const totalMovies = useSelector(({searchReducer}) => searchReducer.totalMovies);
   let countSearchPage = useSelector(({searchReducer}) => searchReducer.countSearchPage);
   let countPage = useSelector(({moviesReducer}) => moviesReducer.countPage);
+  let isFetchingMovies = useSelector(({moviesReducer}) => moviesReducer.isFetchingMovies);
   const isSearchLoaderActive = useSelector(({searchReducer}) => searchReducer.isSearchLoaderActive);
-
-  const [isFetchingMovies, setIsFetchingMovies] = useState(false);
+  const sortByKey = useSelector(({filterReducer}) => Object.keys(filterReducer.currentSortBy)[0]);
 
   useEffect(() => {
-    setIsFetchingMovies(true);
+    dispatch(setIsFetchingMovies(true));
   }, []);
 
   useEffect(() => {
@@ -40,7 +40,7 @@ const ListMovies = () => {
     if (isFetchingMovies) {
       const url = isSearching
         ? `${API_GET_SEARCH_MOVIES}&page=${countSearchPage}&query=${queryValue.trim()}`
-        : `${API_GET_MOVIES}&page=${countPage}`; // TODO
+        : `${API_GET_MOVIES}&page=${countPage}&sort_by=${sortByKey}`;
 
       fetchFromAPI(url)
         .then(movies => {
@@ -52,7 +52,7 @@ const ListMovies = () => {
             dispatch(setMovies(results));
             dispatch(setCountPage(++countPage));
           }
-          setIsFetchingMovies(false);
+          dispatch(setIsFetchingMovies(false));
         })
         .catch(error => {
           console.log(error.message)
@@ -63,7 +63,7 @@ const ListMovies = () => {
   useEffect(() => {
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
-  }, [isFetchingMovies, totalMovies]);
+  }, [isFetchingMovies, totalMovies, isSearching]);
 
   const isNotLastMovies = () => {
     const currentCountMovies = isSearching ? searchMovies.length : movies.length;
@@ -77,7 +77,7 @@ const ListMovies = () => {
     const documentHeight = document.documentElement.offsetHeight;
     const totalHeight = viewportHeight + scrollHeight + 30;
     if (isNotLastMovies() && totalHeight >= documentHeight && documentHeight + 40 >= totalHeight) {
-      setIsFetchingMovies(true);
+      dispatch(setIsFetchingMovies(true));
     }
   };
 
