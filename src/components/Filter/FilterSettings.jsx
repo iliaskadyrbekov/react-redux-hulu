@@ -1,7 +1,8 @@
 import React, {useState} from "react";
+import {GenresTab, YearsTab} from "./Tabs/GenresTab";
 
 const FilterSettings = () => {
-  const tabsName = ['Genres', 'Countries', 'Years', 'Subgenres'];
+  const tabsName = ['Genres', 'Years'];
   const [activeTab, setActiveTab] = useState(0);
   const tabs = tabsName.map((tab, index) => {
     return (
@@ -11,6 +12,15 @@ const FilterSettings = () => {
       </div>
     )
   });
+
+  const chooseTab = () => {
+    switch (activeTab) {
+      case 1:
+        return <YearsTab/>
+      default:
+        return <GenresTab/>
+    }
+  };
 
   const changeActiveTab = (index) => {
     setActiveTab(index);
@@ -23,6 +33,9 @@ const FilterSettings = () => {
           {tabs}
         </div>
         <div className="filter-pop-up__gutter">
+        </div>
+        <div className="filter-pop-up__content">
+          {chooseTab()}
         </div>
       </div>
     </div>
