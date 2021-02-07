@@ -1,5 +1,6 @@
 const initialState = {
   currentSortBy: {'popularity.desc': 'Popular'},
+  checkedGenres: [],
 };
 
 const filterReducer = (state = initialState, action) => {
@@ -8,6 +9,16 @@ const filterReducer = (state = initialState, action) => {
       return {
         ...state,
         currentSortBy: action.payload,
+      };
+    case 'ADD_CHECKED_GENRE':
+      return {
+        ...state,
+        checkedGenres: [...state.checkedGenres, action.payload],
+      };
+    case 'SET_CHECKED_GENRES':
+      return {
+        ...state,
+        checkedGenres: action.payload,
       };
     default:
       return state;

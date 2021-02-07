@@ -1,13 +1,21 @@
 import React, {useState} from "react";
-import {GenresTab, YearsTab} from "./Tabs/GenresTab";
+import {YearsTab} from "./Tabs/YearsTab";
+import {GenresTab} from "./Tabs/GenresTab";
+import {setCheckedGenres} from "../../redux/actions/filterActionCreator";
+import {useDispatch, useSelector} from "react-redux";
+import classNames from 'classnames';
+import {setCountPage, setEmptyMovies, setIsFetchingMovies} from "../../redux/actions/moviesActionCreator";
 
 const FilterSettings = () => {
-  const tabsName = ['Genres', 'Years'];
+  const dispatch = useDispatch();
+  const checkedGenres = useSelector(({filterReducer}) => filterReducer.checkedGenres);
   const [activeTab, setActiveTab] = useState(0);
+
+  const tabsName = ['Genres', 'Years'];
   const tabs = tabsName.map((tab, index) => {
     return (
       <div className="filter-pop-up__tabs-item" key={tab} onClick={() => changeActiveTab(index)}>
-        {tab}
+        <h3>{tab}</h3>
         {activeTab === index && <span className="filter-pop-up__tabs-item--active"/>}
       </div>
     )
@@ -26,6 +34,19 @@ const FilterSettings = () => {
     setActiveTab(index);
   };
 
+  const discardFilters = () => {
+    dispatch(setCheckedGenres([]));
+    dispatch(setIsFetchingMovies(true)); //TODO
+    dispatch(setEmptyMovies([])); //TODO
+    dispatch(setCountPage(1)); //TODO
+  };
+
+  const findMoviesByFilters = () => {
+    dispatch(setIsFetchingMovies(true)); //TODO
+    dispatch(setEmptyMovies([])); //TODO
+    dispatch(setCountPage(1)); //TODO
+  };
+
   return (
     <div className="filter-pop-up">
       <div className="filter-pop-up__header">
@@ -34,8 +55,26 @@ const FilterSettings = () => {
         </div>
         <div className="filter-pop-up__gutter">
         </div>
-        <div className="filter-pop-up__content">
-          {chooseTab()}
+      </div>
+      <div className="filter-pop-up__content">
+        {chooseTab()}
+      </div>
+      <div className="filter-pop-up__footer">
+        <div className="filter-pop-up__buttons-wrapper">
+          <button
+            className={classNames({
+              "filter-pop-up__button": true,
+              "filter-pop-up__button--disabled": checkedGenres.length === 0,
+            })}
+            onClick={discardFilters}>Discard filters
+          </button>
+          <button className={classNames({
+            "filter-pop-up__button": true,
+            "filter-pop-up__button--disabled": checkedGenres.length === 0,
+          })} onClick={findMoviesByFilters}>Search results
+          </button>
+        </div>
+        <div className="filter-pop-up__gutter">
         </div>
       </div>
     </div>

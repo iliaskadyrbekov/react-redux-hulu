@@ -9,7 +9,7 @@ import {
   setQueryValue,
   setSearchMovies,
   setTotalMovies
-} from "../../redux/actions/search";
+} from "../../redux/actions/searchActionCreator";
 import searchLoader from '../../assets/img/searchLoder.svg';
 
 const Search = () => {

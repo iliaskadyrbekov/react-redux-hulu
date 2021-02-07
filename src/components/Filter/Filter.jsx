@@ -4,8 +4,8 @@ import SortIcon from '@material-ui/icons/Sort';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import classNames from 'classnames';
 import {useDispatch, useSelector} from "react-redux";
-import {setCurrentSortBy} from "../../redux/actions/filter";
-import {setCountPage, setEmptyMovies, setIsFetchingMovies} from "../../redux/actions/movies";
+import {setCurrentSortBy} from "../../redux/actions/filterActionCreator";
+import {setCountPage, setEmptyMovies, setIsFetchingMovies} from "../../redux/actions/moviesActionCreator";
 
 const Filter = () => {
   const dispatch = useDispatch();
@@ -77,9 +77,9 @@ const Filter = () => {
             <span className="filter__sort-icon-wrapper">
               <SortIcon style={{fontSize: 28}}/>
             </span>
-            <span className="filter__sort-text">
+            <h3 className="filter__sort-text">
               By {currentSortBy}
-            </span>
+            </h3>
             <span className={classNames({
               'filter__arrow-icon-wrapper': true,
               'filter__arrow-icon-wrapper--active': isOpenSortPopup,
@@ -100,5 +100,3 @@ const Filter = () => {
 };
 
 export default Filter;
-
-

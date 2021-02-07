@@ -1,23 +1,29 @@
-import React, {useState} from "react";
-import {useSelector} from "react-redux";
+import React from "react";
+import {useDispatch, useSelector} from "react-redux";
 import Checkbox from '@material-ui/core/Checkbox';
+import {addCheckedGenre, setCheckedGenres} from "../../../../redux/actions/filterActionCreator";
 
 const GenresTab = () => {
-  const [isChecked, setIsChecked] = useState(false);
+  const dispatch = useDispatch();
+  const checkedGenres = useSelector(({filterReducer}) => filterReducer.checkedGenres);
   const genres = useSelector(({moviesReducer}) => moviesReducer.genres);
 
-  const changeCheckedStatus = () => {
-    setIsChecked(!isChecked);
+  const setCheckboxStatus = (id) => {
+    if (!checkedGenres.includes(id)) {
+      dispatch(addCheckedGenre(id));
+    } else {
+      const restCheckedGenres = checkedGenres.filter(itemId => itemId !== id)
+      dispatch(setCheckedGenres(restCheckedGenres));
+    }
   };
 
   const listGenres = genres.map(genre => {
     const {id, name} = genre;
     return (
-      <div className="filter-pop-up__list-item" key={id}>
+      <div className="filter-pop-up__genres-item" key={id} onClick={() => setCheckboxStatus(id)}>
         <Checkbox
-          checked={isChecked}
-          onChange={changeCheckedStatus}
-          className=""
+          checked={checkedGenres.includes(id)}
+          className="filter-pop-up__genres-item-checkbox"
         />
         <span>{name}</span>
       </div>
@@ -25,7 +31,7 @@ const GenresTab = () => {
   });
 
   return (
-    <div className="filter-pop-up__list">
+    <div className="filter-pop-up__genres">
       {listGenres}
     </div>
   );
