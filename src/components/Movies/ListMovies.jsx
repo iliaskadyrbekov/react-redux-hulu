@@ -2,10 +2,10 @@
 import React, {useEffect} from "react";
 import Movie from "./Movie";
 import {useDispatch, useSelector} from "react-redux";
-import {setCountPage, setGenres, setIsFetchingMovies, setMovies} from "../../redux/actions/movies";
+import {setCountPage, setGenres, setIsFetchingMovies, setMovies} from "../../redux/actions/moviesActionCreator";
 import {API_GET_GENRES, API_GET_MOVIES, API_GET_SEARCH_MOVIES, fetchFromAPI} from "../../api/api";
 import Loader from "./Loader";
-import {setCountSearchPage, setSearchMovies} from "../../redux/actions/search";
+import {setCountSearchPage, setSearchMovies} from "../../redux/actions/searchActionCreator";
 
 const ListMovies = () => {
   const dispatch = useDispatch();
@@ -20,6 +20,7 @@ const ListMovies = () => {
   let isFetchingMovies = useSelector(({moviesReducer}) => moviesReducer.isFetchingMovies);
   const isSearchLoaderActive = useSelector(({searchReducer}) => searchReducer.isSearchLoaderActive);
   const sortByKey = useSelector(({filterReducer}) => Object.keys(filterReducer.currentSortBy)[0]);
+  const checkedGenres = useSelector(({filterReducer}) => filterReducer.checkedGenres);
 
   useEffect(() => {
     dispatch(setIsFetchingMovies(true));
@@ -40,7 +41,7 @@ const ListMovies = () => {
     if (isFetchingMovies) {
       const url = isSearching
         ? `${API_GET_SEARCH_MOVIES}&page=${countSearchPage}&query=${queryValue.trim()}`
-        : `${API_GET_MOVIES}&page=${countPage}&sort_by=${sortByKey}`;
+        : `${API_GET_MOVIES}&page=${countPage}&sort_by=${sortByKey}${filterGenresURL()}`;
 
       fetchFromAPI(url)
         .then(movies => {
@@ -79,6 +80,13 @@ const ListMovies = () => {
     if (isNotLastMovies() && totalHeight >= documentHeight && documentHeight + 40 >= totalHeight) {
       dispatch(setIsFetchingMovies(true));
     }
+  };
+
+  const filterGenresURL = () => {
+    if (!checkedGenres.length) {
+      return '';
+    }
+    return '&with_genres=' + checkedGenres.join((' ').replaceAll(' ', ','))
   };
 
   window.onbeforeunload = function () {

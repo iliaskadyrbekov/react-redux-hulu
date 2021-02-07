@@ -1,7 +1,7 @@
 import {combineReducers} from "redux";
-import moviesReducer from "./movies";
-import searchReducer from "./search";
-import filterReducer from "./filter";
+import moviesReducer from "./moviesReducer";
+import searchReducer from "./searchReducer";
+import filterReducer from "./filterReducer";
 
 const rootReducer = combineReducers({
   moviesReducer,
