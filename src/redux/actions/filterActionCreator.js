@@ -13,5 +13,10 @@ export const setCheckedGenres = (checkedGenres) => ({
   payload: checkedGenres,
 });
 
+export const setIsOpenFilterPopup = (isOpenFilterPopup) => ({
+  type: 'SET_IS_OPEN_FILTER_POPUP',
+  payload: isOpenFilterPopup,
+});
+
 
 

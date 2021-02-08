@@ -5,7 +5,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {setCountPage, setGenres, setIsFetchingMovies, setMovies} from "../../redux/actions/moviesActionCreator";
 import {API_GET_GENRES, API_GET_MOVIES, API_GET_SEARCH_MOVIES, fetchFromAPI} from "../../api/api";
 import Loader from "./Loader";
-import {setCountSearchPage, setSearchMovies} from "../../redux/actions/searchActionCreator";
+import {setCountSearchPage, setSearchMovies, setTotalMovies} from "../../redux/actions/searchActionCreator";
 
 const ListMovies = () => {
   const dispatch = useDispatch();
@@ -45,7 +45,7 @@ const ListMovies = () => {
 
       fetchFromAPI(url)
         .then(movies => {
-          const {results} = movies;
+          const {results, total_results} = movies;
           if (isSearching) {
             dispatch(setSearchMovies(results));
             dispatch(setCountSearchPage(++countSearchPage));
@@ -53,6 +53,7 @@ const ListMovies = () => {
             dispatch(setMovies(results));
             dispatch(setCountPage(++countPage));
           }
+          dispatch(setTotalMovies(total_results));
           dispatch(setIsFetchingMovies(false));
         })
         .catch(error => {
@@ -68,8 +69,7 @@ const ListMovies = () => {
 
   const isNotLastMovies = () => {
     const currentCountMovies = isSearching ? searchMovies.length : movies.length;
-    const totalCountMovies = isSearching ? totalMovies : 10000;
-    return currentCountMovies < totalCountMovies;
+    return currentCountMovies < totalMovies;
   };
 
   const handleScroll = () => {
@@ -86,7 +86,7 @@ const ListMovies = () => {
     if (!checkedGenres.length) {
       return '';
     }
-    return '&with_genres=' + checkedGenres.join((' ').replaceAll(' ', ','))
+    return '&with_genres=' + checkedGenres.join((' ').replaceAll(' ', ','));
   };
 
   window.onbeforeunload = function () {

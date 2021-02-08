@@ -1,6 +1,7 @@
 const initialState = {
   currentSortBy: {'popularity.desc': 'Popular'},
   checkedGenres: [],
+  isOpenFilterPopup: false,
 };
 
 const filterReducer = (state = initialState, action) => {
@@ -19,6 +20,11 @@ const filterReducer = (state = initialState, action) => {
       return {
         ...state,
         checkedGenres: action.payload,
+      };
+    case 'SET_IS_OPEN_FILTER_POPUP':
+      return {
+        ...state,
+        isOpenFilterPopup: action.payload,
       };
     default:
       return state;
