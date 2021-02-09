@@ -1,5 +1,5 @@
 import React, {useEffect, useRef, useState} from "react";
-import {FilterSettings} from "./index";
+import {FilterPopup} from "./index";
 import SortIcon from '@material-ui/icons/Sort';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import classNames from 'classnames';
@@ -30,6 +30,7 @@ const Filter = () => {
   };
 
   const changeFilterSettingsMode = () => {
+    window.scrollTo(0, 0);
     dispatch(setIsOpenFilterPopup(true));
     document.body.classList.add('body__model--open');
   };
@@ -95,7 +96,7 @@ const Filter = () => {
           </div>}
         </div>
       </div>
-      {isOpenFilterPopup && <FilterSettings/>}
+      {isOpenFilterPopup && <FilterPopup/>}
     </section>
   )
 };

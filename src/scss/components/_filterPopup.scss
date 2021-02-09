@@ -7,13 +7,29 @@
   left: 0;
   width: 100%;
   height: 100%;
-  padding-top: 100px;
+  padding-top: 60px;
   opacity: .99;
   &__container {
     max-width: 1200px;
     margin: 0 auto;
     .filter-pop-up__header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 25px;
+      .filter-pop-up__close-icon {
+        cursor: pointer;
+      }
+    }
 
+    .filter-pop-up__gutter {
+      margin-top: 10px;
+      background-color: #404953;
+      width: 100%;
+      border: 1px solid #404953;
+    }
+
+    .filter-pop-up__content {
       .filter-pop-up__tabs {
         display: flex;
         &-item {
@@ -39,22 +55,10 @@
           margin-left: 20px;
         }
       }
-
-
-    }
-
-    .filter-pop-up__gutter {
-      margin-top: 10px;
-      background-color: #404953;
-      width: 100%;
-      border: 1px solid #404953;
-    }
-
-    .filter-pop-up__content {
       .filter-pop-up__count-checked {
         margin-top: 20px;
       }
-      .filter-pop-up__genres {
+      .filter-pop-up__items {
         display: flex;
         flex-wrap: wrap;
 
@@ -66,7 +70,7 @@
           height: 100px;
           max-width: 200px;
 
-          .filter-pop-up__genres-item-checkbox {
+          .filter-pop-up__items-item-checkbox {
             color: white;
           }
         }
@@ -89,10 +93,14 @@
           color: inherit;
           cursor: pointer;
           border-radius: 7px;
+          transition: .3s;
           &--disabled {
             pointer-events: none;
             opacity: .6;
           }
+        }
+        .filter-pop-up__button:hover {
+          background-color: #30393c;
         }
 
         .filter-pop-up__button + button {

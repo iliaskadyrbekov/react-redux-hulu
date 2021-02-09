@@ -3,11 +3,6 @@ export const setCurrentSortBy = (sortBy) => ({
   payload: sortBy,
 });
 
-export const addCheckedGenre = (id) => ({
-  type: 'ADD_CHECKED_GENRE',
-  payload: id,
-});
-
 export const setCheckedGenres = (checkedGenres) => ({
   type: 'SET_CHECKED_GENRES',
   payload: checkedGenres,
@@ -16,6 +11,11 @@ export const setCheckedGenres = (checkedGenres) => ({
 export const setIsOpenFilterPopup = (isOpenFilterPopup) => ({
   type: 'SET_IS_OPEN_FILTER_POPUP',
   payload: isOpenFilterPopup,
+});
+
+export const setIsFiltering = (isFiltering) => ({
+  type: 'SET_IS_FILTERING',
+  payload: isFiltering,
 });
 
 

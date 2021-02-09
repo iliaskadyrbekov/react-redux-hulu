@@ -17,10 +17,11 @@ const ListMovies = () => {
   const totalMovies = useSelector(({searchReducer}) => searchReducer.totalMovies);
   let countSearchPage = useSelector(({searchReducer}) => searchReducer.countSearchPage);
   let countPage = useSelector(({moviesReducer}) => moviesReducer.countPage);
-  let isFetchingMovies = useSelector(({moviesReducer}) => moviesReducer.isFetchingMovies);
+  const isFetchingMovies = useSelector(({moviesReducer}) => moviesReducer.isFetchingMovies);
   const isSearchLoaderActive = useSelector(({searchReducer}) => searchReducer.isSearchLoaderActive);
   const sortByKey = useSelector(({filterReducer}) => Object.keys(filterReducer.currentSortBy)[0]);
-  const checkedGenres = useSelector(({filterReducer}) => filterReducer.checkedGenres);
+  const checkedFilters = useSelector(({filterReducer}) => filterReducer.checkedFilters);
+  const isFiltering = useSelector(({filterReducer}) => filterReducer.isFiltering);
 
   useEffect(() => {
     dispatch(setIsFetchingMovies(true));
@@ -42,6 +43,7 @@ const ListMovies = () => {
       const url = isSearching
         ? `${API_GET_SEARCH_MOVIES}&page=${countSearchPage}&query=${queryValue.trim()}`
         : `${API_GET_MOVIES}&page=${countPage}&sort_by=${sortByKey}${filterGenresURL()}`;
+      //&primary_release_date.gte=2013-01-01&primary_release_date.lte=2015-01-01
 
       fetchFromAPI(url)
         .then(movies => {
@@ -83,6 +85,7 @@ const ListMovies = () => {
   };
 
   const filterGenresURL = () => {
+    const {checkedGenres} = checkedFilters;
     if (!checkedGenres.length) {
       return '';
     }
@@ -92,6 +95,10 @@ const ListMovies = () => {
   window.onbeforeunload = function () {
     window.scrollTo(0, 0);
   }
+
+  const notFoundMessage = () => {
+    return <div className="movies__message">Nothing found</div>;
+  };
 
   const resultMovies = (movies) => {
     return movies && movies.map((movie) => { // TODO key unique logic
@@ -112,7 +119,8 @@ const ListMovies = () => {
 
   return (
     <section className="movies">
-      {!totalMovies && !isSearchLoaderActive && isSearching && <div className="movies__message">Nothing found</div>}
+      {!searchMovies.length && !isSearchLoaderActive && isSearching && notFoundMessage()}
+      {!movies.length && isFiltering && !isFetchingMovies && notFoundMessage()}
       <div className="movies__list">
         {!isSearching ? resultMovies(movies) : resultMovies(searchMovies)}
       </div>

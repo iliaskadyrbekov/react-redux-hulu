@@ -11,6 +11,7 @@ import {
   setTotalMovies
 } from "../../redux/actions/searchActionCreator";
 import searchLoader from '../../assets/img/searchLoder.svg';
+import {setIsFiltering} from "../../redux/actions/filterActionCreator";
 
 const Search = () => {
   const dispatch = useDispatch();
@@ -47,6 +48,7 @@ const Search = () => {
     dispatch(setIsSearchLoaderActive(true)); // activate search loader
     dispatch(setQueryValue(event.target.value)); // change value of input
     dispatch(setIsSearching(true)); // set searching view mode
+    dispatch(setIsFiltering(false));
   }
 
   const styles = isSearchLoaderActive ? loaderStyles : {};
@@ -59,7 +61,7 @@ const Search = () => {
              value={queryValue}
              style={styles}
              maxLength={50}
-             placeholder="Enter moveis name"
+             placeholder="Enter movies name"
       />
     </div>
   )
