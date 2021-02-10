@@ -1,6 +1,11 @@
 const initialState = {
   currentSortBy: {'popularity.desc': 'Popular'},
-  checkedGenres: [],
+  checkedFilters: {
+    checkedGenres: [],
+    checkedYears: [],
+  },
+  isOpenFilterPopup: false,
+  isFiltering: false,
 };
 
 const filterReducer = (state = initialState, action) => {
@@ -10,15 +15,31 @@ const filterReducer = (state = initialState, action) => {
         ...state,
         currentSortBy: action.payload,
       };
-    case 'ADD_CHECKED_GENRE':
-      return {
-        ...state,
-        checkedGenres: [...state.checkedGenres, action.payload],
-      };
     case 'SET_CHECKED_GENRES':
       return {
         ...state,
-        checkedGenres: action.payload,
+        checkedFilters: {
+          ...state.checkedFilters,
+          checkedGenres: action.payload,
+        },
+      };
+    case 'SET_CHECKED_YEARS':
+      return {
+        ...state,
+        checkedFilters: {
+          ...state.checkedFilters,
+          checkedYears: action.payload,
+        },
+      };
+    case 'SET_IS_OPEN_FILTER_POPUP':
+      return {
+        ...state,
+        isOpenFilterPopup: action.payload,
+      };
+    case 'SET_IS_FILTERING':
+      return {
+        ...state,
+        isFiltering: action.payload,
       };
     default:
       return state;

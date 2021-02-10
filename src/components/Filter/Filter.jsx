@@ -1,19 +1,19 @@
 import React, {useEffect, useRef, useState} from "react";
-import {FilterSettings} from "./index";
+import {FilterPopup} from "./index";
 import SortIcon from '@material-ui/icons/Sort';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import classNames from 'classnames';
 import {useDispatch, useSelector} from "react-redux";
-import {setCurrentSortBy} from "../../redux/actions/filterActionCreator";
+import {setCurrentSortBy, setIsOpenFilterPopup} from "../../redux/actions/filterActionCreator";
 import {setCountPage, setEmptyMovies, setIsFetchingMovies} from "../../redux/actions/moviesActionCreator";
 
 const Filter = () => {
   const dispatch = useDispatch();
-  const [isShowFilterSettings, setIsShowFilterSettings] = useState(false);
   const [isOpenSortPopup, setIsOpenSortPopup] = useState(false);
   const sortRef = useRef();
 
   const currentSortBy = useSelector(({filterReducer}) => Object.values(filterReducer.currentSortBy)[0]);
+  const isOpenFilterPopup = useSelector(({filterReducer}) => filterReducer.isOpenFilterPopup);
 
   useEffect(() => {
     window.addEventListener('click', closeSortPopUp);
@@ -30,7 +30,9 @@ const Filter = () => {
   };
 
   const changeFilterSettingsMode = () => {
-    setIsShowFilterSettings(!isShowFilterSettings);
+    window.scrollTo(0, 0);
+    dispatch(setIsOpenFilterPopup(true));
+    document.body.classList.add('body__model--open');
   };
 
   const changeSortPopupMode = () => {
@@ -94,7 +96,7 @@ const Filter = () => {
           </div>}
         </div>
       </div>
-      {isShowFilterSettings && <FilterSettings/>}
+      {isOpenFilterPopup && <FilterPopup/>}
     </section>
   )
 };
