@@ -5,7 +5,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {setCountPage, setGenres, setIsFetchingMovies, setMovies} from "../../redux/actions/moviesActionCreator";
 import {API_GET_GENRES, API_GET_MOVIES, API_GET_SEARCH_MOVIES, fetchFromAPI} from "../../api/api";
 import Loader from "./Loader";
-import {setCountSearchPage, setSearchMovies} from "../../redux/actions/searchActionCreator";
+import {setCountSearchPage, setSearchMovies, setTotalMovies} from "../../redux/actions/searchActionCreator";
 
 const ListMovies = () => {
   const dispatch = useDispatch();
@@ -17,10 +17,11 @@ const ListMovies = () => {
   const totalMovies = useSelector(({searchReducer}) => searchReducer.totalMovies);
   let countSearchPage = useSelector(({searchReducer}) => searchReducer.countSearchPage);
   let countPage = useSelector(({moviesReducer}) => moviesReducer.countPage);
-  let isFetchingMovies = useSelector(({moviesReducer}) => moviesReducer.isFetchingMovies);
+  const isFetchingMovies = useSelector(({moviesReducer}) => moviesReducer.isFetchingMovies);
   const isSearchLoaderActive = useSelector(({searchReducer}) => searchReducer.isSearchLoaderActive);
   const sortByKey = useSelector(({filterReducer}) => Object.keys(filterReducer.currentSortBy)[0]);
-  const checkedGenres = useSelector(({filterReducer}) => filterReducer.checkedGenres);
+  const checkedFilters = useSelector(({filterReducer}) => filterReducer.checkedFilters);
+  const isFiltering = useSelector(({filterReducer}) => filterReducer.isFiltering);
 
   useEffect(() => {
     dispatch(setIsFetchingMovies(true));
@@ -41,11 +42,11 @@ const ListMovies = () => {
     if (isFetchingMovies) {
       const url = isSearching
         ? `${API_GET_SEARCH_MOVIES}&page=${countSearchPage}&query=${queryValue.trim()}`
-        : `${API_GET_MOVIES}&page=${countPage}&sort_by=${sortByKey}${filterGenresURL()}`;
+        : `${API_GET_MOVIES}&page=${countPage}&sort_by=${sortByKey}${filterGenresURL()}${filterYearsURL()}`;
 
       fetchFromAPI(url)
         .then(movies => {
-          const {results} = movies;
+          const {results, total_results} = movies;
           if (isSearching) {
             dispatch(setSearchMovies(results));
             dispatch(setCountSearchPage(++countSearchPage));
@@ -53,6 +54,7 @@ const ListMovies = () => {
             dispatch(setMovies(results));
             dispatch(setCountPage(++countPage));
           }
+          dispatch(setTotalMovies(total_results));
           dispatch(setIsFetchingMovies(false));
         })
         .catch(error => {
@@ -68,8 +70,7 @@ const ListMovies = () => {
 
   const isNotLastMovies = () => {
     const currentCountMovies = isSearching ? searchMovies.length : movies.length;
-    const totalCountMovies = isSearching ? totalMovies : 10000;
-    return currentCountMovies < totalCountMovies;
+    return currentCountMovies < totalMovies;
   };
 
   const handleScroll = () => {
@@ -83,15 +84,32 @@ const ListMovies = () => {
   };
 
   const filterGenresURL = () => {
+    const {checkedGenres} = checkedFilters;
     if (!checkedGenres.length) {
       return '';
     }
-    return '&with_genres=' + checkedGenres.join((' ').replaceAll(' ', ','))
+    return '&with_genres=' + checkedGenres.join((' ').replaceAll(' ', ','));
+  };
+
+  const filterYearsURL = () => {
+    const {checkedYears} = checkedFilters;
+    const [selectedYears] = checkedYears;
+    if (!selectedYears) return '';
+    if (typeof selectedYears === 'string') {
+      if (selectedYears.indexOf('-') === -1) return `&year=1950`;
+      const [beginYear, endYear] = selectedYears.split('-');
+      return `&primary_release_date.gte=${beginYear}-01-01&primary_release_date.lte=${endYear}-12-31`;
+    }
+    return '&primary_release_year=' + selectedYears;
   };
 
   window.onbeforeunload = function () {
     window.scrollTo(0, 0);
   }
+
+  const notFoundMessage = () => {
+    return <div className="movies__message">Nothing found</div>;
+  };
 
   const resultMovies = (movies) => {
     return movies && movies.map((movie) => { // TODO key unique logic
@@ -112,7 +130,8 @@ const ListMovies = () => {
 
   return (
     <section className="movies">
-      {!totalMovies && !isSearchLoaderActive && isSearching && <div className="movies__message">Nothing found</div>}
+      {!searchMovies.length && !isSearchLoaderActive && isSearching && notFoundMessage()}
+      {!movies.length && isFiltering && !isFetchingMovies && notFoundMessage()}
       <div className="movies__list">
         {!isSearching ? resultMovies(movies) : resultMovies(searchMovies)}
       </div>
