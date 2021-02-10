@@ -1,7 +1,12 @@
 import React, {useState} from "react";
 import {YearsTab} from "./Tabs/YearsTab";
 import {GenresTab} from "./Tabs/GenresTab";
-import {setCheckedGenres, setIsFiltering, setIsOpenFilterPopup} from "../../redux/actions/filterActionCreator";
+import {
+  setCheckedGenres,
+  setCheckedYears,
+  setIsFiltering,
+  setIsOpenFilterPopup
+} from "../../redux/actions/filterActionCreator";
 import {useDispatch, useSelector} from "react-redux";
 import classNames from 'classnames';
 import {setCountPage, setEmptyMovies, setIsFetchingMovies} from "../../redux/actions/moviesActionCreator";
@@ -11,14 +16,16 @@ const FilterPopup = () => {
   const dispatch = useDispatch();
   const checkedFilters = useSelector(({filterReducer}) => filterReducer.checkedFilters);
   const [activeTab, setActiveTab] = useState(0);
-  const [copyCheckedGenres, setCopyChekedGenres] = useState(checkedFilters.checkedGenres);
-  const [copyCheckedYears, setCopyChekedYears] = useState(checkedFilters.checkedYears);
+  const [copyCheckedFilters, setCopyChekedFilters] = useState(checkedFilters);
 
   const tabsName = ['Genres', 'Years'];
   const tabs = tabsName.map((tab, index) => {
     return (
       <div className="filter-pop-up__tabs-item" key={tab} onClick={() => changeActiveTab(index)}>
-        <h3>{tab}</h3>
+        <h3 className={classNames({
+          "filter-pop-up__tabs-item-name": true,
+          "filter-pop-up__tabs-item-name--active": activeTab === index,
+        })}>{tab}</h3>
         {activeTab === index && <span className="filter-pop-up__tabs-item--active"/>}
       </div>
     )
@@ -27,10 +34,13 @@ const FilterPopup = () => {
   const chooseTab = () => {
     switch (activeTab) {
       case 1:
-        return <YearsTab/>
+        return <YearsTab
+          setCheckboxStatus={setCheckboxStatus}
+          copyCheckedYears={copyCheckedFilters.checkedYears}
+        />
       default:
         return <GenresTab
-          copyCheckedGenres={copyCheckedGenres}
+          copyCheckedGenres={copyCheckedFilters.checkedGenres}
           setCheckboxStatus={setCheckboxStatus}
         />
     }
@@ -41,17 +51,25 @@ const FilterPopup = () => {
   };
 
   const discardFilters = () => {
-    setCopyChekedGenres([]);
+    setCopyChekedFilters({checkedGenres: [], checkedYears: []});
   };
 
   const setCheckboxStatus = (id, tabName) => {
+    const {checkedGenres, checkedYears} = copyCheckedFilters;
     switch (tabName) {
       case 'genres':
-        if (!copyCheckedGenres.includes(id)) {
-          setCopyChekedGenres([...copyCheckedGenres, id]);
+        if (!checkedGenres.includes(id)) {
+          setCopyChekedFilters({...copyCheckedFilters, checkedGenres: [...checkedGenres, id]});
         } else {
-          const restCheckedGenres = copyCheckedGenres.filter(itemId => itemId !== id)
-          setCopyChekedGenres(restCheckedGenres);
+          const restCheckedGenres = checkedGenres.filter(itemId => itemId !== id)
+          setCopyChekedFilters({...copyCheckedFilters, checkedGenres: restCheckedGenres});
+        }
+        break;
+      case 'years':
+        if (!checkedYears.includes(id)) {
+          setCopyChekedFilters({...copyCheckedFilters, checkedYears: [id]});
+        } else {
+          setCopyChekedFilters({...copyCheckedFilters, checkedYears: []});
         }
         break;
       default:
@@ -64,8 +82,10 @@ const FilterPopup = () => {
     dispatch(setEmptyMovies([]));
     dispatch(setCountPage(1));
     dispatch(setIsOpenFilterPopup(false));
-    dispatch(setCheckedGenres(copyCheckedGenres));
-    if (checkedFilters.checkedGenres.length) {
+
+    dispatch(setCheckedGenres(copyCheckedFilters.checkedGenres));
+    dispatch(setCheckedYears(copyCheckedFilters.checkedYears));
+    if (checkedFilters.checkedGenres.length || checkedFilters.checkedYears.length) {
       dispatch(setIsFiltering(true));
     } else {
       dispatch(setIsFiltering(false));
@@ -82,9 +102,23 @@ const FilterPopup = () => {
     removeFilterPopupClass();
   };
 
-  const countCheckedGenres = copyCheckedGenres.length !== 1 ?
-    copyCheckedGenres.length + ' genres' :
-    copyCheckedGenres.length + ' genre';
+  const countCheckedGenres = () => {
+    const countGenres = copyCheckedFilters.checkedGenres.length;
+    return countGenres !== 1 ? countGenres + ' genres' : countGenres + ' genre';
+  };
+
+  const countCheckedYears = () => {
+    const {checkedYears} = copyCheckedFilters;
+    const formatStr = ', by ' + checkedYears;
+    if (!checkedYears.length) return '';
+    if (typeof checkedYears[0] === "string") return formatStr + ' years';
+    return formatStr + ' year';
+  };
+
+  const countTotalFilters = () => {
+    const {checkedGenres, checkedYears} = copyCheckedFilters;
+    return checkedGenres.length + checkedYears.length === 0
+  };
 
   return (
     <div className="filter-pop-up">
@@ -104,7 +138,7 @@ const FilterPopup = () => {
           <div className="filter-pop-up__gutter">
           </div>
           <p className="filter-pop-up__count-checked">
-            Search will be carried out by {countCheckedGenres}
+            Search will be carried out by {countCheckedGenres()} {countCheckedYears()}
           </p>
           {chooseTab()}
         </div>
@@ -113,7 +147,7 @@ const FilterPopup = () => {
             <button
               className={classNames({
                 "filter-pop-up__button": true,
-                "filter-pop-up__button--disabled": copyCheckedGenres.length === 0,
+                "filter-pop-up__button--disabled": countTotalFilters(),
               })}
               onClick={discardFilters}>Discard filters
             </button>

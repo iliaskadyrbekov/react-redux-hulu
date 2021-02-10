@@ -1,7 +1,7 @@
 import React from "react";
 import Checkbox from "@material-ui/core/Checkbox";
 
-const YearsTab = () => {
+const YearsTab = ({setCheckboxStatus, copyCheckedYears}) => {
   const years = [
     2021, 2020, 2019, 2018, 2017, 2016,
     2015, 2014, 2013, 2012, 2011, 2010,
@@ -11,9 +11,9 @@ const YearsTab = () => {
 
   const listYears = years.map(year => {
     return (
-      <div className="filter-pop-up__items-item" key={year}>
+      <div className="filter-pop-up__items-item" key={year} onClick={() => setCheckboxStatus(year, 'years')}>
         <Checkbox
-          // checked={}
+          checked={copyCheckedYears.includes(year)}
           className="filter-pop-up__items-item-checkbox"
         />
         <span>{year}</span>

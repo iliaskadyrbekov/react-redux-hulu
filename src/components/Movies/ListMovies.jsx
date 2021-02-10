@@ -42,8 +42,7 @@ const ListMovies = () => {
     if (isFetchingMovies) {
       const url = isSearching
         ? `${API_GET_SEARCH_MOVIES}&page=${countSearchPage}&query=${queryValue.trim()}`
-        : `${API_GET_MOVIES}&page=${countPage}&sort_by=${sortByKey}${filterGenresURL()}`;
-      //&primary_release_date.gte=2013-01-01&primary_release_date.lte=2015-01-01
+        : `${API_GET_MOVIES}&page=${countPage}&sort_by=${sortByKey}${filterGenresURL()}${filterYearsURL()}`;
 
       fetchFromAPI(url)
         .then(movies => {
@@ -90,6 +89,18 @@ const ListMovies = () => {
       return '';
     }
     return '&with_genres=' + checkedGenres.join((' ').replaceAll(' ', ','));
+  };
+
+  const filterYearsURL = () => {
+    const {checkedYears} = checkedFilters;
+    const [selectedYears] = checkedYears;
+    if (!selectedYears) return '';
+    if (typeof selectedYears === 'string') {
+      if (selectedYears.indexOf('-') === -1) return `&year=1950`;
+      const [beginYear, endYear] = selectedYears.split('-');
+      return `&primary_release_date.gte=${beginYear}-01-01&primary_release_date.lte=${endYear}-12-31`;
+    }
+    return '&primary_release_year=' + selectedYears;
   };
 
   window.onbeforeunload = function () {

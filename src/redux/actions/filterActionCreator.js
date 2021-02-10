@@ -8,6 +8,11 @@ export const setCheckedGenres = (checkedGenres) => ({
   payload: checkedGenres,
 });
 
+export const setCheckedYears = (checkedYears) => ({
+  type: 'SET_CHECKED_YEARS',
+  payload: checkedYears,
+});
+
 export const setIsOpenFilterPopup = (isOpenFilterPopup) => ({
   type: 'SET_IS_OPEN_FILTER_POPUP',
   payload: isOpenFilterPopup,

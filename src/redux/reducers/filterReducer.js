@@ -23,6 +23,14 @@ const filterReducer = (state = initialState, action) => {
           checkedGenres: action.payload,
         },
       };
+    case 'SET_CHECKED_YEARS':
+      return {
+        ...state,
+        checkedFilters: {
+          ...state.checkedFilters,
+          checkedYears: action.payload,
+        },
+      };
     case 'SET_IS_OPEN_FILTER_POPUP':
       return {
         ...state,
