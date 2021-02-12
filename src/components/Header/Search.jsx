@@ -1,5 +1,5 @@
 import React, {useEffect} from "react";
-import {API_GET_SEARCH_MOVIES} from "../../api/api";
+import {API_GET_SEARCH_MOVIES, fetchFromAPI} from "../../api/api";
 import {useDispatch, useSelector} from "react-redux";
 import {
   setCountSearchPage,
@@ -9,14 +9,14 @@ import {
   setQueryValue,
   setSearchMovies,
   setTotalMovies
-} from "../../redux/actions/searchActionCreator";
+} from "../../redux/search/searchActionCreator";
 import searchLoader from '../../assets/img/searchLoder.svg';
-import {setIsFiltering} from "../../redux/actions/filterActionCreator";
+import {setIsFiltering} from "../../redux/filters/filtersActionCreator";
+
 
 const Search = () => {
   const dispatch = useDispatch();
-  const queryValue = useSelector(({searchReducer}) => searchReducer.queryValue);
-  const isSearchLoaderActive = useSelector(({searchReducer}) => searchReducer.isSearchLoaderActive);
+  const {queryValue, isSearchLoaderActive} = useSelector(({searchReducer}) => searchReducer);
 
   const loaderStyles = {
     backgroundImage: `url(${searchLoader})`,
@@ -25,21 +25,21 @@ const Search = () => {
   };
 
   useEffect(() => {
-    async function fetchData() {
+    async function fetchFirstMovies () {
       const formatQueryValue = queryValue.trim().toLowerCase(); // ??? is it need?
       if (formatQueryValue) {
-        const response = await fetch(`${API_GET_SEARCH_MOVIES}&page=1&query=${formatQueryValue}`);
-        const json = await response.json();
-        const {total_results} = json;
-        dispatch(setTotalMovies(total_results));
-        dispatch(setSearchMovies(json.results));
+        await fetchFromAPI(`${API_GET_SEARCH_MOVIES}&page=1&query=${formatQueryValue}`)
+          .then(movies => {
+            const {total_results} = movies;
+            dispatch(setTotalMovies(total_results));
+            dispatch(setSearchMovies(movies.results));
+          })
       } else { // will enter at the first rendering and when deleting last input char
         dispatch(setIsSearching(false)); // to show all movies when deleting last input char
       }
       dispatch(setIsSearchLoaderActive(false)); // deactivate search loader
     }
-
-    fetchData().then(); // TODO
+    fetchFirstMovies().then();
   }, [dispatch, queryValue]);
 
   const searchMoviesByQuery = (event) => {
@@ -52,16 +52,19 @@ const Search = () => {
   }
 
   const styles = isSearchLoaderActive ? loaderStyles : {};
+  // const styles = loaderStyles;
+  // console.log(isSearchLoaderActive)
 
   return (
     <div className="search">
-      <input className="search__input"
-             type="search"
-             onChange={searchMoviesByQuery}
-             value={queryValue}
-             style={styles}
-             maxLength={50}
-             placeholder="Enter movies name"
+      <input
+        className="search__input"
+        type="search"
+        onChange={searchMoviesByQuery}
+        value={queryValue}
+        style={styles}
+        maxLength={50}
+        placeholder="Enter movies name"
       />
     </div>
   )

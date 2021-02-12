@@ -1,0 +1,5 @@
+export const SET_MOVIES = 'SET_MOVIES';
+export const SET_IS_FETCHING_M0VIES = 'SET_IS_FETCHING_M0VIES';
+export const SET_EMPTY_MOVIES = 'SET_EMPTY_MOVIES';
+export const SET_GENRES = 'SET_GENRES';
+export const SET_COUNT_PAGE = 'SET_COUNT_PAGE';

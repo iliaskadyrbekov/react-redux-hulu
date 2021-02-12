@@ -2,7 +2,7 @@ import React from "react";
 import {useSelector} from "react-redux";
 import Checkbox from '@material-ui/core/Checkbox';
 
-const GenresTab = ({copyCheckedGenres, setCheckboxStatus}) => {
+const GenresTab = React.memo(function GenresTab({copyCheckedGenres, setCheckboxStatus}) {
   const genres = useSelector(({moviesReducer}) => moviesReducer.genres);
 
   const listGenres = genres.map(genre => {
@@ -23,7 +23,7 @@ const GenresTab = ({copyCheckedGenres, setCheckboxStatus}) => {
       {listGenres}
     </div>
   );
-};
+});
 
 export default GenresTab;
 

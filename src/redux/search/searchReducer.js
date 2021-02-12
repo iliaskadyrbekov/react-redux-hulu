@@ -1,3 +1,13 @@
+import {
+  SET_COUNT_SEARCH_PAGE,
+  SET_EMPTY_SEARCH_MOVIES,
+  SET_IS_SEARCHING,
+  SET_IS_SEARCHING_LOADER_ACTIVE,
+  SET_QUERY_VALUE,
+  SET_SEARCH_MOVIES,
+  SET_TOTAL_MOVIES
+} from "./searchTypes";
+
 const initialState = {
   searchMovies: [],
   isSearching: false,
@@ -9,7 +19,7 @@ const initialState = {
 
 const searchReducer = (state = initialState, action) => {
   switch (action.type) {
-    case 'SET_SEARCH_MOVIES':
+    case SET_SEARCH_MOVIES:
       return {
         ...state,
         searchMovies: [
@@ -17,32 +27,32 @@ const searchReducer = (state = initialState, action) => {
           ...action.payload,
         ]
       };
-    case 'SET_EMPTY_SEARCH_MOVIES':
+    case SET_EMPTY_SEARCH_MOVIES:
       return {
         ...state,
         searchMovies: action.payload,
       };
-    case 'SET_TOTAL_MOVIES':
+    case SET_TOTAL_MOVIES:
       return {
         ...state,
         totalMovies: action.payload,
       };
-    case 'SET_COUNT_SEARCH_PAGE':
+    case SET_COUNT_SEARCH_PAGE:
       return {
         ...state,
         countSearchPage: action.payload,
       };
-    case 'SET_IS_SEARCHING':
+    case SET_IS_SEARCHING:
       return {
         ...state,
         isSearching: action.payload,
       };
-    case 'SET_QUERY_VALUE':
+    case SET_QUERY_VALUE:
       return {
         ...state,
         queryValue: action.payload,
       };
-    case 'SET_IS_SEARCHING_LOADER_ACTIVE':
+    case SET_IS_SEARCHING_LOADER_ACTIVE:
       return {
         ...state,
         isSearchLoaderActive: action.payload,

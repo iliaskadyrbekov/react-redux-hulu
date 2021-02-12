@@ -1,27 +1,25 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, {useEffect} from "react";
-import Movie from "./Movie";
+import Movie from "./Movie/Movie";
 import {useDispatch, useSelector} from "react-redux";
-import {setCountPage, setGenres, setIsFetchingMovies, setMovies} from "../../redux/actions/moviesActionCreator";
+import {
+  setCountPage, setGenres,
+  setIsFetchingMovies, setMovies
+} from "../../redux/movies/moviesActionCreator";
 import {API_GET_GENRES, API_GET_MOVIES, API_GET_SEARCH_MOVIES, fetchFromAPI} from "../../api/api";
 import Loader from "./Loader";
-import {setCountSearchPage, setSearchMovies, setTotalMovies} from "../../redux/actions/searchActionCreator";
+import {setCountSearchPage, setSearchMovies, setTotalMovies} from "../../redux/search/searchActionCreator";
 
 const ListMovies = () => {
   const dispatch = useDispatch();
-  const genres = useSelector(({moviesReducer}) => moviesReducer.genres);
-  const movies = useSelector(({moviesReducer}) => moviesReducer.movies);
-  const searchMovies = useSelector(({searchReducer}) => searchReducer.searchMovies);
-  const isSearching = useSelector(({searchReducer}) => searchReducer.isSearching);
-  const queryValue = useSelector(({searchReducer}) => searchReducer.queryValue);
-  const totalMovies = useSelector(({searchReducer}) => searchReducer.totalMovies);
-  let countSearchPage = useSelector(({searchReducer}) => searchReducer.countSearchPage);
-  let countPage = useSelector(({moviesReducer}) => moviesReducer.countPage);
-  const isFetchingMovies = useSelector(({moviesReducer}) => moviesReducer.isFetchingMovies);
-  const isSearchLoaderActive = useSelector(({searchReducer}) => searchReducer.isSearchLoaderActive);
+  let {
+    genres, movies, isFetchingMovies, countPage
+  } = useSelector(({moviesReducer}) => moviesReducer);
+  let {
+    searchMovies, isSearching, queryValue, totalMovies, isSearchLoaderActive, countSearchPage
+  } = useSelector(({searchReducer}) => searchReducer);
   const sortByKey = useSelector(({filterReducer}) => Object.keys(filterReducer.currentSortBy)[0]);
-  const checkedFilters = useSelector(({filterReducer}) => filterReducer.checkedFilters);
-  const isFiltering = useSelector(({filterReducer}) => filterReducer.isFiltering);
+  const {checkedFilters, isFiltering} = useSelector(({filterReducer}) => filterReducer);
 
   useEffect(() => {
     dispatch(setIsFetchingMovies(true));
@@ -58,7 +56,7 @@ const ListMovies = () => {
           dispatch(setIsFetchingMovies(false));
         })
         .catch(error => {
-          console.log(error.message)
+          alert(error.message);
         });
     }
   }, [isFetchingMovies]);
@@ -77,8 +75,8 @@ const ListMovies = () => {
     const viewportHeight = window.innerHeight;
     const scrollHeight = document.documentElement.scrollTop;
     const documentHeight = document.documentElement.offsetHeight;
-    const totalHeight = viewportHeight + scrollHeight + 30;
-    if (isNotLastMovies() && totalHeight >= documentHeight && documentHeight + 40 >= totalHeight) {
+    const totalHeight = viewportHeight + scrollHeight + 50;
+    if (isNotLastMovies() && totalHeight >= documentHeight && documentHeight + 60 >= totalHeight) {
       dispatch(setIsFetchingMovies(true));
     }
   };
@@ -127,6 +125,8 @@ const ListMovies = () => {
       // }
     });
   };
+
+  // console.log(searchMovies.length, !isSearchLoaderActive, isSearching);
 
   return (
     <section className="movies">
