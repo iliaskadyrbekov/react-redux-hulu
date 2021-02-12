@@ -1,11 +1,11 @@
-import React, {useEffect, useRef, useState} from "react";
+import React, {useCallback, useEffect, useRef, useState} from "react";
 import {FilterPopup} from "./index";
 import SortIcon from '@material-ui/icons/Sort';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import classNames from 'classnames';
 import {useDispatch, useSelector} from "react-redux";
-import {setCurrentSortBy, setIsOpenFilterPopup} from "../../redux/actions/filterActionCreator";
-import {setCountPage, setEmptyMovies, setIsFetchingMovies} from "../../redux/actions/moviesActionCreator";
+import {setCurrentSortBy, setIsOpenFilterPopup} from "../../redux/filters/filtersActionCreator";
+import {setCountPage, setEmptyMovies, setIsFetchingMovies} from "../../redux/movies/moviesActionCreator";
 
 const Filter = () => {
   const dispatch = useDispatch();
@@ -35,9 +35,9 @@ const Filter = () => {
     document.body.classList.add('body__model--open');
   };
 
-  const changeSortPopupMode = () => {
+  const changeSortPopupMode = useCallback(() => {
     setIsOpenSortPopup(!isOpenSortPopup);
-  };
+  }, [isOpenSortPopup]);
 
   const changeSortBy = (key, value) => {
     dispatch(setCurrentSortBy({[key]: value}));

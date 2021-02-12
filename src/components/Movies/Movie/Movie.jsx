@@ -1,10 +1,10 @@
 import React, {useState} from "react";
 import StarBorderIcon from '@material-ui/icons/StarBorder';
-import Preview from "./Preview";
-import defaultImage from "../../assets/img/defaultImage.png";
+import defaultImage from "../../../assets/img/defaultImage.png";
 import classNames from 'classnames';
+import Preview from "./Preview";
 
-const Movie = ({movie, genres}) => {
+const Movie = React.memo(function Movie({movie, genres}) {
   const [isShown, setIsShown] = useState(false); // for showing preview
   const [isBookmarked, setIsBookmarked] = useState(false);
 
@@ -68,8 +68,5 @@ const Movie = ({movie, genres}) => {
       </div>
     </div>
   );
-
-};
-
-
+});
 export default Movie;

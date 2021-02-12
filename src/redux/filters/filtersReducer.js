@@ -1,3 +1,11 @@
+import {
+  SET_CHECKED_GENRES,
+  SET_CHECKED_YEARS,
+  SET_CURRENT_SORT_BY,
+  SET_IS_FILTERING,
+  SET_IS_OPEN_FILTER_POPUP
+} from "./filtersTypes";
+
 const initialState = {
   currentSortBy: {'popularity.desc': 'Popular'},
   checkedFilters: {
@@ -8,14 +16,14 @@ const initialState = {
   isFiltering: false,
 };
 
-const filterReducer = (state = initialState, action) => {
+const filtersReducer = (state = initialState, action) => {
   switch (action.type) {
-    case 'SET_CURRENT_SORT_BY':
+    case SET_CURRENT_SORT_BY:
       return {
         ...state,
         currentSortBy: action.payload,
       };
-    case 'SET_CHECKED_GENRES':
+    case SET_CHECKED_GENRES:
       return {
         ...state,
         checkedFilters: {
@@ -23,7 +31,7 @@ const filterReducer = (state = initialState, action) => {
           checkedGenres: action.payload,
         },
       };
-    case 'SET_CHECKED_YEARS':
+    case SET_CHECKED_YEARS:
       return {
         ...state,
         checkedFilters: {
@@ -31,12 +39,12 @@ const filterReducer = (state = initialState, action) => {
           checkedYears: action.payload,
         },
       };
-    case 'SET_IS_OPEN_FILTER_POPUP':
+    case SET_IS_OPEN_FILTER_POPUP:
       return {
         ...state,
         isOpenFilterPopup: action.payload,
       };
-    case 'SET_IS_FILTERING':
+    case SET_IS_FILTERING:
       return {
         ...state,
         isFiltering: action.payload,
@@ -46,5 +54,5 @@ const filterReducer = (state = initialState, action) => {
   }
 };
 
-export default filterReducer;
+export default filtersReducer;
 

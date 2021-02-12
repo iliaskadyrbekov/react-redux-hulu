@@ -1,6 +1,6 @@
 import React from "react";
 import {Header} from "./Header";
-import {Filter} from "./Filter";
+import {Filter} from "./Filters";
 import {ListMovies} from "./Movies";
 
 function App() {
