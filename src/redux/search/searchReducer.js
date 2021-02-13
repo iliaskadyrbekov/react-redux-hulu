@@ -12,7 +12,7 @@ const initialState = {
   searchMovies: [],
   isSearching: false,
   queryValue: '',
-  countSearchPage: 2,
+  countSearchPage: 1,
   totalMovies: 0,
   isSearchLoaderActive: false,
 };

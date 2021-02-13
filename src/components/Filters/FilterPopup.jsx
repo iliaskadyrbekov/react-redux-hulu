@@ -11,11 +11,10 @@ import {useDispatch, useSelector} from "react-redux";
 import classNames from 'classnames';
 import {setCountPage, setEmptyMovies, setIsFetchingMovies} from "../../redux/movies/moviesActionCreator";
 import CloseIcon from '@material-ui/icons/Close';
-import {setIsSearching, setQueryValue} from "../../redux/search/searchActionCreator";
 
 const FilterPopup = () => {
   const dispatch = useDispatch();
-  const checkedFilters = useSelector(({filterReducer}) => filterReducer.checkedFilters);
+  const checkedFilters = useSelector(({filtersReducer}) => filtersReducer.checkedFilters);
   const [activeTab, setActiveTab] = useState(0);
   const [copyCheckedFilters, setCopyChekedFilters] = useState(checkedFilters);
 
@@ -83,8 +82,6 @@ const FilterPopup = () => {
     dispatch(setEmptyMovies([]));
     dispatch(setCountPage(1));
     dispatch(setIsOpenFilterPopup(false));
-    dispatch(setIsSearching(false)); // set searching view mode
-    dispatch(setQueryValue('')); // change value of input
 
     dispatch(setCheckedGenres(copyCheckedFilters.checkedGenres));
     dispatch(setCheckedYears(copyCheckedFilters.checkedYears));
