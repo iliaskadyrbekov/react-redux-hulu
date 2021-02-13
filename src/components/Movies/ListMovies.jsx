@@ -2,13 +2,10 @@
 import React, {useEffect} from "react";
 import Movie from "./Movie/Movie";
 import {useDispatch, useSelector} from "react-redux";
-import {
-  setCountPage, setGenres,
-  setIsFetchingMovies, setMovies
-} from "../../redux/movies/moviesActionCreator";
-import {API_GET_GENRES, API_GET_MOVIES, API_GET_SEARCH_MOVIES, fetchFromAPI} from "../../api/api";
+import {fetchGenres, fetchMovies, setIsFetchingMovies} from "../../redux/movies/moviesActionCreator";
+import {API_GET_MOVIES, API_GET_SEARCH_MOVIES} from "../../api/api";
 import Loader from "./Loader";
-import {setCountSearchPage, setSearchMovies, setTotalMovies} from "../../redux/search/searchActionCreator";
+import {setIsSearching, setIsSearchLoaderActive} from "../../redux/search/searchActionCreator";
 
 const ListMovies = () => {
   const dispatch = useDispatch();
@@ -18,48 +15,33 @@ const ListMovies = () => {
   let {
     searchMovies, isSearching, queryValue, totalMovies, isSearchLoaderActive, countSearchPage
   } = useSelector(({searchReducer}) => searchReducer);
-  const sortByKey = useSelector(({filterReducer}) => Object.keys(filterReducer.currentSortBy)[0]);
-  const {checkedFilters, isFiltering} = useSelector(({filterReducer}) => filterReducer);
+  const sortByKey = useSelector(({filtersReducer}) => Object.keys(filtersReducer.currentSortBy)[0]);
+  const {checkedFilters, isFiltering} = useSelector(({filtersReducer}) => filtersReducer);
 
   useEffect(() => {
     dispatch(setIsFetchingMovies(true));
-  }, []);
+  }, [dispatch]);
 
   useEffect(() => {
-    fetchFromAPI(API_GET_GENRES)
-      .then(genresList => {
-        const {genres} = genresList;
-        dispatch(setGenres(genres));
-      })
-      .catch(error => {
-        console.log(error.message);
-      });
+    dispatch(fetchGenres());
   }, [dispatch]);
 
   useEffect(() => {
     if (isFetchingMovies) {
-      const url = isSearching
-        ? `${API_GET_SEARCH_MOVIES}&page=${countSearchPage}&query=${queryValue.trim()}`
-        : `${API_GET_MOVIES}&page=${countPage}&sort_by=${sortByKey}${filterGenresURL()}${filterYearsURL()}`;
-
-      fetchFromAPI(url)
-        .then(movies => {
-          const {results, total_results} = movies;
-          if (isSearching) {
-            dispatch(setSearchMovies(results));
-            dispatch(setCountSearchPage(++countSearchPage));
-          } else {
-            dispatch(setMovies(results));
-            dispatch(setCountPage(++countPage));
-          }
-          dispatch(setTotalMovies(total_results));
+      if (isSearching) {
+        const formatQueryValue = queryValue.trim().toLowerCase(); // ??? is it need?
+        if (formatQueryValue) {
+          dispatch(fetchMovies(`${API_GET_SEARCH_MOVIES}&page=${countSearchPage}&query=${formatQueryValue}`));
+        } else { // will enter at the first rendering and when deleting last input char
+          dispatch(setIsSearchLoaderActive(false)); // activate search loader
+          dispatch(setIsSearching(false)); // to show all movies when deleting last input char
           dispatch(setIsFetchingMovies(false));
-        })
-        .catch(error => {
-          alert(error.message);
-        });
+        }
+      } else {
+        dispatch(fetchMovies(`${API_GET_MOVIES}&page=${countPage}&sort_by=${sortByKey}${filterGenresURL()}${filterYearsURL()}`));
+      }
     }
-  }, [isFetchingMovies]);
+  }, [isFetchingMovies, queryValue]);
 
   useEffect(() => {
     window.addEventListener('scroll', handleScroll);
@@ -125,8 +107,6 @@ const ListMovies = () => {
       // }
     });
   };
-
-  // console.log(searchMovies.length, !isSearchLoaderActive, isSearching);
 
   return (
     <section className="movies">

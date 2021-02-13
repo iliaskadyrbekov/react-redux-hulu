@@ -4,6 +4,7 @@
   &__menu {
     display: flex;
     align-items: center;
+
     .filter__btn-wrapper {
       display: block;
       margin-right: 40px;
@@ -23,10 +24,12 @@
 
     .filter__sort {
       position: relative;
+
       &-button {
         display: flex;
         align-items: center;
         cursor: pointer;
+
         .filter__sort-icon-wrapper {
           display: inline-block;
           height: 24px;
@@ -52,6 +55,7 @@
           }
         }
       }
+
       &-dropdown {
         z-index: 1;
         position: absolute;
@@ -59,16 +63,19 @@
         width: 230px;
         margin-top: 10px;
         border-radius: 5px;
+
         .filter__sort-dropdown-item {
           cursor: pointer;
           padding: 12px 16px 12px 20px;
           color: #cdcdcd;
           transition: .2s;
+
           &--active {
             font-weight: bold;
             color: white;
           }
         }
+
         .filter__sort-dropdown-item:hover {
           background-color: #4d565b;
           color: #ffffff;
@@ -76,5 +83,10 @@
         }
       }
     }
+  }
+
+  &__results-count {
+    font-weight: normal;
+    font-size: 24px;
   }
 }

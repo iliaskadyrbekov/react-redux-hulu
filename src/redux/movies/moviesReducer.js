@@ -1,10 +1,4 @@
-import {
-  SET_COUNT_PAGE,
-  SET_EMPTY_MOVIES,
-  SET_GENRES,
-  SET_IS_FETCHING_M0VIES,
-  SET_MOVIES
-} from "./moviesTypes";
+import {SET_COUNT_PAGE, SET_EMPTY_MOVIES, SET_GENRES, SET_IS_FETCHING_M0VIES, SET_MOVIES} from "./moviesTypes";
 
 const initialState = {
   movies: [],
@@ -23,17 +17,16 @@ const moviesReducer = (state = initialState, action) => {
           ...action.payload,
         ]
       };
+    case SET_EMPTY_MOVIES:
+      return { // TODO
+        ...state,
+        movies: action.payload
+      };
     case SET_IS_FETCHING_M0VIES:
       return {
         ...state,
         isFetchingMovies: action.payload,
       };
-    case SET_EMPTY_MOVIES:
-      return {
-        ...state,
-        movies: [],
-      };
-
     case SET_COUNT_PAGE:
       return { // TODO
         ...state,

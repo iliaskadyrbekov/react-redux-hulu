@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect, useRef, useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import {FilterPopup} from "./index";
 import SortIcon from '@material-ui/icons/Sort';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
@@ -12,8 +12,10 @@ const Filter = () => {
   const [isOpenSortPopup, setIsOpenSortPopup] = useState(false);
   const sortRef = useRef();
 
-  const currentSortBy = useSelector(({filterReducer}) => Object.values(filterReducer.currentSortBy)[0]);
-  const isOpenFilterPopup = useSelector(({filterReducer}) => filterReducer.isOpenFilterPopup);
+  const currentSortBy = useSelector(({filtersReducer}) => Object.values(filtersReducer.currentSortBy)[0]);
+  const isOpenFilterPopup = useSelector(({filtersReducer}) => filtersReducer.isOpenFilterPopup);
+  const {isSearching, totalMovies, searchMovies} = useSelector(({searchReducer}) => searchReducer);
+  const {isFetchingMovies} = useSelector(({moviesReducer}) => moviesReducer);
 
   useEffect(() => {
     window.addEventListener('click', closeSortPopUp);
@@ -35,9 +37,9 @@ const Filter = () => {
     document.body.classList.add('body__model--open');
   };
 
-  const changeSortPopupMode = useCallback(() => {
+  const changeSortPopupMode = () => {
     setIsOpenSortPopup(!isOpenSortPopup);
-  }, [isOpenSortPopup]);
+  };
 
   const changeSortBy = (key, value) => {
     dispatch(setCurrentSortBy({[key]: value}));
@@ -66,6 +68,7 @@ const Filter = () => {
 
   return (
     <section className="filter">
+      {!isSearching &&
       <div className="filter__menu">
         <div className="filter__btn-wrapper">
           <button
@@ -89,13 +92,18 @@ const Filter = () => {
               <ExpandMoreIcon style={{fontSize: 30}}/>
             </span>
           </div>
-          {isOpenSortPopup && <div className="filter__sort-dropdown">
+          {isOpenSortPopup &&
+          <div className="filter__sort-dropdown">
             <ul className="filter__sort-list">
               {listSortBy}
             </ul>
           </div>}
         </div>
       </div>
+      }
+      {isSearching && !isFetchingMovies && searchMovies[0] &&
+      <h2 className="filter__results-count">The total number of found movies is {totalMovies}</h2>}
+
       {isOpenFilterPopup && <FilterPopup/>}
     </section>
   )

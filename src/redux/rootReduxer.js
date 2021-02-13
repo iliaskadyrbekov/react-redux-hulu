@@ -6,7 +6,7 @@ import filtersReducer from "./filters/filtersReducer";
 const rootReducer = combineReducers({
   moviesReducer,
   searchReducer,
-  filterReducer: filtersReducer,
+  filtersReducer,
 });
 
 export default rootReducer;
