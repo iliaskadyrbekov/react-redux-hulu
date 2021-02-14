@@ -5,7 +5,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {fetchGenres, fetchMovies, setIsFetchingMovies} from "../../redux/movies/moviesActionCreator";
 import {API_GET_MOVIES, API_GET_SEARCH_MOVIES} from "../../api/api";
 import Loader from "./Loader";
-import {setIsSearching, setIsSearchLoaderActive} from "../../redux/search/searchActionCreator";
+import {setEmptySearchMovies, setIsSearching, setIsSearchLoaderActive} from "../../redux/search/searchActionCreator";
 
 const ListMovies = () => {
   const dispatch = useDispatch();
@@ -33,15 +33,16 @@ const ListMovies = () => {
         if (formatQueryValue) {
           dispatch(fetchMovies(`${API_GET_SEARCH_MOVIES}&page=${countSearchPage}&query=${formatQueryValue}`));
         } else { // will enter at the first rendering and when deleting last input char
+          dispatch(setEmptySearchMovies([]));
+          dispatch(setIsFetchingMovies(false));
           dispatch(setIsSearchLoaderActive(false)); // activate search loader
           dispatch(setIsSearching(false)); // to show all movies when deleting last input char
-          dispatch(setIsFetchingMovies(false));
         }
       } else {
         dispatch(fetchMovies(`${API_GET_MOVIES}&page=${countPage}&sort_by=${sortByKey}${filterGenresURL()}${filterYearsURL()}`));
       }
     }
-  }, [isFetchingMovies, queryValue]);
+  }, [isFetchingMovies]);
 
   useEffect(() => {
     window.addEventListener('scroll', handleScroll);

@@ -1,4 +1,5 @@
-import React from "react";
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, {useEffect} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {
   setCountSearchPage,
@@ -8,9 +9,7 @@ import {
   setQueryValue
 } from "../../redux/search/searchActionCreator";
 import searchLoader from '../../assets/img/searchLoder.svg';
-import {setIsFiltering} from "../../redux/filters/filtersActionCreator";
 import {setIsFetchingMovies} from "../../redux/movies/moviesActionCreator";
-
 
 const Search = () => {
   const dispatch = useDispatch();
@@ -23,14 +22,13 @@ const Search = () => {
   };
 
   const searchMoviesByQuery = (event) => {
+    dispatch(setIsFetchingMovies(true));
+    dispatch(setIsSearchLoaderActive(true));
     dispatch(setEmptySearchMovies([]));
     dispatch(setCountSearchPage(1));
-    dispatch(setIsSearchLoaderActive(true)); // activate search loader
-    dispatch(setIsSearching(true)); // set searching view mode
-    dispatch(setIsFiltering(false));
-    dispatch(setIsFetchingMovies(true));
+    dispatch(setIsSearching(true));
     dispatch(setQueryValue(event.target.value)); // change value of input
-  }
+  };
 
   const styles = isSearchLoaderActive ? loaderStyles : {};
 
