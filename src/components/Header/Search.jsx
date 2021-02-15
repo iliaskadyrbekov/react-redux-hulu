@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, {useEffect} from "react";
+import React from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {
   setCountSearchPage,
@@ -22,12 +22,12 @@ const Search = () => {
   };
 
   const searchMoviesByQuery = (event) => {
+    dispatch(setQueryValue(event.target.value)); // change value of input
+    dispatch(setIsSearching(true));
+    dispatch(setCountSearchPage(1));
+    dispatch(setEmptySearchMovies([]));
     dispatch(setIsFetchingMovies(true));
     dispatch(setIsSearchLoaderActive(true));
-    dispatch(setEmptySearchMovies([]));
-    dispatch(setCountSearchPage(1));
-    dispatch(setIsSearching(true));
-    dispatch(setQueryValue(event.target.value)); // change value of input
   };
 
   const styles = isSearchLoaderActive ? loaderStyles : {};

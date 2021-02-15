@@ -44,14 +44,14 @@ export const fetchGenres = () => dispatch => {
 };
 
 export const fetchMovies = (url) => {
-  return  function (dispatch, getState) {
-     fetchFromAPI(url)
+  return async function (dispatch, getState) {
+    await fetchFromAPI(url)
       .then(movies => {
         const {results, total_results} = movies;
         let {isSearching, countSearchPage} = getState().searchReducer;
         if (isSearching) {
-          dispatch(setIsSearchLoaderActive(false)); // deactivate search loader
           dispatch(setSearchMovies(results));
+          dispatch(setIsSearchLoaderActive(false)); // deactivate search loader
           dispatch(setCountSearchPage(++countSearchPage));
         } else {
           let {countPage} = getState().moviesReducer;
@@ -66,6 +66,7 @@ export const fetchMovies = (url) => {
       });
   }
 };
+
 
 
 
