@@ -19,6 +19,7 @@ const ListMovies = () => {
   const {checkedFilters, isFiltering} = useSelector(({filtersReducer}) => filtersReducer);
 
   useEffect(() => {
+    console.log('hello')
     dispatch(setIsFetchingMovies(true));
   }, [dispatch]);
 
@@ -34,15 +35,23 @@ const ListMovies = () => {
           dispatch(fetchMovies(`${API_GET_SEARCH_MOVIES}&page=${countSearchPage}&query=${formatQueryValue}`));
         } else { // will enter at the first rendering and when deleting last input char
           dispatch(setEmptySearchMovies([]));
+          dispatch(setIsSearching(false)); // to show all movies when deleting last input char
           dispatch(setIsFetchingMovies(false));
           dispatch(setIsSearchLoaderActive(false)); // activate search loader
-          dispatch(setIsSearching(false)); // to show all movies when deleting last input char
         }
       } else {
         dispatch(fetchMovies(`${API_GET_MOVIES}&page=${countPage}&sort_by=${sortByKey}${filterGenresURL()}${filterYearsURL()}`));
       }
     }
   }, [isFetchingMovies]);
+
+  // useEffect(() => {
+  //   if (queryValue === '') {
+  //     dispatch(setEmptySearchMovies([]));
+  //   }
+  //     dispatch(setIsFetchingMovies(true));
+  //
+  // }, [queryValue])
 
   useEffect(() => {
     window.addEventListener('scroll', handleScroll);
@@ -93,8 +102,8 @@ const ListMovies = () => {
   };
 
   const resultMovies = (movies) => {
-    return movies && movies.map((movie) => { // TODO key unique logic
-      const {id} = movie;
+    return movies && movies.map((movie, index) => { // TODO key unique logic
+      // const {id} = movie;
       // if (isFetchingMovies) {
       //   return <MovieTemplate
       //     key={id}
@@ -102,9 +111,10 @@ const ListMovies = () => {
       // } else {
       return <Movie //TODO
         movie={movie}
-        key={id}
+        key={index}
         genres={genres}
       />
+
       // }
     });
   };
