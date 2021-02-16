@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React from "react";
+import React, {useEffect} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {
   setCountSearchPage,
@@ -13,7 +13,7 @@ import {setIsFetchingMovies} from "../../redux/movies/moviesActionCreator";
 
 const Search = () => {
   const dispatch = useDispatch();
-  const {queryValue, isSearchLoaderActive} = useSelector(({searchReducer}) => searchReducer);
+  const {queryValue, isSearchLoaderActive, isSearching} = useSelector(({searchReducer}) => searchReducer);
 
   const loaderStyles = {
     backgroundImage: `url(${searchLoader})`,
@@ -21,13 +21,24 @@ const Search = () => {
     backgroundRepeat: 'no-repeat',
   };
 
+  useEffect(() => {
+    if (isSearching) {
+      if (!queryValue.trim()) {
+        dispatch(setIsSearching(false)); // to show all movies when deleting last input char
+        dispatch(setIsSearchLoaderActive(false));
+        dispatch(setIsFetchingMovies(false));
+      } else {
+        dispatch(setCountSearchPage(1));
+        dispatch(setIsFetchingMovies(true));
+      }
+    }
+  }, [queryValue]);
+
   const searchMoviesByQuery = (event) => {
     dispatch(setQueryValue(event.target.value)); // change value of input
     dispatch(setIsSearching(true));
-    dispatch(setCountSearchPage(1));
-    dispatch(setEmptySearchMovies([]));
-    dispatch(setIsFetchingMovies(true));
     dispatch(setIsSearchLoaderActive(true));
+    dispatch(setEmptySearchMovies([]));
   };
 
   const styles = isSearchLoaderActive ? loaderStyles : {};
