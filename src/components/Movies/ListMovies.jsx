@@ -2,7 +2,7 @@
 import React, {useEffect} from "react";
 import Movie from "./Movie/Movie";
 import {useDispatch, useSelector} from "react-redux";
-import {fetchGenres, fetchMovies, setIsFetchingMovies} from "../../redux/movies/moviesActionCreator";
+import {fetchMovies, setIsFetchingMovies} from "../../redux/movies/moviesActionCreator";
 import {API_GET_MOVIES, API_GET_SEARCH_MOVIES} from "../../api/api";
 import Loader from "./Loader";
 
@@ -16,14 +16,6 @@ const ListMovies = () => {
   } = useSelector(({searchReducer}) => searchReducer);
   const sortByKey = useSelector(({filtersReducer}) => Object.keys(filtersReducer.currentSortBy)[0]);
   const {checkedFilters, isFiltering} = useSelector(({filtersReducer}) => filtersReducer);
-
-  useEffect(() => {
-    dispatch(setIsFetchingMovies(true));
-  }, [dispatch]);
-
-  useEffect(() => {
-    dispatch(fetchGenres());
-  }, [dispatch]);
 
   useEffect(() => {
     if (isFetchingMovies) {
@@ -81,7 +73,7 @@ const ListMovies = () => {
     window.scrollTo(0, 0);
   }
 
-  const notFoundMessage = () => {
+  const showNotFoundMessage = () => {
     return <div className="movies__message">Nothing found</div>;
   };
 
@@ -97,8 +89,8 @@ const ListMovies = () => {
 
   return (
     <section className="movies">
-      {!searchMovies.length && !isSearchLoaderActive && isSearching && notFoundMessage()}
-      {!movies.length && isFiltering && !isFetchingMovies && notFoundMessage()}
+      {!searchMovies.length && !isSearchLoaderActive && isSearching && showNotFoundMessage()}
+      {!movies.length && isFiltering && !isFetchingMovies && showNotFoundMessage()}
       <div className="movies__list">
         {!isSearching ? resultMovies(movies) : resultMovies(searchMovies)}
       </div>

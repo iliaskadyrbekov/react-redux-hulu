@@ -13,13 +13,13 @@ const Preview = React.memo(
       movieGenres.charAt(0).toUpperCase() + movieGenres.toLowerCase().slice(1) ||
       'Unnown genres';
 
-    const onCnangeBookmarkStatus = () => {
+    const toggleBookmarkStatus = () => {
       setIsBookmarked(!isBookmarked);
     };
 
     const bookmarkBtn = isBookmarked ?
-      <BookmarkIcon onClick={onCnangeBookmarkStatus}/> :
-      <BookmarkBorderIcon onClick={onCnangeBookmarkStatus}/>
+      <BookmarkIcon onClick={toggleBookmarkStatus}/> :
+      <BookmarkBorderIcon onClick={toggleBookmarkStatus}/>
 
     return (
       <div className="preview">

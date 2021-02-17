@@ -1,0 +1,25 @@
+.scroll-to-top-btn__wrapper {
+  position: fixed;
+  bottom: 30px;
+  right: 50px;
+  height: 55px;
+  width: 55px;
+  background-color: #404953;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  box-shadow: rgba(0, 0, 0, 0.2) 0 12px 28px 0, rgba(0, 0, 0, 0.1) 0 2px 4px 0, rgba(255, 255, 255, 0.05) 0 0 0 1px inset;
+  transition: .5s;
+
+  &:hover {
+    background-color: #303f4e;
+    box-shadow: rgba(180, 180, 180, 0.2) 0 12px 28px 0, rgba(0, 0, 0, 0.1) 0 2px 4px 0, rgba(255, 255, 255, 0.05) 0 0 0 1px inset;
+  }
+
+  .scroll-to-top-btn {
+    height: 30px;
+    width: 30px;
+  }
+}

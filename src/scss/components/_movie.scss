@@ -2,6 +2,9 @@
   margin-bottom: 10px;
   cursor: pointer;
   width: 185px;
+  &__link {
+    color: inherit;
+  }
   &__wrapper-image {
     max-height: 140px;
     height: 100%;
