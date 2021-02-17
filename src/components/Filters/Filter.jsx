@@ -37,11 +37,11 @@ const Filter = () => {
     document.body.classList.add('body__model--open');
   };
 
-  const changeSortPopupMode = () => {
+  const toggleSortPopupMode = () => {
     setIsOpenSortPopup(!isOpenSortPopup);
   };
 
-  const changeSortBy = (key, value) => {
+  const onSortBy = (key, value) => {
     dispatch(setCurrentSortBy({[key]: value}));
     dispatch(setEmptyMovies([]));
     dispatch(setIsFetchingMovies(true));
@@ -62,7 +62,7 @@ const Filter = () => {
         "filter__sort-dropdown-item--active": value === currentSortBy,
       })}
       key={key}
-      onClick={() => changeSortBy(key, value)}
+      onClick={() => onSortBy(key, value)}
     >{value}</li>
   });
 
@@ -77,7 +77,7 @@ const Filter = () => {
           >Filters
           </button>
         </div>
-        <div className="filter__sort" onClick={changeSortPopupMode} ref={sortRef}>
+        <div className="filter__sort" onClick={toggleSortPopupMode} ref={sortRef}>
           <div className="filter__sort-button">
             <span className="filter__sort-icon-wrapper">
               <SortIcon style={{fontSize: 28}}/>
@@ -103,7 +103,6 @@ const Filter = () => {
       }
       {isSearching && !isFetchingMovies && searchMovies[0] &&
       <h2 className="filter__results-count">The total number of found movies is {totalMovies}</h2>}
-
       {isOpenFilterPopup && <FilterPopup/>}
     </section>
   )
