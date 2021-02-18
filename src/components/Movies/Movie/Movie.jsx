@@ -22,7 +22,10 @@ const Movie = React.memo(function Movie({movie, genres}) {
   const formatOverview = overview ? overview : 'Unnown description';
 
   return (
-    <div className="movie" onMouseEnter={() => setIsShown(true)} onMouseLeave={() => setIsShown(false)}>
+    <div className="movie"
+         onMouseEnter={() => setIsShown(true)}
+         onMouseLeave={() => setIsShown(false)}
+    >
       <Link to={`/movies/${id}`} className="movie__link">
         <div className={classNames({
           'movie__wrapper-image': true,

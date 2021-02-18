@@ -2,18 +2,19 @@
 import React, {useEffect} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {
+  fetchFirstMovies,
   setCountSearchPage,
-  setEmptySearchMovies,
+  setFirstSearchMovies,
   setIsSearching,
   setIsSearchLoaderActive,
   setQueryValue
 } from "../../redux/search/searchActionCreator";
 import searchLoader from '../../assets/img/searchLoder.svg';
-import {setIsFetchingMovies} from "../../redux/movies/moviesActionCreator";
+import {API_GET_SEARCH_MOVIES} from "../../api/api";
 
 const Search = () => {
   const dispatch = useDispatch();
-  const {queryValue, isSearchLoaderActive, isSearching} = useSelector(({searchReducer}) => searchReducer);
+  const {queryValue, isSearchLoaderActive} = useSelector(({searchReducer}) => searchReducer);
 
   const loaderStyles = {
     backgroundImage: `url(${searchLoader})`,
@@ -22,29 +23,35 @@ const Search = () => {
   };
 
   useEffect(() => {
-    if (isSearching) {
-      if (!queryValue.trim()) {
-        dispatch(setIsSearching(false)); // to show all movies when deleting last input char
-        dispatch(setIsSearchLoaderActive(false));
-        dispatch(setIsFetchingMovies(false));
-      } else {
-        dispatch(setCountSearchPage(1));
-        dispatch(setIsFetchingMovies(true));
-      }
+    window.scrollTo({
+      top: 0
+    });
+    const formatQueryValue = queryValue.trim().toLowerCase();
+    if (formatQueryValue) {
+      dispatch(fetchFirstMovies(`${API_GET_SEARCH_MOVIES}&page=1&query=${formatQueryValue}`));
+    } else {
+      dispatch(setIsSearching(false));
+      dispatch(setIsSearchLoaderActive(false));
+      dispatch(setFirstSearchMovies([]));
     }
   }, [queryValue]);
 
   const searchMoviesByQuery = (event) => {
-    dispatch(setQueryValue(event.target.value)); // change value of input
+    dispatch(setQueryValue(event.target.value));
     dispatch(setIsSearching(true));
     dispatch(setIsSearchLoaderActive(true));
-    dispatch(setEmptySearchMovies([]));
+    dispatch(setCountSearchPage(2));
   };
+
+  const searchSubmitHandler = (event) => {
+    event.preventDefault();
+  };
+
 
   const styles = isSearchLoaderActive ? loaderStyles : {};
 
   return (
-    <div className="search">
+    <form className="search" onSubmit={searchSubmitHandler}>
       <input
         className="search__input"
         type="search"
@@ -54,7 +61,7 @@ const Search = () => {
         maxLength={50}
         placeholder="Enter movies name"
       />
-    </div>
+    </form>
   )
 };
 

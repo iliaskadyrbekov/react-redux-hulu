@@ -1,13 +1,13 @@
 import React, {useEffect} from "react";
 import {Header} from "./Header";
 import {Route} from 'react-router-dom';
-import {Home, MovieDetails} from "../pages";
+import {Home, MovieInfo} from "../pages";
 import {useDispatch} from "react-redux";
 import {fetchGenres, setIsFetchingMovies} from "../redux/movies/moviesActionCreator";
 
 function App() {
   const dispatch = useDispatch();
-
+  //TODO
   useEffect(() => {
     dispatch(fetchGenres());
   }, [dispatch]);
@@ -21,7 +21,7 @@ function App() {
       <Header/>
       <div className="container">
         <Route path="/" component={Home} exact/>
-        <Route path="/movies/:id" component={MovieDetails} exact/>
+        <Route path="/movies/:id" component={MovieInfo} exact/>
       </div>
     </>
   );

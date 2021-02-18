@@ -120,6 +120,10 @@ const FilterPopup = () => {
     return checkedGenres.length + checkedYears.length === 0
   };
 
+  const popUpSubmitHandler = (event) => {
+    event.preventDefault();
+  };
+
   return (
     <div className="filter-pop-up">
       <div className="filter-pop-up__container">
@@ -131,34 +135,36 @@ const FilterPopup = () => {
             style={{fontSize: 30}}
           />
         </div>
-        <div className="filter-pop-up__content">
-          <div className="filter-pop-up__tabs">
-            {tabs}
+        <form className="filter-pop-up__form" onSubmit={popUpSubmitHandler}>
+          <div className="filter-pop-up__content">
+            <div className="filter-pop-up__tabs">
+              {tabs}
+            </div>
+            <div className="filter-pop-up__gutter">
+            </div>
+            <p className="filter-pop-up__count-checked">
+              Search will be carried out by {countCheckedGenres()} {countCheckedYears()}
+            </p>
+            {chooseTab()}
           </div>
-          <div className="filter-pop-up__gutter">
+          <div className="filter-pop-up__footer">
+            <div className="filter-pop-up__buttons-wrapper">
+              <button
+                className={classNames({
+                  "filter-pop-up__button": true,
+                  "filter-pop-up__button--disabled": countTotalFilters(),
+                })}
+                onClick={discardFilters}>Discard filters
+              </button>
+              <button
+                className={classNames("filter-pop-up__button")}
+                onClick={findMoviesByFilters}>Search results
+              </button>
+            </div>
+            <div className="filter-pop-up__gutter">
+            </div>
           </div>
-          <p className="filter-pop-up__count-checked">
-            Search will be carried out by {countCheckedGenres()} {countCheckedYears()}
-          </p>
-          {chooseTab()}
-        </div>
-        <div className="filter-pop-up__footer">
-          <div className="filter-pop-up__buttons-wrapper">
-            <button
-              className={classNames({
-                "filter-pop-up__button": true,
-                "filter-pop-up__button--disabled": countTotalFilters(),
-              })}
-              onClick={discardFilters}>Discard filters
-            </button>
-            <button
-              className={classNames("filter-pop-up__button")}
-              onClick={findMoviesByFilters}>Search results
-            </button>
-          </div>
-          <div className="filter-pop-up__gutter">
-          </div>
-        </div>
+        </form>
       </div>
     </div>
   )

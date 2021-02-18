@@ -1,11 +1,6 @@
 import {SET_COUNT_PAGE, SET_EMPTY_MOVIES, SET_GENRES, SET_IS_FETCHING_M0VIES, SET_MOVIES} from "./moviesTypes";
 import {API_GET_GENRES, fetchFromAPI} from "../../api/api";
-import {
-  setCountSearchPage,
-  setIsSearchLoaderActive,
-  setSearchMovies,
-  setTotalMovies
-} from "../search/searchActionCreator";
+import {setCountSearchPage, setSearchMovies, setTotalMovies} from "../search/searchActionCreator";
 
 export const setMovies = (movies) => ({
   type: SET_MOVIES,
@@ -46,43 +41,25 @@ export const fetchGenres = () => dispatch => {
 export const fetchMovies = (url) => {
   return async (dispatch, getState) => {
     const {isSearching} = getState().searchReducer;
-    if (isSearching) {
-      await fetchFromAPI(url)
-        .then(movies => {
-          dispatchSearchMovies(movies);
-        })
-        .catch(error => {
-          console.error(error.message);
-        });
-    } else {
-      await fetchFromAPI(url)
-        .then(movies => {
-          dispatchMainMovies(movies);
-        })
-        .catch(error => {
-          console.error(error.message);
-        });
-    }
-    dispatch(setIsFetchingMovies(false));
-
-    function dispatchSearchMovies(movies) {
-      const {total_results, results} = movies;
-      let {countSearchPage} = getState().searchReducer;
-      dispatch(setSearchMovies(results));
-      dispatch(setIsSearchLoaderActive(false)); // deactivate search loader
-      dispatch(setCountSearchPage(++countSearchPage));
-      dispatch(setTotalMovies(total_results));
-    }
-
-    function dispatchMainMovies(movies) {
-      const {total_results, results} = movies;
-      let {countPage} = getState().moviesReducer;
-      dispatch(setMovies(results));
-      dispatch(setCountPage(++countPage));
-      dispatch(setIsFetchingMovies(false));
-      dispatch(setTotalMovies(total_results));
-    }
-  }
+    await fetchFromAPI(url)
+      .then(movies => {
+        const {results, total_results} = movies;
+        if (isSearching) {
+          let {countSearchPage} = getState().searchReducer;
+          dispatch(setSearchMovies(results));
+          dispatch(setCountSearchPage(++countSearchPage));
+        } else {
+          let {countPage} = getState().moviesReducer;
+          dispatch(setMovies(results));
+          dispatch(setCountPage(++countPage));
+        }
+        dispatch(setTotalMovies(total_results));
+        dispatch(setIsFetchingMovies(false));
+      })
+      .catch(error => {
+        console.error(error.message);
+      });
+  };
 };
 
 

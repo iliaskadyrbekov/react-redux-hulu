@@ -48,6 +48,7 @@ const Filter = () => {
     dispatch(setCountPage(1));
   };
 
+
   const closeSortPopUp = (event) => {
     if (!event.path.includes(sortRef.current)) {
       setIsOpenSortPopup(false);

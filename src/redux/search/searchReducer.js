@@ -1,6 +1,6 @@
 import {
   SET_COUNT_SEARCH_PAGE,
-  SET_EMPTY_SEARCH_MOVIES,
+  SET_FIRST_SEARCH_MOVIES,
   SET_IS_SEARCHING,
   SET_IS_SEARCHING_LOADER_ACTIVE,
   SET_QUERY_VALUE,
@@ -12,7 +12,7 @@ const initialState = {
   searchMovies: [],
   isSearching: false,
   queryValue: '',
-  countSearchPage: 1,
+  countSearchPage: 2,
   totalMovies: 0,
   isSearchLoaderActive: false,
 };
@@ -27,7 +27,7 @@ const searchReducer = (state = initialState, action) => {
           ...action.payload,
         ]
       };
-    case SET_EMPTY_SEARCH_MOVIES:
+    case SET_FIRST_SEARCH_MOVIES:
       return {
         ...state,
         searchMovies: action.payload,

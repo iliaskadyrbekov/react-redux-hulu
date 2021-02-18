@@ -14,12 +14,13 @@ const Preview = React.memo(
       'Unnown genres';
 
     const toggleBookmarkStatus = () => {
+
       setIsBookmarked(!isBookmarked);
     };
 
     const bookmarkBtn = isBookmarked ?
-      <BookmarkIcon onClick={toggleBookmarkStatus}/> :
-      <BookmarkBorderIcon onClick={toggleBookmarkStatus}/>
+      <BookmarkIcon onClick={toggleBookmarkStatus} style={{fontSize: 27}}/> :
+      <BookmarkBorderIcon onClick={toggleBookmarkStatus} style={{fontSize: 27}}/>
 
     return (
       <div className="preview">

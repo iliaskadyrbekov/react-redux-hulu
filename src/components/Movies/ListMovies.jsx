@@ -20,14 +20,12 @@ const ListMovies = () => {
   useEffect(() => {
     if (isFetchingMovies) {
       if (isSearching) {
-        const formatQueryValue = queryValue.trim().toLowerCase();
-        if (!formatQueryValue) return;
-        dispatch(fetchMovies(`${API_GET_SEARCH_MOVIES}&page=${countSearchPage}&query=${formatQueryValue}`));
+        dispatch(fetchMovies(`${API_GET_SEARCH_MOVIES}&page=${countSearchPage}&query=${queryValue.trim().toLowerCase()}`));
       } else {
         dispatch(fetchMovies(`${API_GET_MOVIES}&page=${countPage}&sort_by=${sortByKey}${filterGenresURL()}${filterYearsURL()}`));
       }
     }
-  }, [isFetchingMovies, queryValue]);
+  }, [isFetchingMovies]);
 
   useEffect(() => {
     window.addEventListener('scroll', handleScroll);
@@ -81,7 +79,7 @@ const ListMovies = () => {
     return movies && movies.map((movie, index) => { // TODO key unique logic
       return <Movie //TODO
         movie={movie}
-        key={index}
+        key={index} // back id and test this TODO
         genres={genres}
       />
     });

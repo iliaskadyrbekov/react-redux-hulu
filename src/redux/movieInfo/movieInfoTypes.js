@@ -1,0 +1,2 @@
+export const SET_MOVIE_INFO = 'SET_MOVIE_INFO';
+// export const SET_IS_MOVIE_INFO_PAGE = 'SET_IS_MOVIE_INFO_PAGE';
