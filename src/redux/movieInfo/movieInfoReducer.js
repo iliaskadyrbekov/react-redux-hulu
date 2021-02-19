@@ -1,7 +1,8 @@
-import {SET_MOVIE_INFO} from "./movieInfoTypes";
+import {SET_MOVIE_CAST, SET_MOVIE_INFO} from "./movieInfoTypes";
 
 const initialState = {
   movieInfo: {},
+  movieCast: {},
   // isMovieInfoPage: false,
 };
 
@@ -11,6 +12,11 @@ const movieInfoReducer = (state = initialState, action) => {
       return {
         ...state,
         movieInfo: action.payload,
+      };
+    case SET_MOVIE_CAST:
+      return {
+        ...state,
+        movieCast: action.payload,
       };
     // case SET_IS_MOVIE_INFO_PAGE:
     //   return {

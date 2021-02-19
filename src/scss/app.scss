@@ -14,5 +14,8 @@ body {
 .container {
   max-width: 1200px;
   margin: 0 auto;
-  padding-top: $headerSize;
+}
+
+.home-container {
+  padding-top: 120px;
 }

@@ -5,11 +5,11 @@ import {ScrollToTopBtn} from "../components/ScrollToTopBtn";
 
 const Home = () => {
   return (
-    <>
+    <div className="container home-container">
       <Filter/>
       <ListMovies/>
       <ScrollToTopBtn/>
-    </>
+    </div>
   );
 };
 

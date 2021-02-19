@@ -19,10 +19,8 @@ function App() {
   return (
     <>
       <Header/>
-      <div className="container">
-        <Route path="/" component={Home} exact/>
-        <Route path="/movies/:id" component={MovieInfo} exact/>
-      </div>
+      <Route path="/" component={Home} exact/>
+      <Route path="/movies/:id" component={MovieInfo} exact/>
     </>
   );
 }

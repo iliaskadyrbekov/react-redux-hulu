@@ -14,7 +14,6 @@ const Preview = React.memo(
       'Unnown genres';
 
     const toggleBookmarkStatus = () => {
-
       setIsBookmarked(!isBookmarked);
     };
 
