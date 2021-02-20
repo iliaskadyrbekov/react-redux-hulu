@@ -1,4 +1,11 @@
-import {SET_COUNT_PAGE, SET_EMPTY_MOVIES, SET_GENRES, SET_IS_FETCHING_M0VIES, SET_MOVIES} from "./moviesTypes";
+import {
+  SET_COUNT_PAGE,
+  SET_EMPTY_MOVIES,
+  SET_GENRES,
+  SET_IS_FETCHING_M0VIES,
+  SET_LAST_HOME_POSITION_BY_Y,
+  SET_MOVIES
+} from "./moviesTypes";
 import {API_GET_GENRES, fetchFromAPI} from "../../api/api";
 import {setCountSearchPage, setSearchMovies, setTotalMovies} from "../search/searchActionCreator";
 
@@ -25,6 +32,11 @@ export const setGenres = (genres) => ({
 export const setCountPage = (countPage) => ({
   type: SET_COUNT_PAGE,
   payload: countPage,
+});
+
+export const setLastHomePositionByY = (lastHomePositionByY) => ({
+  type: SET_LAST_HOME_POSITION_BY_Y,
+  payload: lastHomePositionByY,
 });
 
 export const fetchGenres = () => dispatch => {

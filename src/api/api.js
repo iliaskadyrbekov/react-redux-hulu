@@ -10,6 +10,7 @@ export const API_GET_MOVIE_BY_ID = `${API_URL}/movie/`;
 export async function fetchFromAPI(url) {
   return await axios.get(url)
     .then(response => {
+      console.log('hello')
       if (response.status < 200 && response.status > 300) { // TODO
         const message = `Ooops...our developers are fixing this problem: ${response.status}`;
         throw new Error(message);

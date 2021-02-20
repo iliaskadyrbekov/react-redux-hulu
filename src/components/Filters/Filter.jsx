@@ -1,11 +1,12 @@
 import React, {useEffect, useRef, useState} from "react";
-import {FilterPopup} from "./index";
+
 import SortIcon from '@material-ui/icons/Sort';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import classNames from 'classnames';
 import {useDispatch, useSelector} from "react-redux";
 import {setCurrentSortBy, setIsOpenFilterPopup} from "../../redux/filters/filtersActionCreator";
 import {setCountPage, setEmptyMovies, setIsFetchingMovies} from "../../redux/movies/moviesActionCreator";
+import {FilterPopup} from "../Popup";
 
 const Filter = () => {
   const dispatch = useDispatch();

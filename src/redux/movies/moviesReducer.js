@@ -1,10 +1,18 @@
-import {SET_COUNT_PAGE, SET_EMPTY_MOVIES, SET_GENRES, SET_IS_FETCHING_M0VIES, SET_MOVIES} from "./moviesTypes";
+import {
+  SET_COUNT_PAGE,
+  SET_EMPTY_MOVIES,
+  SET_GENRES,
+  SET_IS_FETCHING_M0VIES,
+  SET_LAST_HOME_POSITION_BY_Y,
+  SET_MOVIES
+} from "./moviesTypes";
 
 const initialState = {
   movies: [],
   genres: [],
   countPage: 1,
   isFetchingMovies: false,
+  lastHomePositionByY: 0,
 };
 
 const moviesReducer = (state = initialState, action) => {
@@ -36,6 +44,11 @@ const moviesReducer = (state = initialState, action) => {
       return {
         ...state,
         genres: action.payload,
+      };
+    case SET_LAST_HOME_POSITION_BY_Y:
+      return {
+        ...state,
+        lastHomePositionByY: action.payload,
       };
     default:
       return state;

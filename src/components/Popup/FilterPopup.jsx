@@ -1,6 +1,6 @@
 import React, {useState} from "react";
-import {YearsTab} from "./Tabs/YearsTab";
-import {GenresTab} from "./Tabs/GenresTab";
+import {YearsTab} from "../Filters/Tabs/YearsTab";
+import {GenresTab} from "../Filters/Tabs/GenresTab";
 import {
   setCheckedGenres,
   setCheckedYears,

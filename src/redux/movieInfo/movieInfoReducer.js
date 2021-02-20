@@ -1,9 +1,10 @@
-import {SET_MOVIE_CAST, SET_MOVIE_INFO} from "./movieInfoTypes";
+import {SET_CURRENT_LOCATION_PATH, SET_IS_MOVIE_INFO_PAGE, SET_MOVIE_CAST, SET_MOVIE_INFO} from "./movieInfoTypes";
 
 const initialState = {
   movieInfo: {},
   movieCast: {},
-  // isMovieInfoPage: false,
+  isMovieInfoPage: false,
+  currentLocationPath: '/',
 };
 
 const movieInfoReducer = (state = initialState, action) => {
@@ -18,11 +19,16 @@ const movieInfoReducer = (state = initialState, action) => {
         ...state,
         movieCast: action.payload,
       };
-    // case SET_IS_MOVIE_INFO_PAGE:
-    //   return {
-    //     ...state,
-    //     movieInfo: action.payload,
-    //   };
+    case SET_IS_MOVIE_INFO_PAGE:
+      return {
+        ...state,
+        isMovieInfoPage: action.payload,
+      };
+    case SET_CURRENT_LOCATION_PATH:
+      return {
+        ...state,
+        currentLocationPath: action.payload,
+      };
     default:
       return state;
   }

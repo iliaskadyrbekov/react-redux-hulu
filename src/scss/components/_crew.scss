@@ -1,0 +1,42 @@
+.crew {
+  margin: 50px 0 200px 0;
+  &__title {
+    margin-bottom: 25px;
+  }
+  &__cast {
+    display: flex;
+    flex-wrap: wrap;
+    .crew__person {
+      width: 110px;
+      height: 110px;
+
+      &-image {
+        object-fit: cover;
+        border-radius: 50%;
+        width: inherit;
+        height: inherit;
+      }
+      &-name {
+        font-weight: bold;
+        margin-top: 5px;
+      }
+      & + div {
+        margin-left: 20px;
+      }
+    }
+
+    .crew__full-cast-btn-wrapper {
+      .crew__full-cast-btn {
+        color: white;
+        opacity: .9;
+        font-weight: bold;
+        font-size: 17px;
+        cursor: pointer;
+        border-radius: 50%;
+        background-color: #282d32;
+        border: none;
+        box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+      }
+    }
+  }
+}

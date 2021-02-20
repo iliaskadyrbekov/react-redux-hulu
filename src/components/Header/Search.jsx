@@ -11,10 +11,12 @@ import {
 } from "../../redux/search/searchActionCreator";
 import searchLoader from '../../assets/img/searchLoder.svg';
 import {API_GET_SEARCH_MOVIES} from "../../api/api";
+import {useHistory} from "react-router";
 
 const Search = () => {
   const dispatch = useDispatch();
   const {queryValue, isSearchLoaderActive} = useSelector(({searchReducer}) => searchReducer);
+  let history = useHistory()
 
   const loaderStyles = {
     backgroundImage: `url(${searchLoader})`,
@@ -37,6 +39,7 @@ const Search = () => {
   }, [queryValue]);
 
   const searchMoviesByQuery = (event) => {
+    history.push("/");
     dispatch(setQueryValue(event.target.value));
     dispatch(setIsSearching(true));
     dispatch(setIsSearchLoaderActive(true));

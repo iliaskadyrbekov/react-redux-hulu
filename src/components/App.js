@@ -4,6 +4,7 @@ import {Route} from 'react-router-dom';
 import {Home, MovieInfo} from "../pages";
 import {useDispatch} from "react-redux";
 import {fetchGenres, setIsFetchingMovies} from "../redux/movies/moviesActionCreator";
+import {setCurrentLocationPath} from "../redux/movieInfo/movieInfoActionCreator";
 
 function App() {
   const dispatch = useDispatch();
@@ -15,6 +16,10 @@ function App() {
   useEffect(() => {
     dispatch(setIsFetchingMovies(true));
   }, [dispatch]);
+
+  useEffect(() => {
+    dispatch(setCurrentLocationPath(window.location.pathname));
+  }, []);
 
   return (
     <>

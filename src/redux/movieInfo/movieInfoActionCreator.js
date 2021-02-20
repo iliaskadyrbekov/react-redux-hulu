@@ -1,5 +1,5 @@
 import {fetchFromAPI} from "../../api/api";
-import {SET_MOVIE_CAST, SET_MOVIE_INFO} from "./movieInfoTypes";
+import {SET_CURRENT_LOCATION_PATH, SET_IS_MOVIE_INFO_PAGE, SET_MOVIE_CAST, SET_MOVIE_INFO} from "./movieInfoTypes";
 
 export const setMovieInfo = (movieInfo) => ({
   type: SET_MOVIE_INFO,
@@ -11,10 +11,15 @@ export const setMovieCast = (movieCast) => ({
   payload: movieCast,
 });
 
-// export const setIsMovieInfoPage = (isMovieInfoPage) => ({
-//   type: SET_IS_MOVIE_INFO_PAGE,
-//   payload: isMovieInfoPage,
-// });
+export const setIsMovieInfoPage = (isMovieInfoPage) => ({
+  type: SET_IS_MOVIE_INFO_PAGE,
+  payload: isMovieInfoPage,
+});
+
+export const setCurrentLocationPath = (currentLocationPath) => ({
+  type: SET_CURRENT_LOCATION_PATH,
+  payload: currentLocationPath,
+});
 
 export const fetchMovieInfo = (url) => {
   return async (dispatch) => {

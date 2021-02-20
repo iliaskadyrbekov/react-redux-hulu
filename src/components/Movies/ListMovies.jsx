@@ -5,17 +5,19 @@ import {useDispatch, useSelector} from "react-redux";
 import {fetchMovies, setIsFetchingMovies} from "../../redux/movies/moviesActionCreator";
 import {API_GET_MOVIES, API_GET_SEARCH_MOVIES} from "../../api/api";
 import Loader from "./Loader";
+import {setCurrentLocationPath, setIsMovieInfoPage} from "../../redux/movieInfo/movieInfoActionCreator";
 
 const ListMovies = () => {
   const dispatch = useDispatch();
   let {
-    genres, movies, isFetchingMovies, countPage
+    genres, movies, isFetchingMovies, countPage, lastHomePositionByY,
   } = useSelector(({moviesReducer}) => moviesReducer);
   let {
     searchMovies, isSearching, queryValue, totalMovies, isSearchLoaderActive, countSearchPage
   } = useSelector(({searchReducer}) => searchReducer);
   const sortByKey = useSelector(({filtersReducer}) => Object.keys(filtersReducer.currentSortBy)[0]);
   const {checkedFilters, isFiltering} = useSelector(({filtersReducer}) => filtersReducer);
+  const {currentLocationPath} = useSelector(({movieInfoReducer}) => movieInfoReducer);
 
   useEffect(() => {
     if (isFetchingMovies) {
@@ -28,9 +30,27 @@ const ListMovies = () => {
   }, [isFetchingMovies]);
 
   useEffect(() => {
+    window.scrollTo({
+      top: lastHomePositionByY
+    });
+    if (currentLocationPath !== window.location.pathname) {
+      dispatch(setIsMovieInfoPage(false));
+      setTimeout(() => {
+        dispatch(setCurrentLocationPath(window.location.pathname));
+      });
+    }
+  }, []);
+
+  useEffect(() => {
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
-  }, [isFetchingMovies, totalMovies, isSearching]);
+  }, [isFetchingMovies, totalMovies, isSearching, currentLocationPath]);
+
+  useEffect(() => {
+    window.onbeforeunload = function () {
+      window.scrollTo(0, 0);
+    }
+  });
 
   const isNotLastMovies = () => {
     const currentCountMovies = isSearching ? searchMovies.length : movies.length;
@@ -42,7 +62,8 @@ const ListMovies = () => {
     const scrollHeight = document.documentElement.scrollTop;
     const documentHeight = document.documentElement.offsetHeight;
     const totalHeight = viewportHeight + scrollHeight + 50;
-    if (isNotLastMovies() && totalHeight >= documentHeight && documentHeight + 60 >= totalHeight) {
+    if (isNotLastMovies() && totalHeight >= documentHeight && documentHeight + 60 >= totalHeight && currentLocationPath === window.location.pathname) {
+      console.log(totalHeight, documentHeight)
       dispatch(setIsFetchingMovies(true));
     }
   };
@@ -66,10 +87,6 @@ const ListMovies = () => {
     }
     return '&primary_release_year=' + selectedYears;
   };
-
-  window.onbeforeunload = function () {
-    window.scrollTo(0, 0);
-  }
 
   const showNotFoundMessage = () => {
     return <div className="movies__message">Nothing found</div>;

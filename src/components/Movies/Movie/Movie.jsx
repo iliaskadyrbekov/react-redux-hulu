@@ -4,8 +4,12 @@ import defaultImage from "../../../assets/img/defaultImage.png";
 import classNames from 'classnames';
 import Preview from "./Preview";
 import {Link} from "react-router-dom";
+import {useDispatch} from "react-redux";
+import {setIsFetchingMovies, setLastHomePositionByY} from "../../../redux/movies/moviesActionCreator";
+import {setCurrentLocationPath, setIsMovieInfoPage} from "../../../redux/movieInfo/movieInfoActionCreator";
 
 const Movie = React.memo(function Movie({movie, genres}) {
+  const dispatch = useDispatch();
   const [isShown, setIsShown] = useState(false); // for showing preview
   const [isBookmarked, setIsBookmarked] = useState(false);
 
@@ -21,10 +25,16 @@ const Movie = React.memo(function Movie({movie, genres}) {
     ? vote_average + '.0' : vote_average;
   const formatOverview = overview ? overview : 'Unnown description';
 
+  const setLastPosition = () => {
+    dispatch(setCurrentLocationPath(window.location.pathname));
+    dispatch(setLastHomePositionByY(window.scrollY));
+  };
+
   return (
     <div className="movie"
          onMouseEnter={() => setIsShown(true)}
          onMouseLeave={() => setIsShown(false)}
+         onClick={setLastPosition}
     >
       <Link to={`/movies/${id}`} className="movie__link">
         <div className={classNames({
