@@ -5,19 +5,19 @@ import {useDispatch, useSelector} from "react-redux";
 import {fetchMovies, setIsFetchingMovies} from "../../redux/movies/moviesActionCreator";
 import {API_GET_MOVIES, API_GET_SEARCH_MOVIES} from "../../api/api";
 import Loader from "./Loader";
-import {setCurrentLocationPath, setIsMovieInfoPage} from "../../redux/movieInfo/movieInfoActionCreator";
+import {setCurrentLocationPath} from "../../redux/movieInfo/movieInfoActionCreator";
 
 const ListMovies = () => {
   const dispatch = useDispatch();
   let {
     genres, movies, isFetchingMovies, countPage, lastHomePositionByY,
-  } = useSelector(({moviesReducer}) => moviesReducer);
+  } = useSelector(({movies}) => movies);
   let {
     searchMovies, isSearching, queryValue, totalMovies, isSearchLoaderActive, countSearchPage
-  } = useSelector(({searchReducer}) => searchReducer);
-  const sortByKey = useSelector(({filtersReducer}) => Object.keys(filtersReducer.currentSortBy)[0]);
-  const {checkedFilters, isFiltering} = useSelector(({filtersReducer}) => filtersReducer);
-  const {currentLocationPath} = useSelector(({movieInfoReducer}) => movieInfoReducer);
+  } = useSelector(({search}) => search);
+  const sortByKey = useSelector(({filters}) => Object.keys(filters.currentSortBy)[0]);
+  const {checkedFilters, isFiltering} = useSelector(({popups}) => popups);
+  const {currentLocationPath} = useSelector(({movieInfo}) => movieInfo);
 
   useEffect(() => {
     if (isFetchingMovies) {
@@ -34,7 +34,6 @@ const ListMovies = () => {
       top: lastHomePositionByY
     });
     if (currentLocationPath !== window.location.pathname) {
-      dispatch(setIsMovieInfoPage(false));
       setTimeout(() => {
         dispatch(setCurrentLocationPath(window.location.pathname));
       });
@@ -62,8 +61,9 @@ const ListMovies = () => {
     const scrollHeight = document.documentElement.scrollTop;
     const documentHeight = document.documentElement.offsetHeight;
     const totalHeight = viewportHeight + scrollHeight + 50;
-    if (isNotLastMovies() && totalHeight >= documentHeight && documentHeight + 60 >= totalHeight && currentLocationPath === window.location.pathname) {
-      console.log(totalHeight, documentHeight)
+    if (isNotLastMovies() && totalHeight >= documentHeight
+      && documentHeight + 60 >= totalHeight
+      && currentLocationPath === window.location.pathname) {
       dispatch(setIsFetchingMovies(true));
     }
   };

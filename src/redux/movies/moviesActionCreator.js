@@ -6,8 +6,9 @@ import {
   SET_LAST_HOME_POSITION_BY_Y,
   SET_MOVIES
 } from "./moviesTypes";
-import {API_GET_GENRES, fetchFromAPI} from "../../api/api";
+import {API_GET_GENRES} from "../../api/api";
 import {setCountSearchPage, setSearchMovies, setTotalMovies} from "../search/searchActionCreator";
+import {fetchFromAPI} from "../../api/fetchAPI";
 
 export const setMovies = (movies) => ({
   type: SET_MOVIES,
@@ -52,16 +53,16 @@ export const fetchGenres = () => dispatch => {
 
 export const fetchMovies = (url) => {
   return async (dispatch, getState) => {
-    const {isSearching} = getState().searchReducer;
+    const {isSearching} = getState().search;
     await fetchFromAPI(url)
       .then(movies => {
         const {results, total_results} = movies;
         if (isSearching) {
-          let {countSearchPage} = getState().searchReducer;
+          let {countSearchPage} = getState().search;
           dispatch(setSearchMovies(results));
           dispatch(setCountSearchPage(++countSearchPage));
         } else {
-          let {countPage} = getState().moviesReducer;
+          let {countPage} = getState().movies;
           dispatch(setMovies(results));
           dispatch(setCountPage(++countPage));
         }

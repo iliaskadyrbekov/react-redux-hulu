@@ -7,7 +7,7 @@ import {
   SET_SEARCH_MOVIES,
   SET_TOTAL_MOVIES
 } from "./searchTypes";
-import {fetchFromAPI} from "../../api/api";
+import {fetchFromAPI} from "../../api/fetchAPI";
 
 export const fetchFirstMovies = (url) => {
   return async (dispatch) => {

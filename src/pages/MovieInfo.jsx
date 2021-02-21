@@ -5,7 +5,7 @@ import {fetchMovieCast, fetchMovieInfo, setMovieCast, setMovieInfo} from "../red
 import {useDispatch} from "react-redux";
 import {MoviePoster} from "../components/MovieInfo/MoviePoster";
 import {Crew} from "../components/MovieInfo/Crew";
-
+import {CrewPopup} from "./popups";
 
 const MovieInfo = () => {
   const {id} = useParams();
@@ -21,14 +21,18 @@ const MovieInfo = () => {
   useEffect(() => {
     dispatch(fetchMovieInfo(`${movieIdUrl}?${API_KEY}`));
     return () => {
-      dispatch(setMovieInfo({}));
+      if (window.location.pathname === '/') {
+        dispatch(setMovieInfo({}));
+      }
     };
   }, []);
 
   useEffect(() => {
     dispatch(fetchMovieCast(`${movieIdUrl}/credits?${API_KEY}`));
     return () => {
-      dispatch(setMovieCast({}));
+      if (window.location.pathname === '/') {
+        dispatch(setMovieCast({}));
+      }
     }
   }, []);
 
@@ -38,6 +42,7 @@ const MovieInfo = () => {
       <div className="container">
         <Crew/>
       </div>
+      {window.location.pathname === `/movies/${id}/crew` && <CrewPopup/>}
     </div>
   );
 };

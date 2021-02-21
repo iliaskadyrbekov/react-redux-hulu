@@ -5,8 +5,8 @@ import classNames from 'classnames';
 import Preview from "./Preview";
 import {Link} from "react-router-dom";
 import {useDispatch} from "react-redux";
-import {setIsFetchingMovies, setLastHomePositionByY} from "../../../redux/movies/moviesActionCreator";
-import {setCurrentLocationPath, setIsMovieInfoPage} from "../../../redux/movieInfo/movieInfoActionCreator";
+import {setLastHomePositionByY} from "../../../redux/movies/moviesActionCreator";
+import {setCurrentLocationPath} from "../../../redux/movieInfo/movieInfoActionCreator";
 
 const Movie = React.memo(function Movie({movie, genres}) {
   const dispatch = useDispatch();

@@ -15,8 +15,8 @@ import {useHistory} from "react-router";
 
 const Search = () => {
   const dispatch = useDispatch();
-  const {queryValue, isSearchLoaderActive} = useSelector(({searchReducer}) => searchReducer);
-  let history = useHistory()
+  const {queryValue, isSearchLoaderActive} = useSelector(({search}) => search);
+  let history = useHistory();
 
   const loaderStyles = {
     backgroundImage: `url(${searchLoader})`,

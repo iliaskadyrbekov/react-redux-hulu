@@ -5,7 +5,7 @@ const MoviePoster = () => {
   const {
     title, poster_path, release_date, genres, runtime,
     backdrop_path, tagline, overview, production_countries,
-  } = useSelector(({movieInfoReducer}) => movieInfoReducer.movieInfo);
+  } = useSelector(({movieInfo}) => movieInfo.movieInfo);
 
   const formatGenres = genres && genres.map(genre => genre.name).join(', ');
   const formatReleaseDate = release_date && release_date.split('-').reverse().join('/');

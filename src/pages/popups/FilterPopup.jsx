@@ -1,20 +1,18 @@
 import React, {useState} from "react";
-import {YearsTab} from "../Filters/Tabs/YearsTab";
-import {GenresTab} from "../Filters/Tabs/GenresTab";
-import {
-  setCheckedGenres,
-  setCheckedYears,
-  setIsFiltering,
-  setIsOpenFilterPopup
-} from "../../redux/filters/filtersActionCreator";
+import {YearsTab} from "../../components/Filters/Tabs/YearsTab";
+import {GenresTab} from "../../components/Filters/Tabs/GenresTab";
+import {setIsFiltering,} from "../../redux/filters/filtersActionCreator";
 import {useDispatch, useSelector} from "react-redux";
 import classNames from 'classnames';
 import {setCountPage, setEmptyMovies, setIsFetchingMovies} from "../../redux/movies/moviesActionCreator";
 import CloseIcon from '@material-ui/icons/Close';
+import {setCheckedGenres, setCheckedYears} from "../../redux/popups/popupsActionCreator";
+import {useHistory} from "react-router";
 
 const FilterPopup = () => {
   const dispatch = useDispatch();
-  const checkedFilters = useSelector(({filtersReducer}) => filtersReducer.checkedFilters);
+  const history = useHistory();
+  const checkedFilters = useSelector(({popups}) => popups.checkedFilters);
   const [activeTab, setActiveTab] = useState(0);
   const [copyCheckedFilters, setCopyChekedFilters] = useState(checkedFilters);
 
@@ -81,7 +79,6 @@ const FilterPopup = () => {
     dispatch(setIsFetchingMovies(true));
     dispatch(setEmptyMovies([]));
     dispatch(setCountPage(1));
-    dispatch(setIsOpenFilterPopup(false));
 
     dispatch(setCheckedGenres(copyCheckedFilters.checkedGenres));
     dispatch(setCheckedYears(copyCheckedFilters.checkedYears));
@@ -90,6 +87,7 @@ const FilterPopup = () => {
     } else {
       dispatch(setIsFiltering(false));
     }
+    history.push("/");
     removeFilterPopupClass();
   };
 
@@ -98,7 +96,7 @@ const FilterPopup = () => {
   };
 
   const closeFilterPopUp = () => {
-    dispatch(setIsOpenFilterPopup(false));
+    history.push("/");
     removeFilterPopupClass();
   };
 
@@ -125,8 +123,8 @@ const FilterPopup = () => {
   };
 
   return (
-    <div className="filter-pop-up">
-      <div className="filter-pop-up__container">
+    <div className="pop-up">
+      <div className="pop-up__container">
         <div className="filter-pop-up__header">
           <h2 className="filter-pop-up__title">Filters</h2>
           <CloseIcon
@@ -140,7 +138,7 @@ const FilterPopup = () => {
             <div className="filter-pop-up__tabs">
               {tabs}
             </div>
-            <div className="filter-pop-up__gutter">
+            <div className="pop-up__gutter">
             </div>
             <p className="filter-pop-up__count-checked">
               Search will be carried out by {countCheckedGenres()} {countCheckedYears()}
@@ -161,7 +159,7 @@ const FilterPopup = () => {
                 onClick={findMoviesByFilters}>Search results
               </button>
             </div>
-            <div className="filter-pop-up__gutter">
+            <div className="pop-up__gutter">
             </div>
           </div>
         </form>
