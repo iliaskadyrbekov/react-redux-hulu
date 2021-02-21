@@ -1,4 +1,4 @@
 # Hulu service
 
-Service for convenient watching movies
+Service for convenient watching info about movies
 

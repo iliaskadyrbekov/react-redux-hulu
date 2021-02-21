@@ -5,34 +5,51 @@ import {useDispatch, useSelector} from "react-redux";
 import {fetchMovies, setIsFetchingMovies} from "../../redux/movies/moviesActionCreator";
 import {API_GET_MOVIES, API_GET_SEARCH_MOVIES} from "../../api/api";
 import Loader from "./Loader";
+import {setCurrentLocationPath} from "../../redux/movieInfo/movieInfoActionCreator";
 
 const ListMovies = () => {
   const dispatch = useDispatch();
   let {
-    genres, movies, isFetchingMovies, countPage
-  } = useSelector(({moviesReducer}) => moviesReducer);
+    genres, movies, isFetchingMovies, countPage, lastHomePositionByY,
+  } = useSelector(({movies}) => movies);
   let {
     searchMovies, isSearching, queryValue, totalMovies, isSearchLoaderActive, countSearchPage
-  } = useSelector(({searchReducer}) => searchReducer);
-  const sortByKey = useSelector(({filtersReducer}) => Object.keys(filtersReducer.currentSortBy)[0]);
-  const {checkedFilters, isFiltering} = useSelector(({filtersReducer}) => filtersReducer);
+  } = useSelector(({search}) => search);
+  const sortByKey = useSelector(({filters}) => Object.keys(filters.currentSortBy)[0]);
+  const {checkedFilters, isFiltering} = useSelector(({popups}) => popups);
+  const {currentLocationPath} = useSelector(({movieInfo}) => movieInfo);
 
   useEffect(() => {
     if (isFetchingMovies) {
       if (isSearching) {
-        const formatQueryValue = queryValue.trim().toLowerCase();
-        if (!formatQueryValue) return;
-        dispatch(fetchMovies(`${API_GET_SEARCH_MOVIES}&page=${countSearchPage}&query=${formatQueryValue}`));
+        dispatch(fetchMovies(`${API_GET_SEARCH_MOVIES}&page=${countSearchPage}&query=${queryValue.trim().toLowerCase()}`));
       } else {
         dispatch(fetchMovies(`${API_GET_MOVIES}&page=${countPage}&sort_by=${sortByKey}${filterGenresURL()}${filterYearsURL()}`));
       }
     }
-  }, [isFetchingMovies, queryValue]);
+  }, [isFetchingMovies]);
+
+  useEffect(() => {
+    window.scrollTo({
+      top: lastHomePositionByY
+    });
+    if (currentLocationPath !== window.location.pathname) {
+      setTimeout(() => {
+        dispatch(setCurrentLocationPath(window.location.pathname));
+      });
+    }
+  }, []);
 
   useEffect(() => {
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
-  }, [isFetchingMovies, totalMovies, isSearching]);
+  }, [isFetchingMovies, totalMovies, isSearching, currentLocationPath]);
+
+  useEffect(() => {
+    window.onbeforeunload = function () {
+      window.scrollTo(0, 0);
+    }
+  });
 
   const isNotLastMovies = () => {
     const currentCountMovies = isSearching ? searchMovies.length : movies.length;
@@ -44,7 +61,9 @@ const ListMovies = () => {
     const scrollHeight = document.documentElement.scrollTop;
     const documentHeight = document.documentElement.offsetHeight;
     const totalHeight = viewportHeight + scrollHeight + 50;
-    if (isNotLastMovies() && totalHeight >= documentHeight && documentHeight + 60 >= totalHeight) {
+    if (isNotLastMovies() && totalHeight >= documentHeight
+      && documentHeight + 60 >= totalHeight
+      && currentLocationPath === window.location.pathname) {
       dispatch(setIsFetchingMovies(true));
     }
   };
@@ -69,10 +88,6 @@ const ListMovies = () => {
     return '&primary_release_year=' + selectedYears;
   };
 
-  window.onbeforeunload = function () {
-    window.scrollTo(0, 0);
-  }
-
   const showNotFoundMessage = () => {
     return <div className="movies__message">Nothing found</div>;
   };
@@ -81,7 +96,7 @@ const ListMovies = () => {
     return movies && movies.map((movie, index) => { // TODO key unique logic
       return <Movie //TODO
         movie={movie}
-        key={index}
+        key={index} // back id and test this TODO
         genres={genres}
       />
     });

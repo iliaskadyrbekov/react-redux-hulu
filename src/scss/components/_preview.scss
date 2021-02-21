@@ -12,14 +12,17 @@
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
+
   &__header {
     display: flex;
     justify-content: space-between;
     margin-bottom: 5px;
+
     .preview__lang {
       font-weight: bold;
     }
   }
+
   &__overview {
     .preview__genres {
       font-weight: bold;
@@ -28,6 +31,7 @@
       text-overflow: ellipsis;
       margin-bottom: 10px;
     }
+
     .preview__description {
       display: -webkit-box;
       -webkit-line-clamp: 3;
