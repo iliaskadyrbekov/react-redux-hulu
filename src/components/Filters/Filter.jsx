@@ -1,21 +1,24 @@
 import React, {useEffect, useRef, useState} from "react";
-import {FilterPopup} from "./index";
+
 import SortIcon from '@material-ui/icons/Sort';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import classNames from 'classnames';
 import {useDispatch, useSelector} from "react-redux";
-import {setCurrentSortBy, setIsOpenFilterPopup} from "../../redux/filters/filtersActionCreator";
+import {setCurrentSortBy} from "../../redux/filters/filtersActionCreator";
 import {setCountPage, setEmptyMovies, setIsFetchingMovies} from "../../redux/movies/moviesActionCreator";
+import {FilterPopup} from "../../pages/popups";
+import {useHistory} from "react-router";
+import {Link} from "react-router-dom";
 
 const Filter = () => {
   const dispatch = useDispatch();
+  const history = useHistory();
   const [isOpenSortPopup, setIsOpenSortPopup] = useState(false);
   const sortRef = useRef();
 
-  const currentSortBy = useSelector(({filtersReducer}) => Object.values(filtersReducer.currentSortBy)[0]);
-  const isOpenFilterPopup = useSelector(({filtersReducer}) => filtersReducer.isOpenFilterPopup);
-  const {isSearching, totalMovies, searchMovies} = useSelector(({searchReducer}) => searchReducer);
-  const {isFetchingMovies} = useSelector(({moviesReducer}) => moviesReducer);
+  const currentSortBy = useSelector(({filters}) => Object.values(filters.currentSortBy)[0]);
+  const {isSearching, totalMovies, searchMovies} = useSelector(({search}) => search);
+  const {isFetchingMovies} = useSelector(({movies}) => movies);
 
   useEffect(() => {
     window.addEventListener('click', closeSortPopUp);
@@ -33,7 +36,7 @@ const Filter = () => {
 
   const changeFilterSettingsMode = () => {
     window.scrollTo(0, 0);
-    dispatch(setIsOpenFilterPopup(true));
+    history.push("/filters");
     document.body.classList.add('body__model--open');
   };
 
@@ -47,6 +50,7 @@ const Filter = () => {
     dispatch(setIsFetchingMovies(true));
     dispatch(setCountPage(1));
   };
+
 
   const closeSortPopUp = (event) => {
     if (!event.path.includes(sortRef.current)) {
@@ -70,13 +74,13 @@ const Filter = () => {
     <section className="filter">
       {!isSearching &&
       <div className="filter__menu">
-        <div className="filter__btn-wrapper">
+        <Link to="/filters" className="filter__btn-wrapper">
           <button
             className="filter__button"
             onClick={changeFilterSettingsMode}
           >Filters
           </button>
-        </div>
+        </Link>
         <div className="filter__sort" onClick={toggleSortPopupMode} ref={sortRef}>
           <div className="filter__sort-button">
             <span className="filter__sort-icon-wrapper">
@@ -103,7 +107,8 @@ const Filter = () => {
       }
       {isSearching && !isFetchingMovies && searchMovies[0] &&
       <h2 className="filter__results-count">The total number of found movies is {totalMovies}</h2>}
-      {isOpenFilterPopup && <FilterPopup/>}
+
+      {window.location.pathname === `/filters` && <FilterPopup/>}
     </section>
   )
 };

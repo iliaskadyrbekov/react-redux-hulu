@@ -1,12 +1,28 @@
 import {
   SET_COUNT_SEARCH_PAGE,
-  SET_EMPTY_SEARCH_MOVIES,
+  SET_FIRST_SEARCH_MOVIES,
   SET_IS_SEARCHING,
   SET_IS_SEARCHING_LOADER_ACTIVE,
   SET_QUERY_VALUE,
   SET_SEARCH_MOVIES,
   SET_TOTAL_MOVIES
 } from "./searchTypes";
+import {fetchFromAPI} from "../../api/fetchAPI";
+
+export const fetchFirstMovies = (url) => {
+  return async (dispatch) => {
+    await fetchFromAPI(url)
+      .then(movies => {
+        const {total_results, results} = movies;
+        dispatch(setFirstSearchMovies(results));
+        dispatch(setIsSearchLoaderActive(false));
+        dispatch(setTotalMovies(total_results));
+      })
+      .catch(error => {
+        console.error(error.message);
+      });
+  };
+};
 
 export const setSearchMovies = (searchMovies) => ({
   type: SET_SEARCH_MOVIES,
@@ -23,8 +39,8 @@ export const setTotalMovies = (totalMovies) => ({
   payload: totalMovies,
 });
 
-export const setEmptySearchMovies = (searchMovies) => ({
-  type: SET_EMPTY_SEARCH_MOVIES,
+export const setFirstSearchMovies = (searchMovies) => ({
+  type: SET_FIRST_SEARCH_MOVIES,
   payload: searchMovies,
 });
 

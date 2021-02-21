@@ -1,0 +1,24 @@
+.pop-up {
+  overflow: hidden;
+  position: absolute;
+  z-index: 3;
+  background-color: #202529;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  padding-top: 60px;
+  opacity: .984;
+
+  &__container {
+    max-width: 1200px;
+    margin: 0 auto;
+
+    .pop-up__gutter {
+      margin-top: 10px;
+      background-color: #404953;
+      width: 100%;
+      border: 1px solid #404953;
+    }
+  }
+}
