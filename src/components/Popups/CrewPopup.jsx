@@ -1,22 +1,25 @@
 import React from 'react';
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 import {useHistory} from "react-router";
+import {setIsOpenCrewPopup} from "../../redux/popups/popupsActionCreator";
 
 const CrewPopup = () => {
+  const dispatch = useDispatch();
   const history = useHistory();
   const {title} = useSelector(({movieInfo}) => movieInfo.movieInfo);
+  const {cast, crew} = useSelector(({movieInfo}) => movieInfo.movieCast)
 
   const closeCrewPopup = () => {
+    dispatch(setIsOpenCrewPopup(false));
     history.goBack();
-    document.body.classList.remove('body__model--open');
   };
 
   return (
     <section className="pop-up">
       <div className="pop-up__container">
         <div className="crew-pop-up__header">
-          <span onClick={closeCrewPopup}>
+          <span className="crew-pop-up__header" onClick={closeCrewPopup} >
              <ArrowBackIosIcon/>
              <span>Back</span>
           </span>

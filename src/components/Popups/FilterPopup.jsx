@@ -1,12 +1,12 @@
 import React, {useState} from "react";
-import {YearsTab} from "../../components/Filters/Tabs/YearsTab";
-import {GenresTab} from "../../components/Filters/Tabs/GenresTab";
+import {YearsTab} from "../Filters/Tabs/YearsTab";
+import {GenresTab} from "../Filters/Tabs/GenresTab";
 import {setIsFiltering,} from "../../redux/filters/filtersActionCreator";
 import {useDispatch, useSelector} from "react-redux";
 import classNames from 'classnames';
 import {setCountPage, setEmptyMovies, setIsFetchingMovies} from "../../redux/movies/moviesActionCreator";
 import CloseIcon from '@material-ui/icons/Close';
-import {setCheckedGenres, setCheckedYears} from "../../redux/popups/popupsActionCreator";
+import {setCheckedGenres, setCheckedYears, setIsOpenFilterPopup} from "../../redux/popups/popupsActionCreator";
 import {useHistory} from "react-router";
 
 const FilterPopup = () => {
@@ -88,16 +88,17 @@ const FilterPopup = () => {
       dispatch(setIsFiltering(false));
     }
     history.push("/");
-    removeFilterPopupClass();
-  };
-
-  const removeFilterPopupClass = () => {
-    document.body.classList.remove('body__model--open');
+    closePopup();
   };
 
   const closeFilterPopUp = () => {
-    history.push("/");
-    removeFilterPopupClass();
+    history.goBack();
+    closePopup();
+  };
+
+  const closePopup = () => {
+    dispatch(setIsOpenFilterPopup(false));
+    document.body.classList.remove('body__model--open');
   };
 
   const countCheckedGenres = () => {
