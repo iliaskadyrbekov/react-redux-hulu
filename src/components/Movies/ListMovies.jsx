@@ -10,7 +10,7 @@ import {setCurrentLocationPath} from "../../redux/movieInfo/movieInfoActionCreat
 const ListMovies = () => {
   const dispatch = useDispatch();
   let {
-    genres, movies, isFetchingMovies, countPage, lastHomePositionByY,
+    movies, isFetchingMovies, countPage, lastHomePositionByY,
   } = useSelector(({movies}) => movies);
   let {
     searchMovies, isSearching, queryValue, totalMovies, isSearchLoaderActive, countSearchPage
@@ -97,7 +97,6 @@ const ListMovies = () => {
       return <Movie //TODO
         movie={movie}
         key={index} // back id and test this TODO
-        genres={genres}
       />
     });
   };

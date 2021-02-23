@@ -1,16 +1,17 @@
 import React, {useState} from "react";
 import StarBorderIcon from '@material-ui/icons/StarBorder';
-import defaultImage from "../../../assets/img/defaultImage.png";
+import defaultMovieImage from "../../../assets/img/defaultMovieImage.png";
 import classNames from 'classnames';
 import Preview from "./Preview";
 import {Link} from "react-router-dom";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {setLastHomePositionByY} from "../../../redux/movies/moviesActionCreator";
 import {setCurrentLocationPath} from "../../../redux/movieInfo/movieInfoActionCreator";
 
-const Movie = React.memo(function Movie({movie, genres}) {
+const Movie = React.memo(function Movie({movie}) {
   const dispatch = useDispatch();
-  const [isShown, setIsShown] = useState(false); // for showing preview
+  const allGenres = useSelector(({movies}) => movies.genres);
+  const [isShownPreview, setIsShownPreview] = useState(false);
   const [isBookmarked, setIsBookmarked] = useState(false);
 
   const {
@@ -19,9 +20,9 @@ const Movie = React.memo(function Movie({movie, genres}) {
   } = movie;
 
   const imageName = backdrop_path || poster_path;
-  const imagePath = imageName ? `https://image.tmdb.org/t/p/w500/${imageName}` : defaultImage;
+  const imagePath = imageName ? `https://image.tmdb.org/t/p/w500/${imageName}` : defaultMovieImage;
   const formatDate = release_date ? release_date.slice(0, 4) : 'soon';
-  const formatRatings = (vote_average.toString().length === 1 || vote_average === 10)
+  const formatRatings = vote_average && (vote_average.toString().length === 1 || vote_average === 10)
     ? vote_average + '.0' : vote_average;
   const formatOverview = overview ? overview : 'Unnown description';
 
@@ -31,9 +32,11 @@ const Movie = React.memo(function Movie({movie, genres}) {
   };
 
   return (
-    <div className="movie"
-         onMouseEnter={() => setIsShown(true)}
-         onMouseLeave={() => setIsShown(false)}
+    <div className={classNames({
+      'movie': true,
+    })}
+         onMouseEnter={() => setIsShownPreview(true)}
+         onMouseLeave={() => setIsShownPreview(false)}
          onClick={setLastPosition}
     >
       <Link to={`/movies/${id}`} className="movie__link">
@@ -44,17 +47,17 @@ const Movie = React.memo(function Movie({movie, genres}) {
           <img
             className={classNames({
               'movie__image': true,
-              'movie__image--active': isShown,
+              'movie__image--active': isShownPreview,
               'movie__image--poster': !backdrop_path,
             })}
             src={imagePath}
             loading="lazy"
             alt="movie"
           />
-          {isShown && <Preview
+          {isShownPreview && <Preview
             lang={original_language}
             genresID={genre_ids}
-            genres={genres}
+            allGenres={allGenres}
             overview={formatOverview}
             isBookmarked={isBookmarked}
             setIsBookmarked={setIsBookmarked}

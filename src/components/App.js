@@ -4,7 +4,7 @@ import {Route} from 'react-router-dom';
 import {Home, MovieInfo} from "../pages";
 import {useDispatch} from "react-redux";
 import {fetchGenres, setIsFetchingMovies} from "../redux/movies/moviesActionCreator";
-import {fetchMovieInfo, setCurrentLocationPath} from "../redux/movieInfo/movieInfoActionCreator";
+import {fetchMovieCast, fetchMovieInfo, setCurrentLocationPath} from "../redux/movieInfo/movieInfoActionCreator";
 import {CrewPopup, FilterPopup} from "./Popups";
 import {API_GET_MOVIE_BY_ID, API_KEY} from "../api/api";
 
@@ -29,6 +29,7 @@ function App() {
     if (id) {
       const movieIdUrl = `${API_GET_MOVIE_BY_ID}${id}`;
       dispatch(fetchMovieInfo(`${movieIdUrl}?${API_KEY}`));
+      dispatch(fetchMovieCast(`${movieIdUrl}/credits?${API_KEY}`));
     }
   }, []);
 

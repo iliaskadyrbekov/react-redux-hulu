@@ -22,10 +22,10 @@ const Crew = () => {
       <div className="crew__cast">
         {cast && cast
           .filter((people, index) => index < 7)
-          .map(people => <CrewItem {...people} key={people.id}/>)}
+          .map(person => <CrewItem name={person.name} path={person.profile_path} key={person.id}/>)}
         <Link to={`/movies/${id}/crew`} className="crew__full-cast-btn-wrapper">
           <button
-            className="crew__person crew__full-cast-btn"
+            className="crew__full-cast-btn"
             onClick={openCrewPopUp}
           >Show more
           </button>
