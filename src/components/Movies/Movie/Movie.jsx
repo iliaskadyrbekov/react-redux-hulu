@@ -22,7 +22,7 @@ const Movie = React.memo(function Movie({movie}) {
   const imageName = backdrop_path || poster_path;
   const imagePath = imageName ? `https://image.tmdb.org/t/p/w500/${imageName}` : defaultMovieImage;
   const formatDate = release_date ? release_date.slice(0, 4) : 'soon';
-  const formatRatings = vote_average && (vote_average.toString().length === 1 || vote_average === 10)
+  const formatRatings = vote_average.toString().length === 1 || vote_average === 10
     ? vote_average + '.0' : vote_average;
   const formatOverview = overview ? overview : 'Unnown description';
 

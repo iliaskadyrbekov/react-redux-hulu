@@ -5,7 +5,7 @@ import {fetchMovieCast, fetchMovieInfo, setMovieCast, setMovieInfo} from "../red
 import {useDispatch, useSelector} from "react-redux";
 import {MoviePoster} from "../components/MovieInfo/MoviePoster";
 import {Crew} from "../components/MovieInfo/Crew";
-import {CrewPopup} from "../components/Popups";
+import {CrewPopup} from "../components/Popups/CrewPopup";
 
 const MovieInfo = () => {
   const {id} = useParams();

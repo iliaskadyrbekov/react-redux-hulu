@@ -38,22 +38,10 @@
         font-size: 40px;
         margin-bottom: 40px;
       }
-
-      .crew-pop-up__crew {
-        .crew-pop-up__list-subtitle {
-          margin: 35px 0 25px;
-        }
-        .crew-pop-up__list {
-          display: grid;
-          grid-template-columns: repeat(4, 1fr);
-          grid-gap: 25px;
-        }
-      }
     }
 
     .crew-pop-up__movie-card {
       margin-left: 50px;
-
       .movie-pop-up__wrapper-image {
 
         .movie-pop-up__image {
