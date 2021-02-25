@@ -3,11 +3,11 @@ import BookmarkBorderIcon from '@material-ui/icons/BookmarkBorder';
 import BookmarkIcon from '@material-ui/icons/Bookmark';
 
 const Preview = React.memo(
-  function Preview({lang, genresID, genres, overview, setIsBookmarked, isBookmarked}) {
-    const movieGenres = genres
+  function Preview({lang, genresID, allGenres, overview, setIsBookmarked, isBookmarked}) {
+    const movieGenres = allGenres
       .filter((genre) => genresID.includes(genre.id))
       .map((genre) => genre.name)
-      .join(', ');
+      .join(' ,');
 
     const movieGenresFormat =
       movieGenres.charAt(0).toUpperCase() + movieGenres.toLowerCase().slice(1) ||

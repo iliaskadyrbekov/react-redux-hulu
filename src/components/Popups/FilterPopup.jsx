@@ -1,13 +1,12 @@
 import React, {useState} from "react";
-import {YearsTab} from "../../components/Filters/Tabs/YearsTab";
-import {GenresTab} from "../../components/Filters/Tabs/GenresTab";
-import {setIsFiltering,} from "../../redux/filters/filtersActionCreator";
+import {YearsTab} from "../Filters/Tabs/YearsTab";
+import {GenresTab} from "../Filters/Tabs/GenresTab";
 import {useDispatch, useSelector} from "react-redux";
 import classNames from 'classnames';
-import {setCountPage, setEmptyMovies, setIsFetchingMovies} from "../../redux/movies/moviesActionCreator";
 import CloseIcon from '@material-ui/icons/Close';
-import {setCheckedGenres, setCheckedYears} from "../../redux/popups/popupsActionCreator";
+import {setIsOpenFilterPopup} from "../../redux/popups/popupsActionCreator";
 import {useHistory} from "react-router";
+import {Button} from "../Button";
 
 const FilterPopup = () => {
   const dispatch = useDispatch();
@@ -48,10 +47,6 @@ const FilterPopup = () => {
     setActiveTab(index);
   };
 
-  const discardFilters = () => {
-    setCopyChekedFilters({checkedGenres: [], checkedYears: []});
-  };
-
   const setCheckboxStatus = (id, tabName) => {
     const {checkedGenres, checkedYears} = copyCheckedFilters;
     switch (tabName) {
@@ -75,29 +70,10 @@ const FilterPopup = () => {
     }
   };
 
-  const findMoviesByFilters = () => {
-    dispatch(setIsFetchingMovies(true));
-    dispatch(setEmptyMovies([]));
-    dispatch(setCountPage(1));
-
-    dispatch(setCheckedGenres(copyCheckedFilters.checkedGenres));
-    dispatch(setCheckedYears(copyCheckedFilters.checkedYears));
-    if (checkedFilters.checkedGenres.length || checkedFilters.checkedYears.length) {
-      dispatch(setIsFiltering(true));
-    } else {
-      dispatch(setIsFiltering(false));
-    }
-    history.push("/");
-    removeFilterPopupClass();
-  };
-
-  const removeFilterPopupClass = () => {
-    document.body.classList.remove('body__model--open');
-  };
-
   const closeFilterPopUp = () => {
-    history.push("/");
-    removeFilterPopupClass();
+    history.goBack();
+    dispatch(setIsOpenFilterPopup(false));
+    document.body.classList.remove('body__model--open');
   };
 
   const countCheckedGenres = () => {
@@ -111,11 +87,6 @@ const FilterPopup = () => {
     if (!checkedYears.length) return '';
     if (typeof checkedYears[0] === "string") return formatStr + ' years';
     return formatStr + ' year';
-  };
-
-  const countTotalFilters = () => {
-    const {checkedGenres, checkedYears} = copyCheckedFilters;
-    return checkedGenres.length + checkedYears.length === 0
   };
 
   const popUpSubmitHandler = (event) => {
@@ -146,18 +117,15 @@ const FilterPopup = () => {
             {chooseTab()}
           </div>
           <div className="filter-pop-up__footer">
-            <div className="filter-pop-up__buttons-wrapper">
-              <button
-                className={classNames({
-                  "filter-pop-up__button": true,
-                  "filter-pop-up__button--disabled": countTotalFilters(),
-                })}
-                onClick={discardFilters}>Discard filters
-              </button>
-              <button
-                className={classNames("filter-pop-up__button")}
-                onClick={findMoviesByFilters}>Search results
-              </button>
+            <div className="pop-up__button-wrapper">
+              <Button name="Discard filters"
+                      copyCheckedFilters={copyCheckedFilters}
+                      setCopyChekedFilters={setCopyChekedFilters}
+              />
+              <Button name="Search results"
+                copyCheckedFilters={copyCheckedFilters}
+                setCopyChekedFilters={setCopyChekedFilters}
+              />
             </div>
             <div className="pop-up__gutter">
             </div>

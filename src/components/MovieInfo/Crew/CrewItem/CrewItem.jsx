@@ -1,14 +1,19 @@
 import React from 'react';
+import defaultPersonImage from "../../../../assets/img/defaultPersonImage.png";
 
-const CrewItem = ({name, profile_path}) => {
+const CrewItem = ({name, path}) => {
+  const pathPersonImage = path ?
+    `https://image.tmdb.org/t/p/w138_and_h175_face${path}` :
+    defaultPersonImage;
+
   return (
     <div className="crew__person">
       <img
         className="crew__person-image"
-        src={profile_path && `https://image.tmdb.org/t/p/w138_and_h175_face${profile_path}`}
+        src={pathPersonImage}
         alt=""
       />
-      <span className="crew__person-name">{name}</span>
+      <p className="crew__person-name">{name}</p>
     </div>
   );
 };

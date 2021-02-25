@@ -1,15 +1,19 @@
 import React from 'react';
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {CrewItem} from "./CrewItem";
 import {Link} from "react-router-dom";
+import {setIsOpenCrewPopup} from "../../../redux/popups/popupsActionCreator";
 
 const Crew = () => {
-  const {cast, crew} = useSelector(({movieInfo}) => movieInfo.movieCast)
+  const dispatch = useDispatch();
+  const {cast} = useSelector(({movieInfo}) => movieInfo.movieCast)
   const {id} = useSelector(({movieInfo}) => movieInfo.movieInfo);
 
-  const openCrewPopup = () => {
-    window.scrollTo(0, 0);
-    document.body.classList.add('body__model--open');
+  const openCrewPopUp = () => {
+    dispatch(setIsOpenCrewPopup(true));
+    window.scrollTo({
+      top: 0,
+    });
   };
 
   return (
@@ -18,11 +22,11 @@ const Crew = () => {
       <div className="crew__cast">
         {cast && cast
           .filter((people, index) => index < 7)
-          .map(people => <CrewItem {...people} key={people.id}/>)}
+          .map(person => <CrewItem name={person.name} path={person.profile_path} key={person.id}/>)}
         <Link to={`/movies/${id}/crew`} className="crew__full-cast-btn-wrapper">
           <button
-            className="crew__person crew__full-cast-btn"
-            onClick={openCrewPopup}
+            className="crew__full-cast-btn"
+            onClick={openCrewPopUp}
           >Show more
           </button>
         </Link>

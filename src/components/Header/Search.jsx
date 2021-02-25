@@ -50,7 +50,6 @@ const Search = () => {
     event.preventDefault();
   };
 
-
   const styles = isSearchLoaderActive ? loaderStyles : {};
 
   return (
