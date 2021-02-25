@@ -1,0 +1,32 @@
+.pop-up__button-wrapper {
+  display: flex;
+  height: 50px;
+  margin-bottom: 25px;
+
+  .pop-up__button {
+    font-weight: bold;
+    font-size: 16px;
+    flex-grow: 1;
+    background-color: inherit;
+    border: 1px solid white;
+    color: inherit;
+    cursor: pointer;
+    border-radius: 7px;
+    transition: .3s;
+
+    &--disabled {
+      pointer-events: none;
+      opacity: .6;
+    }
+  }
+
+  .pop-up__button:hover {
+    background-color: #30393c;
+  }
+
+  .pop-up__button + button {
+    margin-left: 20px;
+    background-color: #404953;
+    border-color: #404953;
+  }
+}

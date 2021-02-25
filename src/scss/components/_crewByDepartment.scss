@@ -1,0 +1,12 @@
+.crew-pop-up__cast {
+  margin-top: 40px;
+  .crew-pop-up__list-subtitle {
+    margin-bottom: 25px;
+  }
+  .crew-pop-up__list {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-gap: 25px;
+    margin-bottom: 40px;
+  }
+}
