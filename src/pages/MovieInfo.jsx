@@ -2,15 +2,13 @@ import React, {useEffect} from "react";
 import {useParams} from "react-router";
 import {API_GET_MOVIE_BY_ID, API_KEY} from "../api/api";
 import {fetchMovieCast, fetchMovieInfo, setMovieCast, setMovieInfo} from "../redux/movieInfo/movieInfoActionCreator";
-import {useDispatch, useSelector} from "react-redux";
+import {useDispatch} from "react-redux";
 import {MoviePoster} from "../components/MovieInfo/MoviePoster";
 import {Crew} from "../components/MovieInfo/Crew";
-import {CrewPopup} from "../components/Popups/CrewPopup";
 
 const MovieInfo = () => {
   const {id} = useParams();
   const dispatch = useDispatch();
-  const isOpenCrewPopup = useSelector(({popups}) => popups.isOpenCrewPopup);
   const movieIdUrl = `${API_GET_MOVIE_BY_ID}${id}`;
 
   useEffect(() => {
@@ -43,7 +41,6 @@ const MovieInfo = () => {
       <div className="container">
         <Crew/>
       </div>
-      {isOpenCrewPopup && <CrewPopup/>}
     </div>
   );
 };

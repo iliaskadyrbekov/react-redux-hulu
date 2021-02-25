@@ -1,16 +1,13 @@
 import React from "react";
-import {useDispatch, useSelector} from "react-redux";
+import {useSelector} from "react-redux";
 import {Link} from "react-router-dom";
 import {SortBy} from "./SortBy";
-import {setIsOpenFilterPopup} from "../../redux/popups/popupsActionCreator";
 
 const Filter = () => {
-  const dispatch = useDispatch();
   const {isSearching, totalMovies, searchMovies} = useSelector(({search}) => search);
   const {isFetchingMovies} = useSelector(({movies}) => movies);
 
-  const openPopup = () => {
-    dispatch(setIsOpenFilterPopup(true));
+  const openFilterPopup = () => {
     document.body.classList.add('body__model--open');
   };
 
@@ -21,7 +18,7 @@ const Filter = () => {
         <Link to="/filters" className="filter__btn-wrapper">
           <button
             className="filter__button"
-            onClick={openPopup}
+            onClick={openFilterPopup}
           >Filters
           </button>
         </Link>

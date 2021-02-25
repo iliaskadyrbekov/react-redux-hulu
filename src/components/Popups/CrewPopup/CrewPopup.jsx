@@ -1,8 +1,7 @@
 import React, {useEffect, useState} from 'react';
-import {useDispatch, useSelector} from "react-redux";
+import {useSelector} from "react-redux";
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 import {useHistory} from "react-router";
-import {setIsOpenCrewPopup} from "../../../redux/popups/popupsActionCreator";
 import {CrewItem} from "../../MovieInfo/Crew/CrewItem";
 import defaultMovieImage from "../../../assets/img/defaultMovieImage.png";
 import {Button} from "../../Button";
@@ -12,7 +11,6 @@ import {Loader} from "../../Loader";
 import AccessTimeIcon from '@material-ui/icons/AccessTime';
 
 const CrewPopup = () => {
-  const dispatch = useDispatch();
   const history = useHistory();
   const {
     movieInfo: {title, backdrop_path, poster_path, runtime, production_countries, release_date, genres},
@@ -28,7 +26,6 @@ const CrewPopup = () => {
   const imagePath = imageName ? `https://image.tmdb.org/t/p/w500/${imageName}` : defaultMovieImage;
 
   const closeCrewPopup = () => {
-    dispatch(setIsOpenCrewPopup(false));
     history.goBack();
   };
 
@@ -82,10 +79,9 @@ const CrewPopup = () => {
                 {isShowAllActors ? castFormat(cast) : castFormat(mainActors)}
               </div>
               {isShowAllCastButton &&
-              <div className="pop-up__button-wrapper">
+              <div className="pop-up__button-wrapper pop-up__button-wrapper--filter">
                 <Button name={isShowAllActors ? "Hide actors" : "Show actors"}
-                        setIsShowAllActors={setIsShowAllActors}
-                        isShowAllActors={isShowAllActors}/>
+                        setIsShowAllActors={setIsShowAllActors}/>
               </div>
               }
             </div> : ""}

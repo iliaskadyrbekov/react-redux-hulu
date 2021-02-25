@@ -1,12 +1,10 @@
-import {SET_CHECKED_GENRES, SET_CHECKED_YEARS, SET_IS_OPEN_CREW_POPUP, SET_IS_OPEN_FILTER_POPUP} from "./popupsTypes";
+import {SET_CHECKED_GENRES, SET_CHECKED_YEARS} from "./popupsTypes";
 
 const initialState = {
   checkedFilters: {
     checkedGenres: [],
     checkedYears: [],
   },
-  isOpenFilterPopUp: false,
-  isOpenCrewPopup: false,
 };
 
 const popupsReducer = (state = initialState, action) => {
@@ -27,17 +25,6 @@ const popupsReducer = (state = initialState, action) => {
           checkedYears: action.payload,
         },
       };
-    case SET_IS_OPEN_FILTER_POPUP:
-      return {
-        ...state,
-        isOpenFilterPopUp: action.payload,
-      };
-    case SET_IS_OPEN_CREW_POPUP:
-      return {
-        ...state,
-        isOpenCrewPopup: action.payload,
-      };
-
     default:
       return state;
   }

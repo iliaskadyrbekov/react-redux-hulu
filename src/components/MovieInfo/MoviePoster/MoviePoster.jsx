@@ -1,23 +1,38 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {useSelector} from "react-redux";
+import {Loader} from "../../Loader";
+import StarBorderIcon from '@material-ui/icons/StarBorder';
 
 const MoviePoster = () => {
   const {
     title, poster_path, release_date, genres, runtime,
-    backdrop_path, tagline, overview, production_countries,
+    backdrop_path, tagline, overview, production_countries, vote_average
   } = useSelector(({movieInfo}) => movieInfo.movieInfo);
+  const [isFetchingMovieInfo, setIsFetchingMovieInfo] = useState(true);
 
   const formatGenres = genres && genres.map(genre => genre.name).join(', ');
   const formatReleaseDate = release_date && release_date.split('-').reverse().join('/');
   const backdropPath = backdrop_path && `url(https://image.tmdb.org/t/p/w1920_and_h800_multi_faces${backdrop_path})`;
   const posterPath = poster_path && `https://image.tmdb.org/t/p/w500/${poster_path}`;
+  const formatRatings = vote_average && (vote_average.toString().length === 1 || vote_average === 10)
+    ? vote_average + '.0' : vote_average;
+
+  useEffect(() => {
+    if (posterPath) {
+      setIsFetchingMovieInfo(false);
+    }
+  }, [posterPath]);
 
   const formatProductionCountry = () => {
     if (production_countries) {
       const {iso_3166_1} = production_countries[0];
-      return iso_3166_1;
+      if (iso_3166_1) {
+        return iso_3166_1;
+      } else {
+        return '-';
+      }
     }
-  }
+  };
 
   const formatRuntime = () => {
     if (runtime === 0) return 'runtime unknown';
@@ -31,7 +46,8 @@ const MoviePoster = () => {
     <section className="movie-info__header-background-image" style={{
       backgroundImage: backdropPath,
     }}>
-      <div className="movie-info__header-background-blackout">
+      {isFetchingMovieInfo && <Loader/>}
+      {!isFetchingMovieInfo && <div className="movie-info__header-background-blackout">
         <div className="movie-info__header container">
           <img className="movie-info__image" src={posterPath}
                alt=""/>
@@ -47,17 +63,26 @@ const MoviePoster = () => {
               </div>
             </div>
             <div className="movie-info__main-content-info">
-                <span className="movie-info__tagline">
-                  {tagline}
+              <div className="movie-info__rating">
+                <span className="movie-info__rating-text">
+                  {formatRatings}
                 </span>
+                <StarBorderIcon style={{fontSize: 25}}/>
+              </div>
+              <span className="movie-info__tagline">
+                {tagline}
+              </span>
               <div className="movie-info__overview-block">
                 <h3 className="movie-info__overview-title">Overview</h3>
                 <p className="movie-info__overview">{overview}</p>
               </div>
+              <div>
+                {production_countries.map((country) => country.name)}
+              </div>
             </div>
           </div>
         </div>
-      </div>
+      </div>}
     </section>
   );
 };

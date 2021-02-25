@@ -38,6 +38,15 @@
           }
           &-info {
             margin-top: 40px;
+            .movie-info__rating {
+              display: flex;
+              align-items: center;
+              font-size: 26px;
+              margin-bottom: 10px;
+              &-text {
+                margin-right: 7px;
+              }
+            }
             .movie-info__tagline {
               font-style: italic;
               opacity: .7;

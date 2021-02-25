@@ -30,14 +30,18 @@ const ListMovies = () => {
   }, [isFetchingMovies]);
 
   useEffect(() => {
-    window.scrollTo({
-      top: lastHomePositionByY
-    });
+    let timeout;
     if (currentLocationPath !== window.location.pathname) {
-      setTimeout(() => {
+      window.scrollTo({
+        top: lastHomePositionByY
+      });
+      timeout = setTimeout(() => {
         dispatch(setCurrentLocationPath(window.location.pathname));
       });
     }
+    return () => {
+      clearTimeout(timeout);
+    };
   }, []);
 
   useEffect(() => {

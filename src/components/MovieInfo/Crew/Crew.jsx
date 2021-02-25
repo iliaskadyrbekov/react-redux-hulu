@@ -1,28 +1,32 @@
 import React from 'react';
-import {useDispatch, useSelector} from "react-redux";
+import {useSelector} from "react-redux";
 import {CrewItem} from "./CrewItem";
 import {Link} from "react-router-dom";
-import {setIsOpenCrewPopup} from "../../../redux/popups/popupsActionCreator";
 
 const Crew = () => {
-  const dispatch = useDispatch();
   const {cast} = useSelector(({movieInfo}) => movieInfo.movieCast)
   const {id} = useSelector(({movieInfo}) => movieInfo.movieInfo);
 
   const openCrewPopUp = () => {
-    dispatch(setIsOpenCrewPopup(true));
     window.scrollTo({
       top: 0,
     });
+  };
+
+  const showCast = () => {
+    return cast && cast
+      .filter((people, index) => index < 7)
+      .map(person => {
+        const {id, name, profile_path} = person;
+        return <CrewItem name={name} path={profile_path} key={id}/>;
+      });
   };
 
   return (
     <section className="crew">
       <h2 className="crew__title">Actors&Creators</h2>
       <div className="crew__cast">
-        {cast && cast
-          .filter((people, index) => index < 7)
-          .map(person => <CrewItem name={person.name} path={person.profile_path} key={person.id}/>)}
+        {showCast()}
         <Link to={`/movies/${id}/crew`} className="crew__full-cast-btn-wrapper">
           <button
             className="crew__full-cast-btn"
