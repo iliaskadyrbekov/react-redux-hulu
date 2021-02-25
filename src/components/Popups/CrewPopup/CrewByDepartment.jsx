@@ -10,6 +10,7 @@ const CrewByDepartment = ({title, castFormat}) => {
     "Directing": [],
     "Editing": [],
     "Writing": [],
+    "Visual Effects": [],
   });
 
   useEffect(() => {
@@ -31,12 +32,15 @@ const CrewByDepartment = ({title, castFormat}) => {
   };
 
   return (
-    <div className="crew-pop-up__cast">
-      <h2 className="crew-pop-up__list-subtitle">{title} <span>crew</span></h2>
-      <div className="crew-pop-up__list">
-        {castFormat(crewDepartments[title])}
-      </div>
-    </div>
+    <>
+      {crewDepartments[title].length ?
+        <div className="crew-pop-up__cast">
+          <h2 className="crew-pop-up__list-subtitle">{title} <span>crew</span></h2>
+          <div className="crew-pop-up__list">
+            {castFormat(crewDepartments[title])}
+          </div>
+        </div> : ""}
+    </>
   );
 };
 

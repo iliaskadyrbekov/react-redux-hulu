@@ -13,7 +13,7 @@ const Home = () => {
       <Filter/>
       <ListMovies/>
       <ScrollToTopBtn/>
-      {isOpenFilterPopUp  && <FilterPopup/>}
+      {isOpenFilterPopUp && <FilterPopup/>}
     </div>
   );
 };

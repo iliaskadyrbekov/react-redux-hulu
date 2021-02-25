@@ -4,8 +4,8 @@ import Movie from "./Movie/Movie";
 import {useDispatch, useSelector} from "react-redux";
 import {fetchMovies, setIsFetchingMovies} from "../../redux/movies/moviesActionCreator";
 import {API_GET_MOVIES, API_GET_SEARCH_MOVIES} from "../../api/api";
-import Loader from "./Loader";
 import {setCurrentLocationPath} from "../../redux/movieInfo/movieInfoActionCreator";
+import {Loader} from "./index";
 
 const ListMovies = () => {
   const dispatch = useDispatch();
@@ -108,9 +108,7 @@ const ListMovies = () => {
       <div className="movies__list">
         {!isSearching ? resultMovies(movies) : resultMovies(searchMovies)}
       </div>
-      <div className="movies__loader">
-        {isFetchingMovies && <Loader/>}
-      </div>
+      {isFetchingMovies && <Loader/>}
     </section>
   )
 };
