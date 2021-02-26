@@ -1,2 +1,2 @@
 export {default as CrewPopup} from './CrewPopup';
-export {default as CrewByDepartment} from './CrewByDepartment';
+export {default as CrewByDepartments} from './CrewByDepartments';

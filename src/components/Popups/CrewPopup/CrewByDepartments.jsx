@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {useSelector} from "react-redux";
 
-const CrewByDepartment = ({title, castFormat}) => {
+const CrewByDepartments = ({title, castFormat}) => {
   const {crew} = useSelector(({movieInfo}) => movieInfo.movieCast);
   const [crewDepartments, setCrewDepartments] = useState({
     "Production": [],
@@ -44,4 +44,4 @@ const CrewByDepartment = ({title, castFormat}) => {
   );
 };
 
-export default CrewByDepartment;
+export default CrewByDepartments;

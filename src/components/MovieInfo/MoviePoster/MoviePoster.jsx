@@ -2,20 +2,19 @@ import React, {useEffect, useState} from 'react';
 import {useSelector} from "react-redux";
 import {Loader} from "../../Loader";
 import StarBorderIcon from '@material-ui/icons/StarBorder';
+import {getCountriesList, getGenresList, getRating} from "../../../utils/formatMovieData";
 
 const MoviePoster = () => {
   const {
     title, poster_path, release_date, genres, runtime,
     backdrop_path, tagline, overview, production_countries, vote_average
   } = useSelector(({movieInfo}) => movieInfo.movieInfo);
+
   const [isFetchingMovieInfo, setIsFetchingMovieInfo] = useState(true);
 
-  const formatGenres = genres && genres.map(genre => genre.name).join(', ');
   const formatReleaseDate = release_date && release_date.split('-').reverse().join('/');
   const backdropPath = backdrop_path && `url(https://image.tmdb.org/t/p/w1920_and_h800_multi_faces${backdrop_path})`;
   const posterPath = poster_path && `https://image.tmdb.org/t/p/w500/${poster_path}`;
-  const formatRatings = vote_average && (vote_average.toString().length === 1 || vote_average === 10)
-    ? vote_average + '.0' : vote_average;
 
   useEffect(() => {
     if (posterPath) {
@@ -24,13 +23,13 @@ const MoviePoster = () => {
   }, [posterPath]);
 
   const formatProductionCountry = () => {
-    if (production_countries) {
+    if (production_countries[0]) {
       const {iso_3166_1} = production_countries[0];
       if (iso_3166_1) {
         return iso_3166_1;
-      } else {
-        return '-';
       }
+    } else {
+      return '-';
     }
   };
 
@@ -58,14 +57,14 @@ const MoviePoster = () => {
                 <span className="movie-info__date">{formatReleaseDate}</span>
                 <span
                   className="movie-info__country">({formatProductionCountry()})</span>
-                <span className="movie-info__genres">{genres && formatGenres}</span>
+                <span className="movie-info__genres">{getGenresList(genres)}</span>
                 <span className="movie-info__runtime">{formatRuntime()}</span>
               </div>
             </div>
             <div className="movie-info__main-content-info">
               <div className="movie-info__rating">
                 <span className="movie-info__rating-text">
-                  {formatRatings}
+                  {getRating(vote_average)}
                 </span>
                 <StarBorderIcon style={{fontSize: 25}}/>
               </div>
@@ -73,11 +72,12 @@ const MoviePoster = () => {
                 {tagline}
               </span>
               <div className="movie-info__overview-block">
-                <h3 className="movie-info__overview-title">Overview</h3>
+                <h3 className="movie-info__block-title">Overview</h3>
                 <p className="movie-info__overview">{overview}</p>
               </div>
-              <div>
-                {production_countries.map((country) => country.name)}
+              <div className="movie-info__countries-block">
+                <h3 className="movie-info__block-title">Countries</h3>
+                <p className="movie-info__countries">{getCountriesList(production_countries)}</p>
               </div>
             </div>
           </div>

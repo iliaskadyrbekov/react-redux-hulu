@@ -5,6 +5,7 @@ import {fetchMovieCast, fetchMovieInfo, setMovieCast, setMovieInfo} from "../red
 import {useDispatch} from "react-redux";
 import {MoviePoster} from "../components/MovieInfo/MoviePoster";
 import {Crew} from "../components/MovieInfo/Crew";
+import {MovieControl} from "../components/MovieInfo/MovieControl";
 
 const MovieInfo = () => {
   const {id} = useParams();
@@ -15,7 +16,7 @@ const MovieInfo = () => {
     window.scrollTo({
       top: 0
     });
-  }, [])
+  }, []);
 
   useEffect(() => {
     dispatch(fetchMovieInfo(`${movieIdUrl}?${API_KEY}`));
@@ -39,6 +40,7 @@ const MovieInfo = () => {
     <div className="movie-info">
       <MoviePoster/>
       <div className="container">
+        <MovieControl/>
         <Crew/>
       </div>
     </div>

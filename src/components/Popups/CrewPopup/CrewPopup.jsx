@@ -3,27 +3,28 @@ import {useSelector} from "react-redux";
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 import {useHistory} from "react-router";
 import {CrewItem} from "../../MovieInfo/Crew/CrewItem";
-import defaultMovieImage from "../../../assets/img/defaultMovieImage.png";
 import {Button} from "../../Button";
-import {CrewByDepartment} from "./index";
+import {CrewByDepartments} from "./index";
 import {ScrollToTopBtn} from "../../ScrollToTopBtn";
 import {Loader} from "../../Loader";
 import AccessTimeIcon from '@material-ui/icons/AccessTime';
+import {getCountriesList, getGenresList, getImagePath, getYear} from "../../../utils/formatMovieData";
 
 const CrewPopup = () => {
+  const MAX_SHOWING_PERSONS = 9;
   const history = useHistory();
   const {
-    movieInfo: {title, backdrop_path, poster_path, runtime, production_countries, release_date, genres},
+    movieInfo: {
+      title, backdrop_path, poster_path, runtime,
+      production_countries, release_date, genres
+    },
     movieCast: {cast}
-  } = useSelector(({movieInfo}) => movieInfo)
+  } = useSelector(({movieInfo}) => movieInfo);
+
   const [isShowAllCastButton, setIsShowAllCastButton] = useState(false);
   const [isShowAllActors, setIsShowAllActors] = useState(false);
   const [mainActors, setMainActors] = useState([]);
   const [isFetchingCrew, setIsFetchingCrew] = useState(true);
-
-  const MAX_SHOWING_PERSONS = 9;
-  const imageName = backdrop_path || poster_path;
-  const imagePath = imageName ? `https://image.tmdb.org/t/p/w500/${imageName}` : defaultMovieImage;
 
   const closeCrewPopup = () => {
     history.goBack();
@@ -51,12 +52,12 @@ const CrewPopup = () => {
   const showCrewByDepartments = () => {
     const titles = ["Directing", "Production", "Sound", "Writing", "Editing", "Art", "Visual Effects"];
     return titles.map((title) => {
-      return <CrewByDepartment title={title} castFormat={castFormat} key={title}/>;
+      return <CrewByDepartments title={title} castFormat={castFormat} key={title}/>;
     });
   };
 
   const cardMainText = () => {
-    return `${production_countries[0].name}, ${release_date.slice(0, 4)}, ${genres[0].name}`;
+    return `${getCountriesList(production_countries)}, ${getYear(release_date)}, ${getGenresList(genres)}`;
   };
 
   return (
@@ -89,7 +90,11 @@ const CrewPopup = () => {
           </div>
           <div className="crew-pop-up__movie-card">
             <div className="movie-pop-up__wrapper-image">
-              <img className="movie-pop-up__image" src={imagePath} alt=""/>
+              <img
+                className="movie-pop-up__image"
+                src={getImagePath(backdrop_path, poster_path)}
+                alt=""
+              />
             </div>
             <div className="movie-pop-up__card-info">
               <div className="movie-pop-up__runtime">
@@ -110,3 +115,5 @@ const CrewPopup = () => {
 };
 
 export default CrewPopup;
+
+
