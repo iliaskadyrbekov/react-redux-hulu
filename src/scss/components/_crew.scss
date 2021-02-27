@@ -24,6 +24,11 @@
         background-color: #282d32;
         border: none;
         box-shadow: rgba(0, 0, 0, 0.24) 0 3px 8px;
+        transition: .7s;
+      }
+      .crew__full-cast-btn:hover {
+        background-color: #30393c;
+        box-shadow: rgba(20, 20, 20, 0.5) 2px 3px 8px;
       }
     }
   }

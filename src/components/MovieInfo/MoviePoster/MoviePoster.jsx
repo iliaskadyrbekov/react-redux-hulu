@@ -3,6 +3,8 @@ import {useSelector} from "react-redux";
 import {Loader} from "../../Loader";
 import StarBorderIcon from '@material-ui/icons/StarBorder';
 import {getCountriesList, getGenresList, getRating} from "../../../utils/formatMovieData";
+import {Button} from "../../Button";
+import defaultMovieImage from "../../../assets/img/defaultMovieImage.png";
 
 const MoviePoster = () => {
   const {
@@ -17,13 +19,13 @@ const MoviePoster = () => {
   const posterPath = poster_path && `https://image.tmdb.org/t/p/w500/${poster_path}`;
 
   useEffect(() => {
-    if (posterPath) {
+    if (title) {
       setIsFetchingMovieInfo(false);
     }
-  }, [posterPath]);
+  }, [poster_path]);
 
   const formatProductionCountry = () => {
-    if (production_countries[0]) {
+    if (production_countries && production_countries[0]) {
       const {iso_3166_1} = production_countries[0];
       if (iso_3166_1) {
         return iso_3166_1;
@@ -42,42 +44,48 @@ const MoviePoster = () => {
   };
 
   return (
-    <section className="movie-info__header-background-image" style={{
+    <section className="movie-poster" style={{
       backgroundImage: backdropPath,
     }}>
-      {isFetchingMovieInfo && <Loader/>}
-      {!isFetchingMovieInfo && <div className="movie-info__header-background-blackout">
-        <div className="movie-info__header container">
-          <img className="movie-info__image" src={posterPath}
-               alt=""/>
-          <div className="movie-info__main-content">
-            <div className="movie-info__main-content-header">
-              <h1 className="movie-info__title">{title}</h1>
-              <div className="movie-info__subtitle-details">
-                <span className="movie-info__date">{formatReleaseDate}</span>
-                <span
-                  className="movie-info__country">({formatProductionCountry()})</span>
-                <span className="movie-info__genres">{getGenresList(genres)}</span>
-                <span className="movie-info__runtime">{formatRuntime()}</span>
+      {isFetchingMovieInfo && <div className="movie-poster__loader-wrapper"><Loader/></div>}
+      {!isFetchingMovieInfo &&
+      <div className="movie-poster__background-blackout">
+        <div className="movie-poster__container container">
+          <div className="movie-poster__header">
+            <Button name="Back to the movies"/>
+          </div>
+          <div className="movie-poster__content">
+            <img className="movie-poster__image" src={posterPath || defaultMovieImage}
+                 alt=""/>
+            <div className="movie-poster__info">
+              <div className="movie-poster__info-header">
+                <h1 className="movie-poster__title">{title}</h1>
+                <div className="movie-poster__subtitle-details">
+                  <span className="movie-poster__date">{formatReleaseDate}</span>
+                  <span
+                    className="movie-poster__country">({formatProductionCountry()})</span>
+                  <span className="movie-poster__genres">{getGenresList(genres)}</span>
+                  <span className="movie-poster__runtime">{formatRuntime()}</span>
+                </div>
               </div>
-            </div>
-            <div className="movie-info__main-content-info">
-              <div className="movie-info__rating">
-                <span className="movie-info__rating-text">
+              <div className="movie-poster__info-content">
+                <div className="movie-poster__rating">
+                <span className="movie-poster__rating-text">
                   {getRating(vote_average)}
                 </span>
-                <StarBorderIcon style={{fontSize: 25}}/>
-              </div>
-              <span className="movie-info__tagline">
+                  <StarBorderIcon style={{fontSize: 25}}/>
+                </div>
+                <span className="movie-poster__tagline">
                 {tagline}
               </span>
-              <div className="movie-info__overview-block">
-                <h3 className="movie-info__block-title">Overview</h3>
-                <p className="movie-info__overview">{overview}</p>
-              </div>
-              <div className="movie-info__countries-block">
-                <h3 className="movie-info__block-title">Countries</h3>
-                <p className="movie-info__countries">{getCountriesList(production_countries)}</p>
+                <div className="movie-poster__overview-block">
+                  <h3 className="movie-poster__block-title">Overview</h3>
+                  <p className="movie-poster__overview">{overview}</p>
+                </div>
+                <div className="movie-poster__countries-block">
+                  <h3 className="movie-poster__block-title">Countries</h3>
+                  <p className="movie-poster__countries">{getCountriesList(production_countries)}</p>
+                </div>
               </div>
             </div>
           </div>

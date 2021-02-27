@@ -97,12 +97,7 @@ const ListMovies = () => {
   };
 
   const resultMovies = (movies) => {
-    return movies && movies.map((movie, index) => { // TODO key unique logic
-      return <Movie //TODO
-        movie={movie}
-        key={index} // back id and test this TODO
-      />
-    });
+    return movies && movies.map((movie, index) => <Movie movie={movie} key={index}/>);
   };
 
   return (

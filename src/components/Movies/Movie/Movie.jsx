@@ -27,7 +27,7 @@ const Movie = React.memo(function Movie({movie}) {
   const getOverview = (overview) => {
     return overview ? overview : 'Unnown description';
   };
-
+  console.log(vote_average)
   return (
     <div className={classNames({
       'movie': true,
@@ -39,7 +39,6 @@ const Movie = React.memo(function Movie({movie}) {
       <Link to={`/movies/${id}`} className="movie__link">
         <div className={classNames({
           'movie__wrapper-image': true,
-          'movie__wrapper-image--template': !(backdrop_path || poster_path),
         })}>
           <img
             className={classNames({

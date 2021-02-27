@@ -1,7 +1,5 @@
 import React, {useEffect, useState} from 'react';
 import {useSelector} from "react-redux";
-import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
-import {useHistory} from "react-router";
 import {CrewItem} from "../../MovieInfo/Crew/CrewItem";
 import {Button} from "../../Button";
 import {CrewByDepartments} from "./index";
@@ -12,7 +10,6 @@ import {getCountriesList, getGenresList, getImagePath, getYear} from "../../../u
 
 const CrewPopup = () => {
   const MAX_SHOWING_PERSONS = 9;
-  const history = useHistory();
   const {
     movieInfo: {
       title, backdrop_path, poster_path, runtime,
@@ -25,10 +22,6 @@ const CrewPopup = () => {
   const [isShowAllActors, setIsShowAllActors] = useState(false);
   const [mainActors, setMainActors] = useState([]);
   const [isFetchingCrew, setIsFetchingCrew] = useState(true);
-
-  const closeCrewPopup = () => {
-    history.goBack();
-  };
 
   useEffect(() => {
     if (!cast) {
@@ -64,10 +57,7 @@ const CrewPopup = () => {
     <section className="pop-up">
       <div className="pop-up__container">
         <div className="crew-pop-up__header">
-          <button className="crew-pop-up__back-btn" onClick={closeCrewPopup}>
-            <ArrowBackIosIcon className="crew-pop-up__back-btn-icon"/>
-            <span className="crew-pop-up__back-btn-text">Back to the movie</span>
-          </button>
+          <Button name="Back to the movie"/>
         </div>
         {isFetchingCrew && <Loader/>}
         {!isFetchingCrew &&

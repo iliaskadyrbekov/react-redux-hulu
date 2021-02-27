@@ -5,6 +5,7 @@ import {setCheckedGenres, setCheckedYears} from "../../redux/popups/popupsAction
 import {setIsFiltering} from "../../redux/filters/filtersActionCreator";
 import {useDispatch, useSelector} from "react-redux";
 import {useHistory} from "react-router";
+import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
 
 const Button = (props) => {
   const dispatch = useDispatch();
@@ -14,7 +15,7 @@ const Button = (props) => {
 
   const countTotalFilters = () => {
     const {checkedGenres, checkedYears} = props.copyCheckedFilters;
-    return checkedGenres.length + checkedYears.length === 0
+    return checkedGenres.length + checkedYears.length === 0;
   };
 
   const discardFilters = () => {
@@ -33,7 +34,7 @@ const Button = (props) => {
     } else {
       dispatch(setIsFiltering(false));
     }
-    history.push("/");
+    backToPrevPage();
     document.body.classList.remove('body__model--open');
   };
 
@@ -47,6 +48,10 @@ const Button = (props) => {
       top: buttonPosition,
     });
     props.setIsShowAllActors(false);
+  };
+
+  const backToPrevPage = () => {
+    history.goBack();
   };
 
   const buttonClickHandler = () => {
@@ -63,19 +68,41 @@ const Button = (props) => {
       case "Hide actors":
         hideCast();
         break;
+      case "Back to the movies":
+      case "Back to the movie":
+        backToPrevPage();
+        break;
       default:
         alert("Try to choose again");
     }
+  };
+
+  const getBackBtnStructure = () => {
+    return (
+      <>
+        <ArrowBackIosIcon className="back-button__icon"/>
+        <span className="back-button__text">{props.name}</span>
+      </>
+    );
+  };
+
+  const checkBackBtnName = () => {
+    return props.name === "Back to the movie" || props.name === "Back to the movies";
   };
 
   return (
     <>
       <button className={classNames({
         "pop-up__button": true,
+        "back-button": checkBackBtnName(),
         "pop-up__button--disabled": props.name === "Discard filters" && countTotalFilters(),
-      })} onClick={buttonClickHandler}>{props.name}</button>
+      })} onClick={buttonClickHandler}>
+        {checkBackBtnName() ? getBackBtnStructure() : props.name}
+      </button>
     </>
   );
 };
 
 export default Button;
+
+

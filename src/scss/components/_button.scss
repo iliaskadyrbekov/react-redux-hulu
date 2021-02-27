@@ -32,3 +32,27 @@
     border-color: #404953;
   }
 }
+
+.back-button {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  background-color: inherit;
+  border: none;
+  color: white;
+  opacity: .6;
+  transition: .5s;
+  font-size: 20px;
+  &__icon {
+
+  }
+
+  &__text {
+
+  }
+}
+
+.back-button:hover {
+  opacity: 1;
+  transform: scale(1.05);
+}

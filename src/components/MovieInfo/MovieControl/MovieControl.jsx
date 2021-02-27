@@ -12,8 +12,8 @@ const MovieControl = () => {
     let timeout;
     if (isCopied) {
       setCopyButtonName('Copied!');
-      setTimeout(() => {
-        timeout = setCopyButtonName('Copy movie link');
+      timeout = setTimeout(() => {
+        setCopyButtonName('Copy movie link');
         setIsCopied(false);
       }, 3000);
     }

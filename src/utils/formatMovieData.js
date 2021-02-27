@@ -19,7 +19,7 @@ export const getGenresList = (genres) => {
 };
 
 export const getCountriesList = (productionCountries) => {
-  if (!productionCountries[0]) return 'Unnown countries';
-  return productionCountries.map((country) => country.name).join(', ');
+  if (productionCountries && !productionCountries[0]) return 'Unnown countries';
+  return productionCountries && productionCountries.map((country) => country.name).join(', ');
 };
 
