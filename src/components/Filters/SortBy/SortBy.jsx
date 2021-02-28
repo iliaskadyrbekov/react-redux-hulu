@@ -21,11 +21,11 @@ const SortBy = () => {
   };
 
   useEffect(() => {
-    window.addEventListener('click', closeSortPopUp);
-    return () => window.removeEventListener('click', closeSortPopUp);
+    window.addEventListener('click', onCloseSortPopUp);
+    return () => window.removeEventListener('click', onCloseSortPopUp);
   }, [])
 
-  const closeSortPopUp = (event) => {
+  const onCloseSortPopUp = (event) => {
     if (!event.path.includes(sortRef.current)) {
       setIsOpenSortPopup(false);
     }

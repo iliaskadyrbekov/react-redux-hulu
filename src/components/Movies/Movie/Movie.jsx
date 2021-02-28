@@ -27,28 +27,20 @@ const Movie = React.memo(function Movie({movie}) {
   const getOverview = (overview) => {
     return overview ? overview : 'Unnown description';
   };
-  console.log(vote_average)
+
   return (
-    <div className={classNames({
-      'movie': true,
-    })}
+    <div className="movie"
          onMouseEnter={() => setIsShownPreview(true)}
          onMouseLeave={() => setIsShownPreview(false)}
          onClick={setLastPosition}
     >
       <Link to={`/movies/${id}`} className="movie__link">
-        <div className={classNames({
-          'movie__wrapper-image': true,
-        })}>
-          <img
-            className={classNames({
-              'movie__image': true,
-              'movie__image--active': isShownPreview,
-              'movie__image--poster': !backdrop_path,
-            })}
-            src={getImagePath(backdrop_path, poster_path)}
-            loading="lazy"
-            alt="movie"
+        <div className="movie__wrapper-image">
+          <img className={classNames({
+            'movie__image': true,
+            'movie__image--active': isShownPreview,
+            'movie__image--poster': !backdrop_path,
+          })} src={getImagePath(backdrop_path, poster_path)} loading="lazy" alt="movie"
           />
           {isShownPreview && <Preview
             lang={original_language}

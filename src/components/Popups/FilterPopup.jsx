@@ -9,7 +9,7 @@ import {Button} from "../Button";
 
 const FilterPopup = () => {
   const history = useHistory();
-  const checkedFilters = useSelector(({popups}) => popups.checkedFilters);
+  const checkedFilters = useSelector(({filters}) => filters.checkedFilters);
   const [activeTab, setActiveTab] = useState(0);
   const [copyCheckedFilters, setCopyChekedFilters] = useState(checkedFilters);
 
@@ -75,7 +75,7 @@ const FilterPopup = () => {
     }
   };
 
-  const closeFilterPopUp = () => {
+  const onCloseFilterPopUp = () => {
     history.goBack();
   };
 
@@ -103,7 +103,7 @@ const FilterPopup = () => {
           <h2 className="filter-pop-up__title">Filters</h2>
           <CloseIcon
             className="filter-pop-up__close-icon"
-            onClick={closeFilterPopUp}
+            onClick={onCloseFilterPopUp}
             style={{fontSize: 30}}
           />
         </div>

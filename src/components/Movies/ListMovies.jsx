@@ -16,7 +16,7 @@ const ListMovies = () => {
     searchMovies, isSearching, queryValue, totalMovies, isSearchLoaderActive, countSearchPage
   } = useSelector(({search}) => search);
   const sortByKey = useSelector(({filters}) => Object.keys(filters.currentSortBy)[0]);
-  const {checkedFilters, isFiltering} = useSelector(({popups}) => popups);
+  const {checkedFilters, isFiltering} = useSelector(({filters}) => filters);
   const {currentLocationPath} = useSelector(({movieInfo}) => movieInfo);
 
   useEffect(() => {

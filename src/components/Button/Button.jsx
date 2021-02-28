@@ -1,17 +1,16 @@
 import React, {useState} from 'react';
 import classNames from "classnames";
 import {setCountPage, setEmptyMovies, setIsFetchingMovies} from "../../redux/movies/moviesActionCreator";
-import {setCheckedGenres, setCheckedYears} from "../../redux/popups/popupsActionCreator";
-import {setIsFiltering} from "../../redux/filters/filtersActionCreator";
-import {useDispatch, useSelector} from "react-redux";
+import {setCheckedGenres, setCheckedYears, setIsFiltering} from "../../redux/filters/filtersActionCreator";
+import {useDispatch} from "react-redux";
 import {useHistory} from "react-router";
 import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
 
 const Button = (props) => {
   const dispatch = useDispatch();
   const history = useHistory();
-  const checkedFilters = useSelector(({popups}) => popups.checkedFilters);
   const [buttonPosition, setButtonPosition] = useState(0);
+  const {name} = props;
 
   const countTotalFilters = () => {
     const {checkedGenres, checkedYears} = props.copyCheckedFilters;
@@ -23,13 +22,15 @@ const Button = (props) => {
   };
 
   const findMoviesByFilters = () => {
+    const {checkedGenres, checkedYears} = props.copyCheckedFilters
     dispatch(setIsFetchingMovies(true));
     dispatch(setEmptyMovies([]));
     dispatch(setCountPage(1));
 
-    dispatch(setCheckedGenres(props.copyCheckedFilters.checkedGenres));
-    dispatch(setCheckedYears(props.copyCheckedFilters.checkedYears));
-    if (checkedFilters.checkedGenres.length || checkedFilters.checkedYears.length) {
+    dispatch(setCheckedGenres(checkedGenres));
+    dispatch(setCheckedYears(checkedYears));
+
+    if (checkedGenres.length || checkedYears.length) {
       dispatch(setIsFiltering(true));
     } else {
       dispatch(setIsFiltering(false));
@@ -55,7 +56,7 @@ const Button = (props) => {
   };
 
   const buttonClickHandler = () => {
-    switch (props.name) {
+    switch (name) {
       case "Discard filters":
         discardFilters();
         break;
@@ -81,13 +82,13 @@ const Button = (props) => {
     return (
       <>
         <ArrowBackIosIcon className="back-button__icon"/>
-        <span className="back-button__text">{props.name}</span>
+        <span className="back-button__text">{name}</span>
       </>
     );
   };
 
   const checkBackBtnName = () => {
-    return props.name === "Back to the movie" || props.name === "Back to the movies";
+    return name === "Back to the movie" || name === "Back to the movies";
   };
 
   return (
@@ -95,9 +96,9 @@ const Button = (props) => {
       <button className={classNames({
         "pop-up__button": true,
         "back-button": checkBackBtnName(),
-        "pop-up__button--disabled": props.name === "Discard filters" && countTotalFilters(),
+        "pop-up__button--disabled": name === "Discard filters" && countTotalFilters(),
       })} onClick={buttonClickHandler}>
-        {checkBackBtnName() ? getBackBtnStructure() : props.name}
+        {checkBackBtnName() ? getBackBtnStructure() : name}
       </button>
     </>
   );
