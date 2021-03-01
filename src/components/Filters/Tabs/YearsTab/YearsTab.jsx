@@ -11,12 +11,15 @@ const YearsTab = React.memo(function YearsTab({setCheckboxStatus, copyCheckedYea
 
   const listYears = years.map(year => {
     return (
-      <div className="filter-pop-up__items-item" key={year} onClick={() => setCheckboxStatus(year, 'years')}>
-        <Checkbox
-          checked={copyCheckedYears.includes(year)}
-          className="filter-pop-up__items-item-checkbox"
-        />
-        <span>{year}</span>
+      <div className="filter-pop-up__checkbox-item" key={year}>
+        <div className="filter-pop-up__checkbox-wrapper"
+             onClick={() => setCheckboxStatus(year, 'years')}>
+          <Checkbox
+            checked={copyCheckedYears.includes(year)}
+            className="filter-pop-up__checkbox"
+          />
+          <span>{year}</span>
+        </div>
       </div>
     );
   });

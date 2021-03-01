@@ -13,7 +13,7 @@
     border-radius: 7px;
     position: relative;
     transition: transform .3s;
-    background-color: #343434;
+    background-color: #4e4e4e;
 
     .movie__image {
       border-radius: inherit;
@@ -38,7 +38,7 @@
 
     &:hover {
       transform: scale(1.06);
-      background-color: #343434;
+      background-color: #4e4e4e;
     }
   }
 

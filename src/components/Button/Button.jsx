@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import classNames from "classnames";
 import {setCountPage, setEmptyMovies, setIsFetchingMovies} from "../../redux/movies/moviesActionCreator";
 import {setCheckedGenres, setCheckedYears, setIsFiltering} from "../../redux/filters/filtersActionCreator";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {useHistory} from "react-router";
 import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
 
@@ -10,6 +10,7 @@ const Button = (props) => {
   const dispatch = useDispatch();
   const history = useHistory();
   const [buttonPosition, setButtonPosition] = useState(0);
+  const checkedFilters = useSelector(({filters}) => filters.checkedFilters);
   const {name} = props;
 
   const countTotalFilters = () => {
@@ -91,12 +92,22 @@ const Button = (props) => {
     return name === "Back to the movie" || name === "Back to the movies";
   };
 
+  const isChangedFilters = () => {
+    const {checkedGenres, checkedYears} = checkedFilters;
+    const copyCheckedFilters = props.copyCheckedFilters
+    const sortCheckedGenres = checkedGenres.sort((a, b) => a - b);
+    const sortCopyCheckedGenres = copyCheckedFilters.checkedGenres.sort((a, b) => a - b);
+    return JSON.stringify(sortCheckedGenres) === JSON.stringify(sortCopyCheckedGenres) &&
+      JSON.stringify(checkedYears) === JSON.stringify(copyCheckedFilters.checkedYears);
+  };
+
   return (
     <>
       <button className={classNames({
         "pop-up__button": true,
         "back-button": checkBackBtnName(),
-        "pop-up__button--disabled": name === "Discard filters" && countTotalFilters(),
+        "pop-up__button--disabled": (name === "Discard filters" && countTotalFilters()) ||
+          (name === "Search results" && isChangedFilters()),
       })} onClick={buttonClickHandler}>
         {checkBackBtnName() ? getBackBtnStructure() : name}
       </button>

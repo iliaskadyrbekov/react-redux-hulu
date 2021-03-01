@@ -55,8 +55,11 @@ const MoviePoster = () => {
             <Button name="Back to the movies"/>
           </div>
           <div className="movie-poster__content">
-            <img className="movie-poster__image" src={posterPath || defaultMovieImage}
-                 alt=""/>
+            <div className="movie-poster__image-wrapper">
+              <img className="movie-poster__image" src={posterPath || defaultMovieImage}
+                   alt=""/>
+            </div>
+
             <div className="movie-poster__info">
               <div className="movie-poster__info-header">
                 <h1 className="movie-poster__title">{title}</h1>

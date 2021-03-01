@@ -17,7 +17,6 @@ const SortBy = () => {
     'vote_average.desc': 'Vote Average',
     'vote_count.desc': 'Vote Count',
     'original_title.desc': 'Title',
-    'release_date.desc': 'Date',
   };
 
   useEffect(() => {

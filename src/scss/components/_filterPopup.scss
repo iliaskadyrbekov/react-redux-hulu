@@ -57,16 +57,19 @@
     display: flex;
     flex-wrap: wrap;
 
-    &-item {
+    .filter-pop-up__checkbox-item {
       display: flex;
       align-items: center;
-      cursor: pointer;
       flex: 1 1 15%;
       height: 100px;
-      max-width: 200px;
-
-      .filter-pop-up__items-item-checkbox {
-        color: white;
+      .filter-pop-up__checkbox-wrapper {
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+        height: 50%;
+        .filter-pop-up__checkbox {
+          color: white;
+        }
       }
     }
   }

@@ -26,13 +26,19 @@
       .movie-poster__content {
         display: flex;
         justify-content: space-between;
-        .movie-poster__image {
-          max-width: 300px;
-          height: 450px;
+        .movie-poster__image-wrapper {
+          background-color: #727272;
           border-radius: 20px;
-          box-shadow: rgba(100, 100, 111, 0.2) 0 7px 29px 0;
-          object-fit: cover;
-          background-color: #b1b1b1;
+          width: 300px;
+          height: 450px;
+          .movie-poster__image {
+            width: inherit;
+            height: inherit;
+            border-radius: inherit;
+            box-shadow: rgba(100, 100, 111, 0.2) 0 7px 29px 0;
+            object-fit: cover;
+            background-color: #b1b1b1;
+          }
         }
 
         .movie-poster__info {

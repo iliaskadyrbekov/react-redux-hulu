@@ -8,12 +8,15 @@ const GenresTab = React.memo(function GenresTab({copyCheckedGenres, setCheckboxS
   const listGenres = genres.map(genre => {
     const {id, name} = genre;
     return (
-      <div className="filter-pop-up__items-item" key={id} onClick={() => setCheckboxStatus(id, 'genres')}>
-        <Checkbox
-          checked={copyCheckedGenres.includes(id)}
-          className="filter-pop-up__items-item-checkbox"
-        />
-        <span>{name}</span>
+      <div className="filter-pop-up__checkbox-item" key={id}>
+        <div className="filter-pop-up__checkbox-wrapper"
+             onClick={() => setCheckboxStatus(id, 'genres')}>
+          <Checkbox
+            checked={copyCheckedGenres.includes(id)}
+            className="filter-pop-up__checkbox"
+          />
+          <span>{name}</span>
+        </div>
       </div>
     );
   });

@@ -1,4 +1,6 @@
 .search {
+  display: flex;
+  align-items: center;
   height: 37px;
 
   &__input {
@@ -16,6 +18,18 @@
   input[type="search"]::-webkit-search-results-button,
   input[type="search"]::-webkit-search-results-decoration {
     -webkit-appearance: none;
+  }
+
+  &__button-clear {
+    display: flex;
+    align-items: center;
+    margin-left: 7px;
+    background-color: inherit;
+    border: none;
+    cursor: pointer;
+    .search__button-icon {
+      color: white;
+    }
   }
 }
 
