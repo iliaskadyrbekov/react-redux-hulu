@@ -4,14 +4,14 @@ import BookmarkIcon from '@material-ui/icons/Bookmark';
 
 const Preview = React.memo(
   function Preview({lang, genresID, allGenres, overview, setIsBookmarked, isBookmarked}) {
-    const movieGenres = allGenres
-      .filter((genre) => genresID.includes(genre.id))
-      .map((genre) => genre.name)
-      .join(' ,');
-
-    const movieGenresFormat =
-      movieGenres.charAt(0).toUpperCase() + movieGenres.toLowerCase().slice(1) ||
-      'Unnown genres';
+    const movieGenresFormat = () => {
+      const movieGenres = allGenres
+        .filter((genre) => genresID.includes(genre.id))
+        .map((genre) => genre.name)
+        .join(' ,');
+      return movieGenres.charAt(0).toUpperCase() + movieGenres.toLowerCase().slice(1) ||
+        'Unnown genres';
+    };
 
     const toggleBookmarkStatus = () => {
       setIsBookmarked(!isBookmarked);
@@ -31,7 +31,7 @@ const Preview = React.memo(
         </div>
         <div className="preview__overview">
           <p className="preview__genres">
-            {movieGenresFormat}
+            {movieGenresFormat()}
           </p>
           <p className="preview__description">
             {overview}

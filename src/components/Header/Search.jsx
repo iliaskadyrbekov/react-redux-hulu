@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, {useEffect} from "react";
+import React, {useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {
   fetchFirstMovies,
@@ -7,15 +7,17 @@ import {
   setFirstSearchMovies,
   setIsSearching,
   setIsSearchLoaderActive,
-  setQueryValue
+  setQueryValue, setTotalMovies
 } from "../../redux/search/searchActionCreator";
 import searchLoader from '../../assets/img/searchLoder.svg';
 import {API_GET_SEARCH_MOVIES} from "../../api/api";
 import {useHistory} from "react-router";
+import HighlightOffIcon from '@material-ui/icons/HighlightOff';
 
 const Search = () => {
   const dispatch = useDispatch();
   const {queryValue, isSearchLoaderActive} = useSelector(({search}) => search);
+  const [isVisibleClearBtn, setIsVisibleClearBtn] = useState(false);
   let history = useHistory();
 
   const loaderStyles = {
@@ -35,6 +37,7 @@ const Search = () => {
       dispatch(setIsSearching(false));
       dispatch(setIsSearchLoaderActive(false));
       dispatch(setFirstSearchMovies([]));
+      setIsVisibleClearBtn(false);
     }
   }, [queryValue]);
 
@@ -44,6 +47,7 @@ const Search = () => {
     dispatch(setIsSearching(true));
     dispatch(setIsSearchLoaderActive(true));
     dispatch(setCountSearchPage(2));
+    setIsVisibleClearBtn(true);
   };
 
   const searchSubmitHandler = (event) => {
@@ -51,6 +55,12 @@ const Search = () => {
   };
 
   const styles = isSearchLoaderActive ? loaderStyles : {};
+
+  const onClearSearchInput = () => {
+    dispatch(setQueryValue(''));
+    dispatch(setCountSearchPage(2));
+    dispatch(setTotalMovies(10000));
+  };
 
   return (
     <form className="search" onSubmit={searchSubmitHandler}>
@@ -63,6 +73,14 @@ const Search = () => {
         maxLength={50}
         placeholder="Enter movies name"
       />
+      {isVisibleClearBtn &&
+      <button className="search__button-clear">
+        <HighlightOffIcon
+          className="search__button-icon"
+          style={{fontSize: 38}}
+          onClick={onClearSearchInput}
+        />
+      </button>}
     </form>
   )
 };

@@ -1,19 +1,24 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {YearsTab} from "../Filters/Tabs/YearsTab";
 import {GenresTab} from "../Filters/Tabs/GenresTab";
-import {useDispatch, useSelector} from "react-redux";
+import {useSelector} from "react-redux";
 import classNames from 'classnames';
 import CloseIcon from '@material-ui/icons/Close';
-import {setIsOpenFilterPopup} from "../../redux/popups/popupsActionCreator";
 import {useHistory} from "react-router";
 import {Button} from "../Button";
 
 const FilterPopup = () => {
-  const dispatch = useDispatch();
   const history = useHistory();
-  const checkedFilters = useSelector(({popups}) => popups.checkedFilters);
+  const checkedFilters = useSelector(({filters}) => filters.checkedFilters);
   const [activeTab, setActiveTab] = useState(0);
   const [copyCheckedFilters, setCopyChekedFilters] = useState(checkedFilters);
+
+  useEffect(() => {
+    document.body.classList.add('body__model--open');
+    return () => {
+      document.body.classList.remove('body__model--open');
+    };
+  }, []);
 
   const tabsName = ['Genres', 'Years'];
   const tabs = tabsName.map((tab, index) => {
@@ -70,10 +75,8 @@ const FilterPopup = () => {
     }
   };
 
-  const closeFilterPopUp = () => {
+  const onCloseFilterPopUp = () => {
     history.goBack();
-    dispatch(setIsOpenFilterPopup(false));
-    document.body.classList.remove('body__model--open');
   };
 
   const countCheckedGenres = () => {
@@ -93,6 +96,8 @@ const FilterPopup = () => {
     event.preventDefault();
   };
 
+  console.log(checkedFilters, copyCheckedFilters)
+
   return (
     <div className="pop-up">
       <div className="pop-up__container">
@@ -100,7 +105,7 @@ const FilterPopup = () => {
           <h2 className="filter-pop-up__title">Filters</h2>
           <CloseIcon
             className="filter-pop-up__close-icon"
-            onClick={closeFilterPopUp}
+            onClick={onCloseFilterPopUp}
             style={{fontSize: 30}}
           />
         </div>
@@ -123,8 +128,8 @@ const FilterPopup = () => {
                       setCopyChekedFilters={setCopyChekedFilters}
               />
               <Button name="Search results"
-                copyCheckedFilters={copyCheckedFilters}
-                setCopyChekedFilters={setCopyChekedFilters}
+                      copyCheckedFilters={copyCheckedFilters}
+                      setCopyChekedFilters={setCopyChekedFilters}
               />
             </div>
             <div className="pop-up__gutter">

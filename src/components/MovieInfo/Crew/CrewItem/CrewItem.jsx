@@ -7,13 +7,11 @@ const CrewItem = ({name, path}) => {
     defaultPersonImage;
 
   return (
-    <div className="crew__person">
-      <img
-        className="crew__person-image"
-        src={pathPersonImage}
-        alt=""
-      />
-      <p className="crew__person-name">{name}</p>
+    <div className="crew-item">
+      <div className="crew-item__image-wrapper">
+        <img className="crew-item__image" src={pathPersonImage} alt=""/>
+      </div>
+      <p className="crew-item__name">{name}</p>
     </div>
   );
 };
