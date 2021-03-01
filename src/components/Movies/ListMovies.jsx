@@ -16,7 +16,7 @@ const ListMovies = () => {
     searchMovies, isSearching, queryValue, totalMovies, isSearchLoaderActive, countSearchPage
   } = useSelector(({search}) => search);
   const sortByKey = useSelector(({filters}) => Object.keys(filters.currentSortBy)[0]);
-  const {checkedFilters, isFiltering} = useSelector(({popups}) => popups);
+  const {checkedFilters, isFiltering} = useSelector(({filters}) => filters);
   const {currentLocationPath} = useSelector(({movieInfo}) => movieInfo);
 
   useEffect(() => {
@@ -30,14 +30,18 @@ const ListMovies = () => {
   }, [isFetchingMovies]);
 
   useEffect(() => {
-    window.scrollTo({
-      top: lastHomePositionByY
-    });
+    let timeout;
     if (currentLocationPath !== window.location.pathname) {
-      setTimeout(() => {
+      window.scrollTo({
+        top: lastHomePositionByY
+      });
+      timeout = setTimeout(() => {
         dispatch(setCurrentLocationPath(window.location.pathname));
       });
     }
+    return () => {
+      clearTimeout(timeout);
+    };
   }, []);
 
   useEffect(() => {
@@ -93,12 +97,7 @@ const ListMovies = () => {
   };
 
   const resultMovies = (movies) => {
-    return movies && movies.map((movie, index) => { // TODO key unique logic
-      return <Movie //TODO
-        movie={movie}
-        key={index} // back id and test this TODO
-      />
-    });
+    return movies && movies.map((movie, index) => <Movie movie={movie} key={index}/>);
   };
 
   return (

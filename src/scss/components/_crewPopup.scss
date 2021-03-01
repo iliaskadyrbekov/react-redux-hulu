@@ -1,30 +1,6 @@
 .pop-up__container {
   .crew-pop-up__header {
     margin-bottom: 20px;
-
-    .crew-pop-up__back-btn {
-      display: flex;
-      align-items: center;
-      cursor: pointer;
-      background-color: inherit;
-      border: none;
-      color: white;
-      opacity: .6;
-      transition: .5s;
-
-      &-icon {
-
-      }
-
-      &-text {
-        font-size: 20px;
-      }
-    }
-
-    .crew-pop-up__back-btn:hover {
-      opacity: 1;
-      transform: scale(1.05);
-    }
   }
 
   .crew-pop-up__container-inner {
@@ -41,10 +17,12 @@
     }
 
     .crew-pop-up__movie-card {
-      margin-left: 50px;
+      margin-left: 120px;
       .movie-pop-up__wrapper-image {
         .movie-pop-up__image {
-          height: 175px;
+          //height: 175px;
+          height: 100%;
+          width: 100%;
           border-radius: 5px;
 
         }
@@ -60,8 +38,10 @@
             margin-left: 5px;
           }
         }
+        .movie-pop-up__main-text {
+          line-height: 1.5;
+        }
       }
-
     }
   }
 }

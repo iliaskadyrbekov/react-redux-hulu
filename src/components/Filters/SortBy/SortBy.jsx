@@ -17,15 +17,14 @@ const SortBy = () => {
     'vote_average.desc': 'Vote Average',
     'vote_count.desc': 'Vote Count',
     'original_title.desc': 'Title',
-    'release_date.desc': 'Date',
   };
 
   useEffect(() => {
-    window.addEventListener('click', closeSortPopUp);
-    return () => window.removeEventListener('click', closeSortPopUp);
+    window.addEventListener('click', onCloseSortPopUp);
+    return () => window.removeEventListener('click', onCloseSortPopUp);
   }, [])
 
-  const closeSortPopUp = (event) => {
+  const onCloseSortPopUp = (event) => {
     if (!event.path.includes(sortRef.current)) {
       setIsOpenSortPopup(false);
     }

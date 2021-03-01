@@ -4,6 +4,7 @@
     font-size: 28px;
     display: flex;
     justify-content: center;
+    margin-top: 50px;
   }
   &__list {
     display: grid;
@@ -12,5 +13,12 @@
     //grid-template-rows: repeat(2);
     //justify-content: space-between;
     //flex-wrap: wrap;
+  }
+}
+
+.recommendation-movies {
+  margin-bottom: 80px;
+  .recommendation-movies__title {
+    margin-bottom: 30px;
   }
 }

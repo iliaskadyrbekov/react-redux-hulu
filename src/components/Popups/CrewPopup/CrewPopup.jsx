@@ -1,36 +1,27 @@
 import React, {useEffect, useState} from 'react';
-import {useDispatch, useSelector} from "react-redux";
-import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
-import {useHistory} from "react-router";
-import {setIsOpenCrewPopup} from "../../../redux/popups/popupsActionCreator";
+import {useSelector} from "react-redux";
 import {CrewItem} from "../../MovieInfo/Crew/CrewItem";
-import defaultMovieImage from "../../../assets/img/defaultMovieImage.png";
 import {Button} from "../../Button";
-import {CrewByDepartment} from "./index";
+import {CrewByDepartments} from "./index";
 import {ScrollToTopBtn} from "../../ScrollToTopBtn";
 import {Loader} from "../../Loader";
 import AccessTimeIcon from '@material-ui/icons/AccessTime';
+import {getCountriesList, getGenresList, getImagePath, getYear} from "../../../utils/formatMovieData";
 
 const CrewPopup = () => {
-  const dispatch = useDispatch();
-  const history = useHistory();
+  const MAX_SHOWING_PERSONS = 9;
   const {
-    movieInfo: {title, backdrop_path, poster_path, runtime, production_countries, release_date, genres},
+    movieInfo: {
+      title, backdrop_path, poster_path, runtime,
+      production_countries, release_date, genres
+    },
     movieCast: {cast}
-  } = useSelector(({movieInfo}) => movieInfo)
+  } = useSelector(({movieInfo}) => movieInfo);
+
   const [isShowAllCastButton, setIsShowAllCastButton] = useState(false);
   const [isShowAllActors, setIsShowAllActors] = useState(false);
   const [mainActors, setMainActors] = useState([]);
   const [isFetchingCrew, setIsFetchingCrew] = useState(true);
-
-  const MAX_SHOWING_PERSONS = 9;
-  const imageName = backdrop_path || poster_path;
-  const imagePath = imageName ? `https://image.tmdb.org/t/p/w500/${imageName}` : defaultMovieImage;
-
-  const closeCrewPopup = () => {
-    dispatch(setIsOpenCrewPopup(false));
-    history.goBack();
-  };
 
   useEffect(() => {
     if (!cast) {
@@ -54,22 +45,19 @@ const CrewPopup = () => {
   const showCrewByDepartments = () => {
     const titles = ["Directing", "Production", "Sound", "Writing", "Editing", "Art", "Visual Effects"];
     return titles.map((title) => {
-      return <CrewByDepartment title={title} castFormat={castFormat} key={title}/>;
+      return <CrewByDepartments title={title} castFormat={castFormat} key={title}/>;
     });
   };
 
   const cardMainText = () => {
-    return `${production_countries[0].name}, ${release_date.slice(0, 4)}, ${genres[0].name}`;
+    return `${getCountriesList(production_countries)}, ${getYear(release_date)}, ${getGenresList(genres)}`;
   };
 
   return (
     <section className="pop-up">
       <div className="pop-up__container">
         <div className="crew-pop-up__header">
-          <button className="crew-pop-up__back-btn" onClick={closeCrewPopup}>
-            <ArrowBackIosIcon className="crew-pop-up__back-btn-icon"/>
-            <span className="crew-pop-up__back-btn-text">Back to the movie</span>
-          </button>
+          <Button name="Back to the movie"/>
         </div>
         {isFetchingCrew && <Loader/>}
         {!isFetchingCrew &&
@@ -82,10 +70,9 @@ const CrewPopup = () => {
                 {isShowAllActors ? castFormat(cast) : castFormat(mainActors)}
               </div>
               {isShowAllCastButton &&
-              <div className="pop-up__button-wrapper">
+              <div className="pop-up__button-wrapper pop-up__button-wrapper--filter">
                 <Button name={isShowAllActors ? "Hide actors" : "Show actors"}
-                        setIsShowAllActors={setIsShowAllActors}
-                        isShowAllActors={isShowAllActors}/>
+                        setIsShowAllActors={setIsShowAllActors}/>
               </div>
               }
             </div> : ""}
@@ -93,7 +80,11 @@ const CrewPopup = () => {
           </div>
           <div className="crew-pop-up__movie-card">
             <div className="movie-pop-up__wrapper-image">
-              <img className="movie-pop-up__image" src={imagePath} alt=""/>
+              <img
+                className="movie-pop-up__image"
+                src={getImagePath(backdrop_path, poster_path)}
+                alt=""
+              />
             </div>
             <div className="movie-pop-up__card-info">
               <div className="movie-pop-up__runtime">
@@ -114,3 +105,5 @@ const CrewPopup = () => {
 };
 
 export default CrewPopup;
+
+

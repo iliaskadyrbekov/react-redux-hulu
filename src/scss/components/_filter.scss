@@ -1,92 +1,107 @@
 .filter {
   margin-bottom: 30px;
 
-  &__menu {
-    display: flex;
-    align-items: center;
+  &__wrapper {
+    .filter__menu {
+      display: flex;
+      align-items: center;
 
-    .filter__btn-wrapper {
-      display: block;
-      margin-right: 40px;
+      .filter__btn-wrapper {
+        display: block;
+        margin-right: 40px;
 
-      .filter__button {
-        cursor: pointer;
-        background-color: inherit;
-        border-radius: 25px;
-        border: 2px solid white;
-        color: white;
-        padding: 7px 35px;
-        text-align: center;
-        font-size: 16px;
-        font-weight: bold;
-      }
-    }
-
-    .filter__sort {
-      position: relative;
-
-      &-button {
-        display: flex;
-        align-items: center;
-        cursor: pointer;
-
-        .filter__sort-icon-wrapper {
-          display: inline-block;
-          height: 24px;
-        }
-
-        .filter__sort-text {
-          font-weight: normal;
-          margin: 0 4px;
-          -webkit-touch-callout: none;
-          -webkit-user-select: none;
-          -khtml-user-select: none;
-          -moz-user-select: none;
-          -ms-user-select: none;
-          user-select: none;
-        }
-
-        .filter__arrow-icon-wrapper {
-          height: 24px;
-
-          &--active {
-            height: inherit;
-            transform: rotate(180deg);
-          }
-        }
-      }
-
-      &-dropdown {
-        z-index: 1;
-        position: absolute;
-        background-color: #343a41;
-        width: 230px;
-        margin-top: 10px;
-        border-radius: 5px;
-
-        .filter__sort-dropdown-item {
+        .filter__button {
           cursor: pointer;
-          padding: 12px 16px 12px 20px;
-          color: #cdcdcd;
-          transition: .2s;
+          background-color: inherit;
+          border-radius: 25px;
+          border: 2px solid white;
+          color: white;
+          padding: 7px 35px;
+          text-align: center;
+          font-size: 16px;
+          font-weight: bold;
+          transition: .5s;
+        }
+        .filter__button:hover {
+          background-color: #404953;
+        }
+      }
 
-          &--active {
-            font-weight: bold;
-            color: white;
+      .filter__sort {
+        position: relative;
+
+        &-button {
+          display: flex;
+          align-items: center;
+          cursor: pointer;
+
+          .filter__sort-icon-wrapper {
+            display: inline-block;
+            height: 24px;
+          }
+
+          .filter__sort-text {
+            font-weight: normal;
+            margin: 0 4px;
+            -webkit-touch-callout: none;
+            -webkit-user-select: none;
+            -khtml-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+          }
+
+          .filter__arrow-icon-wrapper {
+            height: 24px;
+
+            &--active {
+              height: inherit;
+              transform: rotate(180deg);
+            }
           }
         }
 
-        .filter__sort-dropdown-item:hover {
-          background-color: #4d565b;
-          color: #ffffff;
+        &-dropdown {
+          z-index: 1;
+          position: absolute;
+          background-color: #343a41;
+          width: 230px;
+          margin-top: 10px;
           border-radius: 5px;
+
+          .filter__sort-dropdown-item {
+            cursor: pointer;
+            padding: 12px 16px 12px 20px;
+            color: #cdcdcd;
+            transition: .2s;
+
+            &--active {
+              font-weight: bold;
+              color: white;
+            }
+          }
+
+          .filter__sort-dropdown-item:hover {
+            background-color: #4d565b;
+            color: #ffffff;
+            border-radius: 5px;
+          }
         }
       }
     }
-  }
+    .filters__list--checked {
+      display: flex;
+      flex-wrap: wrap;
+      margin: 15px 0 20px;
 
-  &__results-count {
-    font-weight: normal;
-    font-size: 24px;
+      .filters__list-item {
+        margin: 10px 20px 10px 0;
+        padding: 7px 20px;
+        border-radius: 20px;
+        background-color: #394048;
+        box-shadow: rgba(67, 67, 67, 0.25) 0 54px 55px, rgba(126, 126, 126, 0.12) 0px -12px 30px, rgba(122, 122, 122, 0.12) 0px 4px 6px, rgba(60, 60, 60, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+      }
+    }
   }
 }
+
