@@ -71,6 +71,8 @@ const Button = (props) => {
         hideCast();
         break;
       case "Back to the movies":
+        history.push('/');
+        break;
       case "Back to the movie":
         backToPrevPage();
         break;

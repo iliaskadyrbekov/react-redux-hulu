@@ -1,9 +1,7 @@
 import React from "react";
-import BookmarkBorderIcon from '@material-ui/icons/BookmarkBorder';
-import BookmarkIcon from '@material-ui/icons/Bookmark';
 
 const Preview = React.memo(
-  function Preview({lang, genresID, allGenres, overview, setIsBookmarked, isBookmarked}) {
+  function Preview({lang, genresID, allGenres, overview}) {
     const movieGenresFormat = () => {
       const movieGenres = allGenres
         .filter((genre) => genresID.includes(genre.id))
@@ -13,21 +11,21 @@ const Preview = React.memo(
         'Unnown genres';
     };
 
-    const toggleBookmarkStatus = () => {
-      setIsBookmarked(!isBookmarked);
-    };
+    // const toggleBookmarkStatus = () => {
+    //   setIsBookmarked(!isBookmarked);
+    // };
 
-    const bookmarkBtn = isBookmarked ?
-      <BookmarkIcon onClick={toggleBookmarkStatus} style={{fontSize: 27}}/> :
-      <BookmarkBorderIcon onClick={toggleBookmarkStatus} style={{fontSize: 27}}/>
+    // const bookmarkBtn = isBookmarked ?
+    //   <BookmarkIcon onClick={toggleBookmarkStatus} style={{fontSize: 27}}/> :
+    //   <BookmarkBorderIcon onClick={toggleBookmarkStatus} style={{fontSize: 27}}/>
 
     return (
       <div className="preview">
         <div className="preview__header">
           <span className="preview__lang">{lang}</span>
-          <div className="preview__bookmark-btn">
-            {bookmarkBtn}
-          </div>
+          {/*<div className="preview__bookmark-btn">*/}
+          {/*  {bookmarkBtn}*/}
+          {/*</div>*/}
         </div>
         <div className="preview__overview">
           <p className="preview__genres">
