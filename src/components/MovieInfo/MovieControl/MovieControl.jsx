@@ -12,7 +12,6 @@ const MovieControl = () => {
   const movieInfo = useSelector(({movieInfo}) => movieInfo.movieInfo);
   const [isCopied, setIsCopied] = useState(false);
   const [copyButtonName, setCopyButtonName] = useState('Copy movie link');
-  const [bookmarkedMovies, setBookmarkedMovies] = useState(JSON.parse(localStorage.getItem('bookmarkedMovies')));
   const [isBookmarked, setIsBookmarked] = useState(false);
 
   useEffect(() => {
@@ -30,18 +29,13 @@ const MovieControl = () => {
   }, [isCopied]);
 
   useEffect(() => {
-    let movies;
-    if (!isExistMovieInLocalStorage(bookmarkedMovies)) {
-      movies = bookmarkedMovies ? [...bookmarkedMovies, movieInfo] : [movieInfo];
+    const bookmarkedMovies = JSON.parse(localStorage.getItem('bookmarkedMovies'));
+    if (isExistMovieInLocalStorage(bookmarkedMovies)) {
+      setIsBookmarked(true);
     } else {
-      const indexMovie = bookmarkedMovies
-        .map((movie, index) => movie.id === +id && index)
-        .filter((item) => item !== false)[0];
-      movies = bookmarkedMovies.filter((item, index) => index !== indexMovie);
+      setIsBookmarked(false);
     }
-    localStorage.setItem('bookmarkedMovies', JSON.stringify(movies));
-    setBookmarkedMovies(movies);
-  }, [isBookmarked]);
+  }, [id]);
 
   const writeInClipboard = () => {
     const input = document.createElement('input');
@@ -65,7 +59,22 @@ const MovieControl = () => {
     return bookmarkedIds.includes(+id);
   };
 
+  const setMoviesToLocalStorage = () => {
+    let newBookmarkedMovies;
+    const bookmarkedMovies = JSON.parse(localStorage.getItem('bookmarkedMovies'));
+    if (!isExistMovieInLocalStorage(bookmarkedMovies)) {
+      newBookmarkedMovies = bookmarkedMovies ? [...bookmarkedMovies, movieInfo] : [movieInfo];
+    } else {
+      const indexMovie = bookmarkedMovies
+        .map((movie, index) => movie.id === +id && index)
+        .filter((item) => item !== false)[0];
+      newBookmarkedMovies = bookmarkedMovies.filter((item, index) => index !== indexMovie);
+    }
+    localStorage.setItem('bookmarkedMovies', JSON.stringify(newBookmarkedMovies));
+  };
+
   const toggleBookmarkStatus = () => {
+    setMoviesToLocalStorage();
     setIsBookmarked(!isBookmarked);
   };
 
