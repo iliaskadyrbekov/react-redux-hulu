@@ -1,7 +1,7 @@
 import React, {useEffect} from "react";
 import {Header} from "./Header";
 import {Route} from 'react-router-dom';
-import {Home, MovieInfo} from "../pages";
+import {Bookmark, Home, MovieInfo} from "../pages";
 import {useDispatch} from "react-redux";
 import {fetchGenres, setIsFetchingMovies} from "../redux/movies/moviesActionCreator";
 import {fetchMovieCast, fetchMovieInfo, setCurrentLocationPath} from "../redux/movieInfo/movieInfoActionCreator";
@@ -40,6 +40,7 @@ function App() {
       <Route path="/movies/:id" component={MovieInfo} exact/>
       <Route path="/movies/:id/crew" component={CrewPopup} exact/>
       <Route path="/filters" component={FilterPopup} exact/>
+      <Route path="/bookmarks" component={Bookmark} exact/>
     </>
   );
 }

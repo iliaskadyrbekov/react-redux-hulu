@@ -11,17 +11,19 @@ import {getImagePath, getRating, getYear} from "../../../utils/formatMovieData";
 const Movie = React.memo(function Movie({movie}) {
   const dispatch = useDispatch();
   const allGenres = useSelector(({movies}) => movies.genres);
+  const currentLocationPath = useSelector(({movieInfo}) => movieInfo.currentLocationPath);
   const [isShownPreview, setIsShownPreview] = useState(false);
-  const [isBookmarked, setIsBookmarked] = useState(false);
 
   const {
     id, title, backdrop_path, release_date, vote_average,
-    original_language, genre_ids, overview, poster_path
+    original_language, genre_ids, overview, poster_path, genres
   } = movie;
 
   const setLastPosition = () => {
-    dispatch(setCurrentLocationPath(window.location.pathname));
-    dispatch(setLastHomePositionByY(window.scrollY));
+    if (currentLocationPath === '/') {
+      dispatch(setCurrentLocationPath(window.location.pathname));
+      dispatch(setLastHomePositionByY(window.scrollY));
+    }
   };
 
   const getOverview = (overview) => {
@@ -44,11 +46,9 @@ const Movie = React.memo(function Movie({movie}) {
           />
           {isShownPreview && <Preview
             lang={original_language}
-            genresID={genre_ids}
+            movieGenresInfo={genre_ids || genres}
             allGenres={allGenres}
             overview={getOverview(overview)}
-            isBookmarked={isBookmarked}
-            setIsBookmarked={setIsBookmarked}
           />}
         </div>
         <div className="movie__info">

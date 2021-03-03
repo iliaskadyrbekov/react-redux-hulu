@@ -19,7 +19,8 @@ const MovieInfo = () => {
   const dispatch = useDispatch();
   const recommendationMovies = useSelector(({movieInfo}) => movieInfo.recommendationMovies);
 
-  const movieIdUrl = `${API_GET_MOVIE_BY_ID}${id}`;
+  const movieIdURL = `${API_GET_MOVIE_BY_ID}${id}`;
+  const movieCrewURL = `/movies/${id}/crew`;
 
   useEffect(() => {
     window.scrollTo({
@@ -28,28 +29,28 @@ const MovieInfo = () => {
   }, [id]);
 
   useEffect(() => {
-    dispatch(fetchMovieInfo(`${movieIdUrl}?${API_KEY}`));
+    dispatch(fetchMovieInfo(`${movieIdURL}?${API_KEY}`));
     return () => {
-      if (window.location.pathname === '/') {
+      if (window.location.pathname !== movieCrewURL) {
         dispatch(setMovieInfo({}));
       }
     };
   }, [id]);
 
   useEffect(() => {
-    dispatch(fetchMovieCast(`${movieIdUrl}/credits?${API_KEY}`));
+    dispatch(fetchMovieCast(`${movieIdURL}/credits?${API_KEY}`));
     return () => {
-      if (window.location.pathname === '/') {
+      if (window.location.pathname !== movieCrewURL) {
         dispatch(setMovieCast({}));
       }
     }
   }, [id]);
 
   useEffect(() => {
-    const url = `${movieIdUrl}/recommendations?${API_KEY}&page=1`;
+    const url = `${movieIdURL}/recommendations?${API_KEY}&page=1`;
     dispatch(fetchRecommenationMovies(url));
     return () => {
-      if (window.location.pathname === '/') {
+      if (window.location.pathname !== movieCrewURL) {
         dispatch(setRecommendationMovies([]));
       }
     };
