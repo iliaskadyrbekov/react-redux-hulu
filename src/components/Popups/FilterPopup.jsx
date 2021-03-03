@@ -96,8 +96,6 @@ const FilterPopup = () => {
     event.preventDefault();
   };
 
-  console.log(checkedFilters, copyCheckedFilters)
-
   return (
     <div className="pop-up">
       <div className="pop-up__container">

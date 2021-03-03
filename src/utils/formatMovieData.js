@@ -10,8 +10,11 @@ export const getYear = (releaseDate) => {
 };
 
 export const getRating = (voteAverage) => {
-  return voteAverage.toString().length === 1 || voteAverage === 10
-    ? voteAverage + '.0' : voteAverage;
+  if (voteAverage) {
+    return voteAverage.toString().length === 1 || voteAverage === 10
+      ? voteAverage + '.0' : voteAverage;
+  }
+  return '0.0';
 };
 
 export const getGenresList = (genres) => {
