@@ -12,7 +12,6 @@ const Bookmark = () => {
   }, []);
 
   useEffect(() => {
-    console.log(isClickedOnClearBtn)
     if (isClickedOnClearBtn) {
       if (bookmarkedMovies.length) {
         const permit = window.confirm("Are you sure you want to unbookmark all your movies?");

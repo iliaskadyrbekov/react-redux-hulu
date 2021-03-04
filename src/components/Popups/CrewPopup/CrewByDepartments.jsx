@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {useSelector} from "react-redux";
+import PropTypes from "prop-types";
 
 const CrewByDepartments = ({title, castFormat}) => {
   const {crew} = useSelector(({movieInfo}) => movieInfo.movieCast);
@@ -42,6 +43,11 @@ const CrewByDepartments = ({title, castFormat}) => {
         </div> : ""}
     </>
   );
+};
+
+CrewByDepartments.propTypes = {
+  title: PropTypes.string.isRequired,
+  castFormat: PropTypes.func.isRequired,
 };
 
 export default CrewByDepartments;

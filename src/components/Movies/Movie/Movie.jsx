@@ -7,6 +7,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {setLastHomePositionByY} from "../../../redux/movies/moviesActionCreator";
 import {setCurrentLocationPath} from "../../../redux/movieInfo/movieInfoActionCreator";
 import {getImagePath, getRating, getYear} from "../../../utils/formatMovieData";
+import PropTypes from "prop-types";
 
 const Movie = React.memo(function Movie({movie}) {
   const dispatch = useDispatch();
@@ -71,5 +72,9 @@ const Movie = React.memo(function Movie({movie}) {
     </div>
   );
 });
+
+Movie.propTypes = {
+  movie: PropTypes.object.isRequired
+};
 
 export default Movie;

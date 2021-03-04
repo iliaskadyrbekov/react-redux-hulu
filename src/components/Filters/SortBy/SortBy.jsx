@@ -5,19 +5,13 @@ import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import {setCurrentSortBy} from "../../../redux/filters/filtersActionCreator";
 import {setCountPage, setEmptyMovies, setIsFetchingMovies} from "../../../redux/movies/moviesActionCreator";
 import {useDispatch, useSelector} from "react-redux";
+import PropTypes from "prop-types";
 
-const SortBy = () => {
+const SortBy = ({sortBy}) => {
   const dispatch = useDispatch();
   const [isOpenSortPopup, setIsOpenSortPopup] = useState(false);
   const sortRef = useRef();
   const currentSortBy = useSelector(({filters}) => Object.values(filters.currentSortBy)[0]);
-  const sortBy = {
-    'popularity.desc': 'Popular',
-    'revenue.desc': 'Revenue',
-    'vote_average.desc': 'Vote Average',
-    'vote_count.desc': 'Vote Count',
-    'original_title.desc': 'Title',
-  };
 
   useEffect(() => {
     window.addEventListener('click', onCloseSortPopUp);
@@ -77,6 +71,10 @@ const SortBy = () => {
       </div>}
     </div>
   );
+};
+
+SortBy.propTypes = {
+  sortBy: PropTypes.object.isRequired,
 };
 
 export default SortBy;

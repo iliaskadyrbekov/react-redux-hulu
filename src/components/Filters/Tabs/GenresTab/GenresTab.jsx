@@ -1,6 +1,7 @@
 import React from "react";
 import {useSelector} from "react-redux";
 import Checkbox from '@material-ui/core/Checkbox';
+import PropTypes from "prop-types";
 
 const GenresTab = React.memo(function GenresTab({copyCheckedGenres, setCheckboxStatus}) {
   const genres = useSelector(({movies}) => movies.genres);
@@ -27,6 +28,13 @@ const GenresTab = React.memo(function GenresTab({copyCheckedGenres, setCheckboxS
     </div>
   );
 });
+
+GenresTab.propTypes = {
+  copyCheckedGenres: PropTypes.arrayOf(
+    PropTypes.number.isRequired
+  ).isRequired,
+  setCheckboxStatus: PropTypes.func.isRequired,
+};
 
 export default GenresTab;
 

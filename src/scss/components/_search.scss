@@ -4,13 +4,16 @@
   height: 37px;
 
   &__input {
-    width: 30vw;
+    width: 32vw;
     height: inherit;
     background-color: #e2e2e2;
     border: 1px solid white;
     padding: 2px 3px 2px 10px;
     border-radius: 10px;
     font-size: 16px;
+    @media only screen and (max-width: $desktopBreakpoint) {
+      width: 45vw;
+    }
   }
 
   input[type="search"]::-webkit-search-decoration,
@@ -28,7 +31,7 @@
     border: none;
     cursor: pointer;
     .search__button-icon {
-      color: white;
+      color: $textColor;
     }
   }
 }

@@ -1,7 +1,28 @@
 .movie {
   margin-bottom: 10px;
   cursor: pointer;
-  width: 185px;
+  //width: 11vw;
+  max-width: 185px;
+
+  @media only screen and (max-width: $desktopBreakpoint) {
+    //width: 18vw;
+
+    //min-width: 155px;
+  }
+
+  @media only screen and (max-width: $laptopBreakpoint) {
+    min-width: 158px;
+    width: 20vw;
+  }
+
+  @media only screen and (max-width: $tabletBreakpoint) {
+    min-width: 140px;
+    width: 27vw;
+  }
+
+  @media only screen and (max-width: $mobileBreakpoint) {
+    width: 36vw;
+  }
 
   &__link {
     color: inherit;
@@ -9,11 +30,11 @@
 
   &__wrapper-image {
     height: 140px;
-    //height: 100%;
     border-radius: 7px;
     position: relative;
     transition: transform .3s;
     background-color: #4e4e4e;
+
 
     .movie__image {
       border-radius: inherit;

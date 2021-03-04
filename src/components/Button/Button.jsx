@@ -5,25 +5,25 @@ import {setCheckedGenres, setCheckedYears, setIsFiltering} from "../../redux/fil
 import {useDispatch, useSelector} from "react-redux";
 import {useHistory} from "react-router";
 import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
+import PropTypes from "prop-types";
 
-const Button = (props) => {
+const Button = ({name, copyCheckedFilters, setCopyChekedFilters, setIsShowAllActors}) => {
   const dispatch = useDispatch();
   const history = useHistory();
   const [buttonPosition, setButtonPosition] = useState(0);
   const checkedFilters = useSelector(({filters}) => filters.checkedFilters);
-  const {name} = props;
 
   const countTotalFilters = () => {
-    const {checkedGenres, checkedYears} = props.copyCheckedFilters;
+    const {checkedGenres, checkedYears} = copyCheckedFilters;
     return checkedGenres.length + checkedYears.length === 0;
   };
 
   const discardFilters = () => {
-    props.setCopyChekedFilters({checkedGenres: [], checkedYears: []});
+    setCopyChekedFilters({checkedGenres: [], checkedYears: []});
   };
 
   const findMoviesByFilters = () => {
-    const {checkedGenres, checkedYears} = props.copyCheckedFilters
+    const {checkedGenres, checkedYears} = copyCheckedFilters
     dispatch(setIsFetchingMovies(true));
     dispatch(setEmptyMovies([]));
     dispatch(setCountPage(1));
@@ -42,14 +42,14 @@ const Button = (props) => {
 
   const showAllCast = () => {
     setButtonPosition(window.scrollY);
-    props.setIsShowAllActors(true);
+    setIsShowAllActors(true);
   };
 
   const hideCast = () => {
     window.scrollTo({
       top: buttonPosition,
     });
-    props.setIsShowAllActors(false);
+    setIsShowAllActors(false);
   };
 
   const backToPrevPage = () => {
@@ -96,7 +96,6 @@ const Button = (props) => {
 
   const isChangedFilters = () => {
     const {checkedGenres, checkedYears} = checkedFilters;
-    const copyCheckedFilters = props.copyCheckedFilters
     const sortCheckedGenres = checkedGenres.sort((a, b) => a - b);
     const sortCopyCheckedGenres = copyCheckedFilters.checkedGenres.sort((a, b) => a - b);
     return JSON.stringify(sortCheckedGenres) === JSON.stringify(sortCopyCheckedGenres) &&
@@ -115,6 +114,16 @@ const Button = (props) => {
       </button>
     </>
   );
+};
+
+Button.propTypes = {
+  name: PropTypes.string.isRequired,
+  copyCheckedFilters: PropTypes.shape({
+    checkedGenres: PropTypes.array.isRequired,
+    checkedYears: PropTypes.array.isRequired,
+  }),
+  setCopyChekedFilters: PropTypes.func,
+  setIsShowAllActors: PropTypes.func,
 };
 
 export default Button;
