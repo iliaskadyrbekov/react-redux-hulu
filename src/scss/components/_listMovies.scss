@@ -1,5 +1,11 @@
 .movies {
   margin-bottom: 100px;
+  margin-top: 40px;
+
+  @media only screen and (max-width: $tabletBreakpoint) {
+    margin-top: 30px;
+    margin-bottom: 50px;
+  }
 
   &__message {
     font-size: 28px;
@@ -9,31 +15,13 @@
   }
 
   &__list {
-    display: flex;
-    flex-wrap: wrap;
-    //justify-content: space-between;
-    gap: 18px;
-    margin-top: 40px;
-    @media (max-width: $laptopBreakpoint) {
-      gap: 30px;
-    }
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(165px, 1fr));
+    gap: 1.5rem;
   }
-
-  //@media (min-width: $desktopBreakpoint), (min-width: $mobileBreakpoint) and (max-width: $tabletBreakpoint) {
-  //&__list:after {
-  //  content: "";
-  //  flex: auto;
-  //  width: inherit;
-  //}
-
-  //}
 }
 
 .recommendation-movies {
   margin-bottom: 80px;
-
-  .recommendation-movies__title {
-    margin-bottom: 30px;
-  }
 }
 

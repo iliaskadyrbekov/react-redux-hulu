@@ -13,6 +13,16 @@
   box-shadow: rgba(0, 0, 0, 0.2) 0 12px 28px 0, rgba(0, 0, 0, 0.1) 0 2px 4px 0, rgba(255, 255, 255, 0.05) 0 0 0 1px inset;
   transition: .5s;
 
+  @media only screen and (max-width: $desktopBreakpoint) {
+    bottom: 20px;
+    right: 10px;
+  }
+
+  @media only screen and (max-width: $tabletBreakpoint) {
+    height: 60px;
+    width: 60px;
+  }
+
   &:hover {
     background-color: #303f4e;
     box-shadow: rgba(180, 180, 180, 0.2) 0 12px 28px 0, rgba(0, 0, 0, 0.1) 0 2px 4px 0, rgba(255, 255, 255, 0.05) 0 0 0 1px inset;

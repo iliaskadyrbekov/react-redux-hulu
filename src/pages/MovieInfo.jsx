@@ -6,7 +6,8 @@ import {
   fetchMovieInfo,
   fetchRecommenationMovies,
   setMovieCast,
-  setMovieInfo, setRecommendationMovies
+  setMovieInfo,
+  setRecommendationMovies
 } from "../redux/movieInfo/movieInfoActionCreator";
 import {useDispatch, useSelector} from "react-redux";
 import {MoviePoster} from "../components/MovieInfo/MoviePoster";

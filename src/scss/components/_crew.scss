@@ -6,9 +6,9 @@
   }
 
   &__cast {
-    display: grid;
-    grid-template-columns: repeat(8, 1fr);
-    grid-gap: 25px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 25px;
     .crew__full-cast-btn-wrapper {
       width: 110px;
       height: 110px;
@@ -36,20 +36,21 @@
 
 .crew-item {
   width: 110px;
+
   &__image-wrapper {
     background-color: #727272;
     border-radius: 50%;
-    width: 110px;
     height: 110px;
     .crew-item__image {
-      height: inherit;
-      width: inherit;
+      width: 100%;
+      height: 100%;
       object-fit: cover;
       border-radius: inherit;
       border: none;
     }
   }
   .crew-item__name {
+    display: inline;
     font-weight: bold;
     margin-top: 5px;
   }

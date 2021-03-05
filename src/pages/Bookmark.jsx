@@ -46,8 +46,10 @@ const Bookmark = () => {
             <DeleteIcon style={{fontSize: 30}}/>
           </div>
         </div>
-        <div className="movies__list">
-          {formatBookmarkedMovies}
+        <div className="movies">
+          <div className="movies__list">
+            {formatBookmarkedMovies}
+          </div>
         </div>
         {!bookmarkedMovies.length && <p className="bookmark__message">Not found bookmarked movies</p>}
       </div>

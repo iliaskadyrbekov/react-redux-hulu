@@ -4,7 +4,7 @@
   height: 37px;
 
   &__input {
-    width: 32vw;
+    width: 35vw;
     height: inherit;
     background-color: #e2e2e2;
     border: 1px solid white;
@@ -12,7 +12,11 @@
     border-radius: 10px;
     font-size: 16px;
     @media only screen and (max-width: $desktopBreakpoint) {
-      width: 45vw;
+      width: 46vw;
+    }
+
+    @media only screen and (max-width: $tabletBreakpoint) {
+      width: 52vw;
     }
   }
 
@@ -39,5 +43,4 @@
 .search__results {
   font-weight: normal;
   font-size: 24px;
-  margin-bottom: 40px;
 }

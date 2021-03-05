@@ -51,7 +51,7 @@ const SortBy = ({sortBy}) => {
     <div className="filter__sort" onClick={toggleSortPopupMode} ref={sortRef}>
       <div className="filter__sort-button">
             <span className="filter__sort-icon-wrapper">
-              <SortIcon style={{fontSize: 28}}/>
+              <SortIcon className="filter__sort-icon"/>
             </span>
         <h3 className="filter__sort-text">
           By {currentSortBy}
@@ -60,8 +60,8 @@ const SortBy = ({sortBy}) => {
           'filter__arrow-icon-wrapper': true,
           'filter__arrow-icon-wrapper--active': isOpenSortPopup,
         })}>
-              <ExpandMoreIcon style={{fontSize: 30}}/>
-            </span>
+          <ExpandMoreIcon className="filter__arrow-icon"/>
+        </span>
       </div>
       {isOpenSortPopup &&
       <div className="filter__sort-dropdown">
