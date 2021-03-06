@@ -23,5 +23,8 @@
 
 .recommendation-movies {
   margin-bottom: 80px;
+  @media only screen and (max-width: $mobileBreakpoint) {
+    margin-bottom: 30px;
+  }
 }
 

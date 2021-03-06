@@ -42,8 +42,8 @@ const Bookmark = () => {
         </div>
         <div className="bookmark__header">
           <h1 className="bookmark__title">Bookmarked movies</h1>
-          <div className="bookmark__clear-icon" onClick={unbookmarkAllMovies}>
-            <DeleteIcon style={{fontSize: 30}}/>
+          <div className="bookmark__clear-icon-wrapper" onClick={unbookmarkAllMovies}>
+            <DeleteIcon className="bookmark__clear-icon"/>
           </div>
         </div>
         <div className="movies">

@@ -105,8 +105,8 @@ const FilterPopup = () => {
   };
 
   return (
-    <div className="pop-up">
-      <div className="pop-up__container">
+    <div className="pop-up filter-pop-up">
+      <div className="pop-up__container container filter-pop-up__container">
         <div className="filter-pop-up__header">
           <h2 className="filter-pop-up__title">Filters</h2>
           <CloseIcon
@@ -128,7 +128,7 @@ const FilterPopup = () => {
             {chooseTab()}
           </div>
           <div className="filter-pop-up__footer">
-            <div className="pop-up__button-wrapper">
+            <div className="pop-up__button-wrapper pop-up__button-wrapper--filter">
               <Button name="Discard filters"
                       copyCheckedFilters={copyCheckedFilters}
                       setCopyChekedFilters={setCopyChekedFilters}

@@ -2,8 +2,13 @@
   display: flex;
   height: 50px;
   margin-bottom: 25px;
-  &--filter {
+  &--crew {
     margin-bottom: 70px;
+  }
+  &--filter {
+    @media only screen and (max-width: $mobileBreakpoint) {
+      margin-bottom: 15px;
+    }
   }
   .pop-up__button {
     font-weight: bold;

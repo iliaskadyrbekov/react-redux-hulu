@@ -9,9 +9,20 @@
   top: 0;
   left: 0;
   width: 100%;
-  //height: 100%;
-  padding-top: 60px;
+  @include topHeaderPadding(60px);
   opacity: .984;
+  @media only screen and (max-width: $desktopBreakpoint) {
+    @include topHeaderPadding(40px);
+  }
+
+  @media only screen and (max-width: $tabletBreakpoint) {
+    @include topHeaderPadding(30px);
+  }
+
+  @media only screen and (max-width: $mobileBreakpoint) {
+    @include topHeaderPadding(25px);
+  }
+
 
   &__container {
     max-width: 1200px;

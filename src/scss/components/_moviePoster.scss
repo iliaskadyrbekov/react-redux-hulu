@@ -9,9 +9,6 @@
   @media only screen and (max-width: $laptopBreakpoint) {
     background-position: right -400px top;
   }
-  @media only screen and (max-width: $tabletBreakpoint) {
-    background-position: right -600px top;
-  }
 
   &__loader-wrapper {
     margin-top: 60px;
@@ -39,8 +36,8 @@
       .movie-poster__content {
         display: flex;
         justify-content: space-between;
-        @media only screen and (max-width: $laptopBreakpoint) {
-         display: block;
+        @media only screen and (max-width: $mobileBreakpoint) {
+          display: block;
         }
 
         .movie-poster__image-wrapper {
@@ -57,11 +54,8 @@
           }
 
           @media only screen and (max-width: $mobileBreakpoint) {
-            width: 40vw;
-            height: 30vh;
+            display: none;
           }
-
-
 
           .movie-poster__image {
             width: 100%;
@@ -83,12 +77,9 @@
             margin-left: 30px;
           }
 
-
-
-
-          //@media only screen and (max-width: $mobileBreakpoint) {
-          //  margin: 30px 0 0 0;
-          //}
+          @media only screen and (max-width: $mobileBreakpoint) {
+            margin: 30px 0 0 0;
+          }
 
           &-header {
             .movie-poster__title {
@@ -99,6 +90,10 @@
               }
               @media only screen and (max-width: $tabletBreakpoint) {
                 font-size: 34px;
+              }
+
+              @media only screen and (max-width: $mobileBreakpoint) {
+                margin-bottom: 15px;
               }
             }
 

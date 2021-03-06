@@ -1,12 +1,21 @@
 .crew-pop-up__cast {
   margin-top: 40px;
+  @media only screen and (max-width: $mobileBreakpoint) {
+    margin-top: 30px;
+  }
   .crew-pop-up__list-subtitle {
     margin-bottom: 25px;
+    @media only screen and (max-width: $tabletBreakpoint) {
+      font-size: 24px;
+    }
   }
   .crew-pop-up__list {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     grid-gap: 30px;
     margin-bottom: 40px;
+    @media only screen and (max-width: $laptopBreakpoint) {
+      grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+    }
   }
 }

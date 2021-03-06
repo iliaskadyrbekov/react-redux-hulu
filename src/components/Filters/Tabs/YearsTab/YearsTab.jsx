@@ -5,15 +5,13 @@ import PropTypes from "prop-types";
 const YearsTab = React.memo(function YearsTab({setCheckboxStatus, copyCheckedYears, years}) {
   const listYears = years.map(year => {
     return (
-      <div className="filter-pop-up__checkbox-item" key={year}>
-        <div className="filter-pop-up__checkbox-wrapper"
-             onClick={() => setCheckboxStatus(year, 'years')}>
-          <Checkbox
-            checked={copyCheckedYears.includes(year)}
-            className="filter-pop-up__checkbox"
-          />
-          <span>{year}</span>
-        </div>
+      <div className="filter-pop-up__checkbox-item" key={year}
+           onClick={() => setCheckboxStatus(year, 'years')}>
+        <Checkbox
+          checked={copyCheckedYears.includes(year)}
+          className="filter-pop-up__checkbox"
+        />
+        <span>{year}</span>
       </div>
     );
   });
