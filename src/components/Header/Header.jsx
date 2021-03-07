@@ -25,7 +25,7 @@ const Header = () => {
     <header className="header">
       <div className="container">
         <div className="header__wrapper">
-          <Link to="/">
+          <Link to="/" className="header__logo-link">
             <img
               className="header__logo"
               onClick={moveToHome}

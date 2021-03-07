@@ -1,0 +1,11 @@
+@mixin topHeaderPadding($padding) {
+  padding-top: $padding;
+}
+
+@mixin flexBoxSet($display, $justifyContent, $wrap, $alignItems, $gap) {
+  display: $display;
+  justify-content: $justifyContent;
+  flex-wrap: $wrap;
+  align-items: $alignItems;
+  gap: $gap;
+}

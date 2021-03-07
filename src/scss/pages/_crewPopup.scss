@@ -1,0 +1,85 @@
+.pop-up__container {
+  .crew-pop-up__header {
+    margin-bottom: 20px;
+  }
+
+  .crew-pop-up__container-inner {
+    display: flex;
+    justify-content: space-between;
+    margin-left: 200px;
+    @media only screen and (max-width: $desktopBreakpoint) {
+      margin-left: 0;
+    }
+
+    @media only screen and (max-width: $mobileBreakpoint) {
+      flex-direction: column-reverse;
+    }
+
+    .crew-pop-up__content {
+      //max-width: 520px;
+      .crew-pop-up__title {
+        font-size: 40px;
+        margin-bottom: 40px;
+        @media only screen and (max-width: $tabletBreakpoint) {
+          font-size: 30px;
+        }
+        @media only screen and (max-width: $mobileBreakpoint) {
+          all: unset;
+          font-size: 28px;
+        }
+        @media only screen and (max-width: $miniMobileBreakpoint) {
+          all: unset;
+          font-size: 26px;
+        }
+      }
+    }
+
+    .crew-pop-up__movie-card {
+      margin-left: 120px;
+      @media only screen and (max-width: $laptopBreakpoint) {
+        margin-left: 50px;
+      }
+      @media only screen and (max-width: $tabletBreakpoint) {
+        margin-left: 30px;
+      }
+      @media only screen and (max-width: $mobileBreakpoint) {
+        all: unset;
+        margin-bottom: 40px;
+      }
+      @media only screen and (max-width: $miniMobileBreakpoint) {
+        margin-bottom: 30px;
+      }
+
+      .movie-pop-up__wrapper-image {
+        .movie-pop-up__image {
+          height: 100%;
+          width: 100%;
+          border-radius: 5px;
+          @media only screen and (max-width: $tabletBreakpoint) {
+            min-width: 270px;
+          }
+        }
+      }
+
+      .movie-pop-up__card-info {
+        margin-top: 15px;
+        font-size: 17px;
+
+        .movie-pop-up__runtime {
+          display: flex;
+          align-items: center;
+          margin-bottom: 5px;
+
+          &-text {
+            margin-left: 5px;
+          }
+        }
+
+        .movie-pop-up__main-text {
+          line-height: 1.5;
+        }
+      }
+    }
+  }
+}
+

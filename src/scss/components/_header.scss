@@ -6,28 +6,36 @@
   z-index: 2;
 
   &__wrapper {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+    @include flexBoxSet(flex, space-between, nowrap, center, normal);
     height: 70px;
 
-    .header__logo {
-      opacity: .95;
-      transition: .5s;
-      -webkit-filter: drop-shadow(3px 3px 2px rgba(246, 246, 246, 0.5));
-      filter: drop-shadow(3px 3px 2px rgba(217, 217, 217, 0.2));
-    }
+    .header__logo-link {
+      @media only screen and (max-width: $miniMobileBreakpoint) {
+        height: 22px;
+      }
 
-    .header__logo:hover {
-      -webkit-filter: drop-shadow(3px 3px 2px rgba(233, 227, 227, 0.5));
-      filter: drop-shadow(3px 3px 2px rgba(252, 252, 252, 0.4));
+      .header__logo {
+        opacity: .95;
+        transition: .5s;
+        -webkit-filter: drop-shadow(3px 3px 2px rgba(246, 246, 246, 0.5));
+        filter: drop-shadow(3px 3px 2px rgba(217, 217, 217, 0.2));
+        @media only screen and (max-width: $miniMobileBreakpoint) {
+          height: 22px;
+        }
+      }
+
+      .header__logo:hover {
+        -webkit-filter: drop-shadow(3px 3px 2px rgba(233, 227, 227, 0.5));
+        filter: drop-shadow(3px 3px 2px rgba(252, 252, 252, 0.4));
+      }
     }
 
     .header__bookmark-wrapper {
-      color: white;
+      color: $textColor;
       height: 30px;
     }
   }
 }
+
 
 

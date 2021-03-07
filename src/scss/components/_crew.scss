@@ -1,21 +1,33 @@
 .crew {
   margin: 60px 0;
+  @media only screen and (max-width: $mobileBreakpoint) {
+    margin: 40px 0;
+  }
+  @media only screen and (max-width: $mobileBreakpoint) {
+    margin: 30px 0;
+  }
 
   &__title {
     margin-bottom: 25px;
+    @media only screen and (max-width: $mobileBreakpoint) {
+     font-size: 25px;
+    }
   }
 
   &__cast {
-    display: grid;
-    grid-template-columns: repeat(8, 1fr);
-    grid-gap: 25px;
+    @include flexBoxSet(flex, flex-start, wrap, stretch, 25px);
+    @media only screen and (max-width: $mobileBreakpoint) {
+      gap: 35px;
+    }
+
     .crew__full-cast-btn-wrapper {
       width: 110px;
       height: 110px;
+
       .crew__full-cast-btn {
         width: inherit;
         height: inherit;
-        color: white;
+        color: $textColor;
         opacity: .9;
         font-weight: bold;
         font-size: 17px;
@@ -26,6 +38,7 @@
         box-shadow: rgba(0, 0, 0, 0.24) 0 3px 8px;
         transition: .7s;
       }
+
       .crew__full-cast-btn:hover {
         background-color: #30393c;
         box-shadow: rgba(20, 20, 20, 0.5) 2px 3px 8px;
@@ -36,20 +49,23 @@
 
 .crew-item {
   width: 110px;
+
   &__image-wrapper {
     background-color: #727272;
     border-radius: 50%;
-    width: 110px;
     height: 110px;
+
     .crew-item__image {
-      height: inherit;
-      width: inherit;
+      width: 100%;
+      height: 100%;
       object-fit: cover;
       border-radius: inherit;
       border: none;
     }
   }
+
   .crew-item__name {
+    display: inline;
     font-weight: bold;
     margin-top: 5px;
   }
