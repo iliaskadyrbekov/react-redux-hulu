@@ -3,9 +3,12 @@
     .filter__menu {
       display: flex;
       align-items: center;
+      @media only screen and (max-width: $miniMobileBreakpoint) {
+        display: block;
+      }
 
       .filter__btn-wrapper {
-        display: block;
+        display: inline;
         margin-right: 40px;
 
         .filter__button {
@@ -23,7 +26,12 @@
             padding: 7px 40px;
             font-size: 19px;
           }
+          @media only screen and (max-width: $miniMobileBreakpoint) {
+            font-size: 17px;
+            padding: 6px 40px;
+          }
         }
+
         .filter__button:hover {
           background-color: #404953;
         }
@@ -31,20 +39,34 @@
 
       .filter__sort {
         position: relative;
-
+        @media only screen and (max-width: $miniMobileBreakpoint) {
+          display: table;
+        }
         &-button {
           display: flex;
           align-items: center;
           cursor: pointer;
+          @media only screen and (max-width: $miniMobileBreakpoint) {
+            margin-top: 15px;
+            height: 30px;
+          }
 
           .filter__sort-icon-wrapper {
             display: inline-block;
             height: 25px;
+            @media only screen and (max-width: $miniMobileBreakpoint) {
+              font-size: 26px;
+            }
+
             .filter__sort-icon {
               font-size: 28px;
               @media only screen and (max-width: $tabletBreakpoint) {
                 font-size: 30px;
               }
+              @media only screen and (max-width: $miniMobileBreakpoint) {
+                font-size: 26px;
+              }
+
             }
           }
 
@@ -58,17 +80,27 @@
             -ms-user-select: none;
             user-select: none;
             @media only screen and (max-width: $tabletBreakpoint) {
-             font-size: 20px;
+              font-size: 20px;
               margin: 0 5px;
+            }
+            @media only screen and (max-width: $miniMobileBreakpoint) {
+              font-size: 18px;
             }
           }
 
           .filter__arrow-icon-wrapper {
             height: 24px;
+            @media only screen and (max-width: $miniMobileBreakpoint) {
+              font-size: 22px;
+            }
+
             .filter__arrow-icon {
               font-size: 30px;
               @media only screen and (max-width: $tabletBreakpoint) {
                 font-size: 32px;
+              }
+              @media only screen and (max-width: $miniMobileBreakpoint) {
+                font-size: 24px;
               }
             }
 
@@ -86,6 +118,9 @@
           width: 230px;
           margin-top: 10px;
           border-radius: 5px;
+          @media only screen and (max-width: $miniMobileBreakpoint) {
+            width: 200px;
+          }
 
           .filter__sort-dropdown-item {
             cursor: pointer;
@@ -107,6 +142,7 @@
         }
       }
     }
+
     .filters__list--checked {
       display: flex;
       flex-wrap: wrap;

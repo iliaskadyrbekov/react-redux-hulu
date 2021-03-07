@@ -1,16 +1,25 @@
 .filter-pop-up {
   height: 100%;
-
+  @media only screen and (max-height: $mobileBreakpoint) {
+    height: initial;
+  }
   &__container {
     height: 100%;
 
     .filter-pop-up__header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
+      @include flexBoxSet(flex, space-between, nowrap, center, normal);
       margin-bottom: 25px;
       @media only screen and (max-width: $tabletBreakpoint) {
         margin-bottom: 15px;
+      }
+      @media only screen and (max-width: $mobileBreakpoint) {
+        margin-bottom: 10px;
+      }
+
+      .filter-pop-up__title {
+        @media only screen and (max-width: $miniMobileBreakpoint) {
+          font-size: 25px;
+        }
       }
 
       .filter-pop-up__close-icon {
@@ -26,12 +35,6 @@
     }
 
     .filter-pop-up__form {
-      //display: flex;
-      //flex-direction: column;
-      //justify-content: space-between;
-      //height: 100%;
-      padding-bottom: 50px;
-
       .filter-pop-up__content {
         .filter-pop-up__tabs {
           display: flex;
@@ -43,6 +46,9 @@
             .filter-pop-up__tabs-item-name {
               font-weight: normal;
               opacity: .5;
+              @media only screen and (max-width: $miniMobileBreakpoint) {
+                font-size: 18px;
+              }
 
               &--active {
                 opacity: 1;
@@ -70,6 +76,10 @@
           @media only screen and (max-width: $tabletBreakpoint) {
             margin-bottom: 15px;
           }
+          @media only screen and (max-width: $miniMobileBreakpoint) {
+            margin: 10px 0 5px;
+            font-size: 14px;
+          }
         }
 
         .filter-pop-up__items {
@@ -81,6 +91,10 @@
             gap: 1rem;
           }
 
+          @media only screen and (max-width: $miniMobileBreakpoint) {
+            gap: 0;
+          }
+
           .filter-pop-up__checkbox-item {
             display: flex;
             align-items: center;
@@ -88,6 +102,10 @@
 
             .filter-pop-up__checkbox {
               color: $textColor;
+              @media only screen and (max-width: $miniMobileBreakpoint) {
+                height: 36px;
+                width: 36px;
+              }
             }
           }
         }
@@ -97,6 +115,9 @@
         margin-bottom: 35px;
         @media only screen and (max-width: $desktopBreakpoint) {
           margin-bottom: 20px;
+        }
+        @media only screen and (max-width: $mobileBreakpoint) {
+          margin-bottom: 5px;
         }
       }
     }

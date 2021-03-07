@@ -5,14 +5,15 @@
   }
 
   .bookmark__header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+    @include flexBoxSet(flex, space-between, nowrap, center, normal);
     margin-top: 30px;
     .bookmark__title {
       font-size: 38px;
       @media only screen and (max-width: $mobileBreakpoint) {
        font-size: 30px;
+      }
+      @media only screen and (max-width: $miniMobileBreakpoint) {
+        font-size: 25px;
       }
     }
     .bookmark__clear-icon-wrapper {
@@ -20,9 +21,6 @@
       cursor: pointer;
       .bookmark__clear-icon {
         font-size: 30px;
-        @media only screen and (max-width: $mobileBreakpoint) {
-          font-size: 34px;
-        }
       }
     }
   }

@@ -12,6 +12,9 @@
     position: relative;
     transition: transform .3s;
     background-color: #4e4e4e;
+    @media only screen and (max-width: $miniMobileBreakpoint) {
+      height: 130px;
+    }
 
     .movie__image {
       border-radius: inherit;

@@ -3,17 +3,27 @@
   @media only screen and (max-width: $mobileBreakpoint) {
     margin: 40px 0;
   }
+  @media only screen and (max-width: $mobileBreakpoint) {
+    margin: 30px 0;
+  }
+
   &__title {
     margin-bottom: 25px;
+    @media only screen and (max-width: $mobileBreakpoint) {
+     font-size: 25px;
+    }
   }
 
   &__cast {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 25px;
+    @include flexBoxSet(flex, flex-start, wrap, stretch, 25px);
+    @media only screen and (max-width: $mobileBreakpoint) {
+      gap: 35px;
+    }
+
     .crew__full-cast-btn-wrapper {
       width: 110px;
       height: 110px;
+
       .crew__full-cast-btn {
         width: inherit;
         height: inherit;
@@ -28,6 +38,7 @@
         box-shadow: rgba(0, 0, 0, 0.24) 0 3px 8px;
         transition: .7s;
       }
+
       .crew__full-cast-btn:hover {
         background-color: #30393c;
         box-shadow: rgba(20, 20, 20, 0.5) 2px 3px 8px;
@@ -43,6 +54,7 @@
     background-color: #727272;
     border-radius: 50%;
     height: 110px;
+
     .crew-item__image {
       width: 100%;
       height: 100%;
@@ -51,6 +63,7 @@
       border: none;
     }
   }
+
   .crew-item__name {
     display: inline;
     font-weight: bold;

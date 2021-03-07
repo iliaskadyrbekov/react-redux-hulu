@@ -1,5 +1,8 @@
 .body__model--open {
   overflow: hidden;
+  @media only screen and (max-height: $mobileBreakpoint) {
+    overflow: initial;
+  }
 }
 
 .pop-up {
@@ -20,9 +23,8 @@
   }
 
   @media only screen and (max-width: $mobileBreakpoint) {
-    @include topHeaderPadding(25px);
+    @include topHeaderPadding(20px);
   }
-
 
   &__container {
     max-width: 1200px;

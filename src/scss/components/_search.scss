@@ -2,6 +2,10 @@
   display: flex;
   align-items: center;
   height: 37px;
+  @media only screen and (max-width: $miniMobileBreakpoint) {
+    width: 100%;
+    margin: 0 15px;
+  }
 
   &__input {
     width: 35vw;
@@ -17,6 +21,13 @@
 
     @media only screen and (max-width: $tabletBreakpoint) {
       width: 52vw;
+    }
+
+    @media only screen and (max-width: $mobileBreakpoint) {
+      width: 52vw;
+    }
+    @media only screen and (max-width: $miniMobileBreakpoint) {
+      width: 100%;
     }
   }
 
@@ -43,4 +54,7 @@
 .search__results {
   font-weight: normal;
   font-size: 24px;
+  @media only screen and (max-width: $mobileBreakpoint) {
+   font-size: 20px;
+  }
 }

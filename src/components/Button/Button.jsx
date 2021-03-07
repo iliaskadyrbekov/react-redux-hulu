@@ -107,6 +107,7 @@ const Button = ({name, copyCheckedFilters, setCopyChekedFilters, setIsShowAllAct
       <button className={classNames({
         "pop-up__button": true,
         "back-button": checkBackBtnName(),
+        "pop-up__button--filter": name === "Discard filters" || name === "Search results",
         "pop-up__button--disabled": (name === "Discard filters" && countTotalFilters()) ||
           (name === "Search results" && isChangedFilters()),
       })} onClick={buttonClickHandler}>

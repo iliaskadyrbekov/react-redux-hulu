@@ -28,6 +28,9 @@
         margin-top: 30px;
         margin-bottom: 40px;
       }
+      @media only screen and (max-width: $miniMobileBreakpoint) {
+        margin-top: 20px;
+      }
 
       .movie-poster__header {
         margin-bottom: 30px;
@@ -85,6 +88,7 @@
             .movie-poster__title {
               line-height: 1;
               margin-bottom: 10px;
+
               @media only screen and (max-width: $laptopBreakpoint) {
                 font-size: 40px;
               }
@@ -94,6 +98,10 @@
 
               @media only screen and (max-width: $mobileBreakpoint) {
                 margin-bottom: 15px;
+              }
+
+              @media only screen and (max-width: $miniMobileBreakpoint) {
+                font-size: 28px;
               }
             }
 
@@ -117,6 +125,10 @@
             margin-top: 40px;
             @media only screen and (max-width: $laptopBreakpoint) {
               margin-top: 20px;
+            }
+
+            @media only screen and (max-width: $miniMobileBreakpoint) {
+              margin-top: 15px;
             }
 
             .movie-poster__rating {
