@@ -12,8 +12,10 @@ const RecommendationMovies = () => {
   return (
     <section className="recommendation-movies">
       <h2 className="recommendation-movies__title">Recommendation movies</h2>
-      <div className="movies__list">
-        {movies}
+      <div className="movies">
+        <div className="movies__list">
+          {movies}
+        </div>
       </div>
     </section>
   );

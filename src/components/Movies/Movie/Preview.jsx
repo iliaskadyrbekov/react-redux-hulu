@@ -1,5 +1,6 @@
 import React from "react";
 import {useHistory} from "react-router";
+import PropTypes from "prop-types";
 
 const Preview = React.memo(
   function Preview({lang, movieGenresInfo, allGenres, overview}) {
@@ -34,6 +35,19 @@ const Preview = React.memo(
     );
   }
 );
+
+
+Preview.propTypes = {
+  lang: PropTypes.string.isRequired,
+  overview: PropTypes.string.isRequired,
+  movieGenresInfo: PropTypes.array.isRequired,
+  allGenres: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.number.isRequired,
+      name: PropTypes.string.isRequired,
+    }).isRequired
+  ).isRequired,
+};
 
 export default Preview;
 

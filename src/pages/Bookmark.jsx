@@ -12,7 +12,6 @@ const Bookmark = () => {
   }, []);
 
   useEffect(() => {
-    console.log(isClickedOnClearBtn)
     if (isClickedOnClearBtn) {
       if (bookmarkedMovies.length) {
         const permit = window.confirm("Are you sure you want to unbookmark all your movies?");
@@ -43,12 +42,14 @@ const Bookmark = () => {
         </div>
         <div className="bookmark__header">
           <h1 className="bookmark__title">Bookmarked movies</h1>
-          <div className="bookmark__clear-icon" onClick={unbookmarkAllMovies}>
-            <DeleteIcon style={{fontSize: 30}}/>
+          <div className="bookmark__clear-icon-wrapper" onClick={unbookmarkAllMovies}>
+            <DeleteIcon className="bookmark__clear-icon"/>
           </div>
         </div>
-        <div className="movies__list">
-          {formatBookmarkedMovies}
+        <div className="movies">
+          <div className="movies__list">
+            {formatBookmarkedMovies}
+          </div>
         </div>
         {!bookmarkedMovies.length && <p className="bookmark__message">Not found bookmarked movies</p>}
       </div>

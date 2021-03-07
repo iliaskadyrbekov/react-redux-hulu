@@ -7,6 +7,13 @@ import CloseIcon from '@material-ui/icons/Close';
 import {useHistory} from "react-router";
 import {Button} from "../Button";
 
+const years = [
+  2021, 2020, 2019, 2018, 2017, 2016,
+  2015, 2014, 2013, 2012, 2011, 2010,
+  '2000-2010', '1990-2000', '1980-1990',
+  '1970-1980', '1960-1970', '1950-1960', 'before 1950',
+];
+
 const FilterPopup = () => {
   const history = useHistory();
   const checkedFilters = useSelector(({filters}) => filters.checkedFilters);
@@ -39,6 +46,7 @@ const FilterPopup = () => {
         return <YearsTab
           setCheckboxStatus={setCheckboxStatus}
           copyCheckedYears={copyCheckedFilters.checkedYears}
+          years={years}
         />
       default:
         return <GenresTab
@@ -97,8 +105,8 @@ const FilterPopup = () => {
   };
 
   return (
-    <div className="pop-up">
-      <div className="pop-up__container">
+    <div className="pop-up filter-pop-up">
+      <div className="pop-up__container container filter-pop-up__container">
         <div className="filter-pop-up__header">
           <h2 className="filter-pop-up__title">Filters</h2>
           <CloseIcon
@@ -120,7 +128,7 @@ const FilterPopup = () => {
             {chooseTab()}
           </div>
           <div className="filter-pop-up__footer">
-            <div className="pop-up__button-wrapper">
+            <div className="pop-up__button-wrapper pop-up__button-wrapper--filter">
               <Button name="Discard filters"
                       copyCheckedFilters={copyCheckedFilters}
                       setCopyChekedFilters={setCopyChekedFilters}

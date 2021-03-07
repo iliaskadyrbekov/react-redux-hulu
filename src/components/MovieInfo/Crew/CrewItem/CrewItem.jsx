@@ -1,5 +1,6 @@
 import React from 'react';
 import defaultPersonImage from "../../../../assets/img/defaultPersonImage.png";
+import PropTypes from "prop-types";
 
 const CrewItem = ({name, path}) => {
   const pathPersonImage = path ?
@@ -14,6 +15,11 @@ const CrewItem = ({name, path}) => {
       <p className="crew-item__name">{name}</p>
     </div>
   );
+};
+
+CrewItem.propTypes = {
+  name: PropTypes.string.isRequired,
+  path: PropTypes.string,
 };
 
 export default CrewItem;

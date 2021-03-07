@@ -15,8 +15,10 @@ html {
 body {
   -moz-osx-font-smoothing: grayscale;
   -webkit-font-smoothing: antialiased;
-  color: $color;
+  color: $textColor;
   background-color: #1e252b;
+  overflow: -moz-scrollbars-vertical;
+  overflow-y: scroll;
 }
 
 h1 {

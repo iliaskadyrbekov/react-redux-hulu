@@ -79,12 +79,12 @@ const MovieControl = () => {
   };
 
   const copyIcon = isCopied ?
-    <FileCopyIcon style={{fontSize: 29}}/> :
-    <FileCopyOutlinedIcon style={{fontSize: 29}}/>;
+    <FileCopyIcon className="movie-control__button-copy-icon"/> :
+    <FileCopyOutlinedIcon className="movie-control__button-copy-icon"/> ;
 
   const bookmarkIcon = isBookmarked ?
-    <BookmarkIcon style={{fontSize: 32}}/> :
-    <BookmarkBorderIcon style={{fontSize: 32}}/>;
+    <BookmarkIcon className="movie-control__button-copy-bookmark"/> :
+    <BookmarkBorderIcon className="movie-control__button-copy-bookmark"/>;
 
   return (
     <div className="movie-control">

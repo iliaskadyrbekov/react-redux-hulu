@@ -36,9 +36,9 @@ const CrewPopup = () => {
   }, [cast]);
 
   const castFormat = (actors) => {
-    return actors && actors.map((person) => {
-      const {id, name, profile_path} = person;
-      return <CrewItem key={id} name={name} path={profile_path}/>;
+    return actors && actors.map((person, index) => {
+      const {name, profile_path} = person;
+      return <CrewItem key={index} name={name} path={profile_path}/>;
     });
   };
 
@@ -55,7 +55,7 @@ const CrewPopup = () => {
 
   return (
     <section className="pop-up">
-      <div className="pop-up__container">
+      <div className="pop-up__container container">
         <div className="crew-pop-up__header">
           <Button name="Back to the movie"/>
         </div>
@@ -70,7 +70,7 @@ const CrewPopup = () => {
                 {isShowAllActors ? castFormat(cast) : castFormat(mainActors)}
               </div>
               {isShowAllCastButton &&
-              <div className="pop-up__button-wrapper pop-up__button-wrapper--filter">
+              <div className="pop-up__button-wrapper pop-up__button-wrapper--crew">
                 <Button name={isShowAllActors ? "Hide actors" : "Show actors"}
                         setIsShowAllActors={setIsShowAllActors}/>
               </div>

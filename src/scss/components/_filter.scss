@@ -1,13 +1,14 @@
 .filter {
-  margin-bottom: 30px;
-
   &__wrapper {
     .filter__menu {
       display: flex;
       align-items: center;
+      @media only screen and (max-width: $miniMobileBreakpoint) {
+        display: block;
+      }
 
       .filter__btn-wrapper {
-        display: block;
+        display: inline;
         margin-right: 40px;
 
         .filter__button {
@@ -15,13 +16,22 @@
           background-color: inherit;
           border-radius: 25px;
           border: 2px solid white;
-          color: white;
+          color: $textColor;
           padding: 7px 35px;
           text-align: center;
           font-size: 16px;
           font-weight: bold;
           transition: .5s;
+          @media only screen and (max-width: $tabletBreakpoint) {
+            padding: 7px 40px;
+            font-size: 19px;
+          }
+          @media only screen and (max-width: $miniMobileBreakpoint) {
+            font-size: 17px;
+            padding: 6px 40px;
+          }
         }
+
         .filter__button:hover {
           background-color: #404953;
         }
@@ -29,15 +39,35 @@
 
       .filter__sort {
         position: relative;
-
+        @media only screen and (max-width: $miniMobileBreakpoint) {
+          display: table;
+        }
         &-button {
           display: flex;
           align-items: center;
           cursor: pointer;
+          @media only screen and (max-width: $miniMobileBreakpoint) {
+            margin-top: 15px;
+            height: 30px;
+          }
 
           .filter__sort-icon-wrapper {
             display: inline-block;
-            height: 24px;
+            height: 25px;
+            @media only screen and (max-width: $miniMobileBreakpoint) {
+              font-size: 26px;
+            }
+
+            .filter__sort-icon {
+              font-size: 28px;
+              @media only screen and (max-width: $tabletBreakpoint) {
+                font-size: 30px;
+              }
+              @media only screen and (max-width: $miniMobileBreakpoint) {
+                font-size: 26px;
+              }
+
+            }
           }
 
           .filter__sort-text {
@@ -49,10 +79,30 @@
             -moz-user-select: none;
             -ms-user-select: none;
             user-select: none;
+            @media only screen and (max-width: $tabletBreakpoint) {
+              font-size: 20px;
+              margin: 0 5px;
+            }
+            @media only screen and (max-width: $miniMobileBreakpoint) {
+              font-size: 18px;
+            }
           }
 
           .filter__arrow-icon-wrapper {
             height: 24px;
+            @media only screen and (max-width: $miniMobileBreakpoint) {
+              font-size: 22px;
+            }
+
+            .filter__arrow-icon {
+              font-size: 30px;
+              @media only screen and (max-width: $tabletBreakpoint) {
+                font-size: 32px;
+              }
+              @media only screen and (max-width: $miniMobileBreakpoint) {
+                font-size: 24px;
+              }
+            }
 
             &--active {
               height: inherit;
@@ -68,6 +118,9 @@
           width: 230px;
           margin-top: 10px;
           border-radius: 5px;
+          @media only screen and (max-width: $miniMobileBreakpoint) {
+            width: 200px;
+          }
 
           .filter__sort-dropdown-item {
             cursor: pointer;
@@ -77,7 +130,7 @@
 
             &--active {
               font-weight: bold;
-              color: white;
+              color: $textColor;
             }
           }
 
@@ -89,6 +142,7 @@
         }
       }
     }
+
     .filters__list--checked {
       display: flex;
       flex-wrap: wrap;

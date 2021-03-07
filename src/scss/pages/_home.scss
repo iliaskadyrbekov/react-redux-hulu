@@ -1,0 +1,9 @@
+.home__container {
+  @include topHeaderPadding(120px);
+  @media only screen and (max-width: $tabletBreakpoint) {
+    @include topHeaderPadding(110px);
+  }
+  @media only screen and (max-width: $miniMobileBreakpoint) {
+    @include topHeaderPadding(100px);
+  }
+}

@@ -5,19 +5,13 @@ import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import {setCurrentSortBy} from "../../../redux/filters/filtersActionCreator";
 import {setCountPage, setEmptyMovies, setIsFetchingMovies} from "../../../redux/movies/moviesActionCreator";
 import {useDispatch, useSelector} from "react-redux";
+import PropTypes from "prop-types";
 
-const SortBy = () => {
+const SortBy = ({sortBy}) => {
   const dispatch = useDispatch();
   const [isOpenSortPopup, setIsOpenSortPopup] = useState(false);
   const sortRef = useRef();
   const currentSortBy = useSelector(({filters}) => Object.values(filters.currentSortBy)[0]);
-  const sortBy = {
-    'popularity.desc': 'Popular',
-    'revenue.desc': 'Revenue',
-    'vote_average.desc': 'Vote Average',
-    'vote_count.desc': 'Vote Count',
-    'original_title.desc': 'Title',
-  };
 
   useEffect(() => {
     window.addEventListener('click', onCloseSortPopUp);
@@ -57,7 +51,7 @@ const SortBy = () => {
     <div className="filter__sort" onClick={toggleSortPopupMode} ref={sortRef}>
       <div className="filter__sort-button">
             <span className="filter__sort-icon-wrapper">
-              <SortIcon style={{fontSize: 28}}/>
+              <SortIcon className="filter__sort-icon"/>
             </span>
         <h3 className="filter__sort-text">
           By {currentSortBy}
@@ -66,8 +60,8 @@ const SortBy = () => {
           'filter__arrow-icon-wrapper': true,
           'filter__arrow-icon-wrapper--active': isOpenSortPopup,
         })}>
-              <ExpandMoreIcon style={{fontSize: 30}}/>
-            </span>
+          <ExpandMoreIcon className="filter__arrow-icon"/>
+        </span>
       </div>
       {isOpenSortPopup &&
       <div className="filter__sort-dropdown">
@@ -77,6 +71,10 @@ const SortBy = () => {
       </div>}
     </div>
   );
+};
+
+SortBy.propTypes = {
+  sortBy: PropTypes.object.isRequired,
 };
 
 export default SortBy;

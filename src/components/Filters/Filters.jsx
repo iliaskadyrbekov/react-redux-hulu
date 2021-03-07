@@ -3,6 +3,14 @@ import {Link} from "react-router-dom";
 import {SortBy} from "./SortBy";
 import {useSelector} from "react-redux";
 
+const sortBy = {
+  'popularity.desc': 'Popular',
+  'revenue.desc': 'Revenue',
+  'vote_average.desc': 'Vote Average',
+  'vote_count.desc': 'Vote Count',
+  'original_title.desc': 'Title',
+};
+
 const Filters = () => {
   const {checkedGenres, checkedYears} = useSelector(({filters}) => filters.checkedFilters);
   const genres = useSelector(({movies}) => movies.genres);
@@ -42,7 +50,7 @@ const Filters = () => {
             >Filters
             </button>
           </Link>
-          <SortBy/>
+          <SortBy sortBy={sortBy}/>
         </div>
         {isFiltering &&
         <div className="filters__list--checked">
