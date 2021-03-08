@@ -11,7 +11,6 @@ import {API_GET_MOVIE_BY_ID, API_KEY} from "../api/api";
 function App() {
   const dispatch = useDispatch();
 
-  //TODO
   useEffect(() => {
     dispatch(fetchGenres());
   }, [dispatch]);

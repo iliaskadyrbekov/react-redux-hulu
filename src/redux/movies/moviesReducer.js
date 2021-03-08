@@ -18,7 +18,7 @@ const initialState = {
 const moviesReducer = (state = initialState, action) => {
   switch (action.type) {
     case SET_MOVIES:
-      return { // TODO
+      return {
         ...state,
         movies: [
           ...state.movies,
@@ -26,7 +26,7 @@ const moviesReducer = (state = initialState, action) => {
         ]
       };
     case SET_EMPTY_MOVIES:
-      return { // TODO
+      return {
         ...state,
         movies: action.payload
       };
@@ -36,7 +36,7 @@ const moviesReducer = (state = initialState, action) => {
         isFetchingMovies: action.payload,
       };
     case SET_COUNT_PAGE:
-      return { // TODO
+      return {
         ...state,
         countPage: action.payload,
       };

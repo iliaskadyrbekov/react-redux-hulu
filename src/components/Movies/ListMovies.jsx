@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import React, {useEffect} from "react";
 import Movie from "./Movie/Movie";
 import {useDispatch, useSelector} from "react-redux";
