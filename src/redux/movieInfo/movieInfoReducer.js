@@ -1,10 +1,17 @@
-import {SET_CURRENT_LOCATION_PATH, SET_MOVIE_CAST, SET_MOVIE_INFO, SET_RECOMMENDATION_MOVIES} from "./movieInfoTypes";
+import {
+  SET_CURRENT_LOCATION_PATH,
+  SET_IS_FETCHING_MOVIE_INFO,
+  SET_MOVIE_CAST,
+  SET_MOVIE_INFO,
+  SET_RECOMMENDATION_MOVIES
+} from "./movieInfoTypes";
 
 const initialState = {
   movieInfo: {},
   movieCast: {},
   recommendationMovies: [],
   currentLocationPath: '/',
+  isFetchingMovieInfo: true,
 };
 
 const movieInfoReducer = (state = initialState, action) => {
@@ -28,6 +35,11 @@ const movieInfoReducer = (state = initialState, action) => {
       return {
         ...state,
         currentLocationPath: action.payload,
+      };
+    case SET_IS_FETCHING_MOVIE_INFO:
+      return {
+        ...state,
+        isFetchingMovieInfo: action.payload,
       };
     default:
       return state;
