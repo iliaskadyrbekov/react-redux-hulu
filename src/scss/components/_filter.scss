@@ -7,7 +7,7 @@
       }
 
       .filter__btn-wrapper {
-        display: inline;
+        display: inline-block;
         margin-right: 40px;
 
         .filter__button {
@@ -101,6 +101,7 @@
               transform: rotate(180deg);
             }
           }
+
           &:focus, &:hover, &:active {
             outline: none;
             -webkit-filter: drop-shadow(1px 1px 2px #868686);
