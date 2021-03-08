@@ -1,5 +1,5 @@
 .scroll-to-top-btn__wrapper {
-  @include flexBoxSet(flex, center, nowrap, center, normal);
+  @include flexBoxSet(center, nowrap, center, normal);
   position: fixed;
   bottom: 30px;
   right: 50px;

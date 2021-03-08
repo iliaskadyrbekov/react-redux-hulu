@@ -26,6 +26,10 @@ const Bookmark = () => {
     }
   }, [isClickedOnClearBtn])
 
+  useEffect(() => {
+    document.title = 'Bookmarked movies';
+  }, []);
+
   const formatBookmarkedMovies = bookmarkedMovies.map((movie) => {
     return <Movie movie={movie} key={movie.id}/>;
   });
@@ -42,9 +46,9 @@ const Bookmark = () => {
         </div>
         <div className="bookmark__header">
           <h1 className="bookmark__title">Bookmarked movies</h1>
-          <div className="bookmark__clear-icon-wrapper" onClick={unbookmarkAllMovies}>
+          <button className="bookmark__clear-icon-wrapper" onClick={unbookmarkAllMovies}>
             <DeleteIcon className="bookmark__clear-icon"/>
-          </div>
+          </button>
         </div>
         <div className="movies">
           <div className="movies__list">

@@ -31,11 +31,7 @@ const Crew = () => {
       <div className="crew__cast">
         {cast && cast.length === 0 ? showCrew(crew) : showCrew(cast)}
         <Link to={`/movies/${id}/crew`} className="crew__full-cast-btn-wrapper">
-          <button
-            className="crew__full-cast-btn"
-            onClick={openCrewPopUp}
-          >Show more
-          </button>
+          <div className="crew__full-cast-btn" onClick={openCrewPopUp}>Show more</div>
         </Link>
       </div>
     </section>

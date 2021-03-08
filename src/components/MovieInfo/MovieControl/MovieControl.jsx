@@ -88,17 +88,17 @@ const MovieControl = () => {
 
   return (
     <div className="movie-control">
-      <div className="movie-control__button" onClick={toggleBookmarkStatus}>
+      <button className="movie-control__button" onClick={toggleBookmarkStatus}>
         {bookmarkIcon}
         <span className="movie-control__button-text">Watch later</span>
-      </div>
-      <div className={classNames({
+      </button>
+      <button className={classNames({
         "movie-control__button": true,
         "movie-control__button--disabled": isCopied,
       })} onClick={onCopyMovieUrl}>
         {copyIcon}
         <span className="movie-control__button-text">{copyButtonName}</span>
-      </div>
+      </button>
     </div>
   );
 };

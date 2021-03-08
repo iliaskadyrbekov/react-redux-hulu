@@ -18,7 +18,8 @@ import {RecommendationMovies} from "../components/MovieInfo/RecommendationMovies
 const MovieInfo = () => {
   const {id} = useParams();
   const dispatch = useDispatch();
-  const recommendationMovies = useSelector(({movieInfo}) => movieInfo.recommendationMovies);
+  const {recommendationMovies, movieInfo} = useSelector(({movieInfo}) => movieInfo);
+
 
   const movieIdURL = `${API_GET_MOVIE_BY_ID}${id}`;
   const movieCrewURL = `/movies/${id}/crew`;
@@ -56,6 +57,12 @@ const MovieInfo = () => {
       }
     };
   }, [id]);
+
+  useEffect(() => {
+    if (movieInfo.title) {
+      document.title = movieInfo.title;
+    }
+  }, [movieInfo]);
 
   return (
     <div className="movie-info">

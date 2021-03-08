@@ -20,16 +20,8 @@
   }
 
   .pop-up__button {
-    font-weight: bold;
-    font-size: 16px;
+    @include buttonSet(16px, bold, inherit, 1px solid white, inherit, 1s, 1, 7px);
     flex-grow: 1;
-    background-color: inherit;
-    border: 1px solid white;
-    color: inherit;
-    cursor: pointer;
-    border-radius: 7px;
-    transition: .3s;
-
     &--disabled {
       pointer-events: none;
       opacity: .6;
@@ -40,10 +32,10 @@
         font-size: 14px;
       }
     }
-  }
-
-  .pop-up__button:hover {
-    background-color: #30393c;
+    &:hover, &:focus, &:active {
+      background-color: #30393c;
+      outline: none;
+    }
   }
 
   .pop-up__button + button {
@@ -54,17 +46,11 @@
 }
 
 .back-button {
-  @include flexBoxSet(flex, flex-start, nowrap, center, normal);
-  cursor: pointer;
-  background-color: inherit;
-  border: none;
-  color: $textColor;
-  opacity: .6;
-  transition: .5s;
-  font-size: 20px;
-}
-
-.back-button:hover {
-  opacity: 1;
-  transform: scale(1.05);
+  @include flexBoxSet(flex-start, nowrap, center, normal);
+  @include buttonSet(20px, normal, inherit, none, $textColor, .5s, .6, initial);
+  &:focus, &:active, &:hover {
+    outline: none;
+    opacity: 1;
+    transform: scale(1.05);
+  }
 }
