@@ -30,7 +30,7 @@ const Bookmark = () => {
     document.title = 'Bookmarked movies';
   }, []);
 
-  const formatBookmarkedMovies = bookmarkedMovies.map((movie) => {
+  const formatBookmarkedMovies = bookmarkedMovies && bookmarkedMovies.map((movie) => {
     return <Movie movie={movie} key={movie.id}/>;
   });
 
@@ -52,10 +52,11 @@ const Bookmark = () => {
         </div>
         <div className="movies">
           <div className="movies__list">
-            {formatBookmarkedMovies}
+            {bookmarkedMovies && formatBookmarkedMovies}
           </div>
         </div>
-        {!bookmarkedMovies.length && <p className="bookmark__message">Not found bookmarked movies</p>}
+        {(!bookmarkedMovies || !bookmarkedMovies.length) &&
+        <p className="bookmark__message">Not found bookmarked movies</p>}
       </div>
     </section>
   );
