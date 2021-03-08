@@ -4,7 +4,7 @@ import {API_GET_MOVIE_BY_ID, API_KEY} from "../api/api";
 import {
   fetchMovieCast,
   fetchMovieInfo,
-  fetchRecommenationMovies,
+  fetchRecommenationMovies, setIsFetchingMovieInfo,
   setMovieCast,
   setMovieInfo,
   setRecommendationMovies
@@ -14,12 +14,12 @@ import {MoviePoster} from "../components/MovieInfo/MoviePoster";
 import {Crew} from "../components/MovieInfo/Crew";
 import {MovieControl} from "../components/MovieInfo/MovieControl";
 import {RecommendationMovies} from "../components/MovieInfo/RecommendationMovies";
+import {Loader} from "../components/Loader";
 
 const MovieInfo = () => {
   const {id} = useParams();
   const dispatch = useDispatch();
-  const {recommendationMovies, movieInfo} = useSelector(({movieInfo}) => movieInfo);
-
+  const {recommendationMovies, movieInfo, isFetchingMovieInfo} = useSelector(({movieInfo}) => movieInfo);
 
   const movieIdURL = `${API_GET_MOVIE_BY_ID}${id}`;
   const movieCrewURL = `/movies/${id}/crew`;
@@ -61,17 +61,23 @@ const MovieInfo = () => {
   useEffect(() => {
     if (movieInfo.title) {
       document.title = movieInfo.title;
+      dispatch(setIsFetchingMovieInfo(false));
     }
   }, [movieInfo]);
 
   return (
     <div className="movie-info">
-      <MoviePoster/>
-      <div className="container">
-        <MovieControl/>
-        <Crew/>
-        {recommendationMovies.length !== 0 && <RecommendationMovies/>}
-      </div>
+      {isFetchingMovieInfo ?
+        <div className="movie-poster__loader-wrapper"><Loader/></div> :
+        <>
+          <MoviePoster/>
+          <div className="container">
+            <MovieControl/>
+            <Crew/>
+            {recommendationMovies.length !== 0 && <RecommendationMovies/>}
+          </div>
+        </>
+      }
     </div>
   );
 };

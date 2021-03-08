@@ -1,4 +1,10 @@
-import {SET_CURRENT_LOCATION_PATH, SET_MOVIE_CAST, SET_MOVIE_INFO, SET_RECOMMENDATION_MOVIES} from "./movieInfoTypes";
+import {
+  SET_CURRENT_LOCATION_PATH,
+  SET_IS_FETCHING_MOVIE_INFO,
+  SET_MOVIE_CAST,
+  SET_MOVIE_INFO,
+  SET_RECOMMENDATION_MOVIES
+} from "./movieInfoTypes";
 import {fetchFromAPI} from "../../api/fetchAPI";
 
 export const setMovieInfo = (movieInfo) => ({
@@ -19,6 +25,11 @@ export const setCurrentLocationPath = (currentLocationPath) => ({
 export const setRecommendationMovies = (movies) => ({
   type: SET_RECOMMENDATION_MOVIES,
   payload: movies,
+});
+
+export const setIsFetchingMovieInfo = (isFetchingMovieInfo) => ({
+  type: SET_IS_FETCHING_MOVIE_INFO,
+  payload: isFetchingMovieInfo,
 });
 
 export const fetchMovieInfo = (url) => {

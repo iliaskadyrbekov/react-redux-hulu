@@ -1,6 +1,5 @@
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 import {useSelector} from "react-redux";
-import {Loader} from "../../Loader";
 import StarBorderIcon from '@material-ui/icons/StarBorder';
 import {getCountriesList, getGenresList, getRating} from "../../../utils/formatMovieData";
 import {Button} from "../../Button";
@@ -12,17 +11,9 @@ const MoviePoster = () => {
     backdrop_path, tagline, overview, production_countries, vote_average
   } = useSelector(({movieInfo}) => movieInfo.movieInfo);
 
-  const [isFetchingMovieInfo, setIsFetchingMovieInfo] = useState(true);
-
   const formatReleaseDate = release_date && release_date.split('-').reverse().join('/');
   const backdropPath = backdrop_path && `url(https://image.tmdb.org/t/p/w1920_and_h800_multi_faces${backdrop_path})`;
   const posterPath = poster_path && `https://image.tmdb.org/t/p/w500/${poster_path}`;
-
-  useEffect(() => {
-    if (title) {
-      setIsFetchingMovieInfo(false);
-    }
-  }, [poster_path]);
 
   const formatProductionCountry = () => {
     if (production_countries && production_countries[0]) {
@@ -47,8 +38,6 @@ const MoviePoster = () => {
     <section className="movie-poster" style={{
       backgroundImage: backdropPath,
     }}>
-      {isFetchingMovieInfo && <div className="movie-poster__loader-wrapper"><Loader/></div>}
-      {!isFetchingMovieInfo &&
       <div className="movie-poster__background-blackout">
         <div className="movie-poster__container container">
           <div className="movie-poster__header">
@@ -93,7 +82,7 @@ const MoviePoster = () => {
             </div>
           </div>
         </div>
-      </div>}
+      </div>
     </section>
   );
 };
