@@ -12,8 +12,7 @@
 
   &__message {
     font-size: 28px;
-    display: flex;
-    justify-content: center;
+    @include flexBoxSet(center, nowrap, stretch, normal);
     margin-top: 50px;
     @media only screen and (max-width: $miniMobileBreakpoint) {
       font-size: 22px;
@@ -22,12 +21,9 @@
   }
 
   &__list {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(165px, 1fr));
-    gap: 1.5rem;
+    @include gridSet(repeat(auto-fill, minmax(165px, 1fr)), 1.5rem);
     @media only screen and (max-width: $miniMobileBreakpoint) {
-      grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
-      gap: 1.2rem;
+      @include gridSet(repeat(auto-fill, minmax(120px, 1fr)), 1.2rem);
     }
   }
 }

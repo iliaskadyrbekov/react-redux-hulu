@@ -2,10 +2,38 @@
   padding-top: $padding;
 }
 
-@mixin flexBoxSet($display, $justifyContent, $wrap, $alignItems, $gap) {
-  display: $display;
+@mixin flexBoxSet($justifyContent, $wrap, $alignItems, $gap) {
+  display: flex;
   justify-content: $justifyContent;
   flex-wrap: $wrap;
   align-items: $alignItems;
   gap: $gap;
+}
+
+@mixin gridSet($gridTemplateColumns, $gridGap) {
+  display: grid;
+  grid-template-columns: $gridTemplateColumns;
+  grid-gap: $gridGap;
+}
+
+@mixin noSelectText {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+@mixin buttonSet($fontSize, $fontWeight, $backgroundColor, $border,
+$color, $transition, $opacity, $borderRadius) {
+  font-size: $fontSize;
+  font-weight: $fontWeight;
+  background-color: $backgroundColor;
+  border: $border;
+  color: $color;
+  transition: $transition;
+  opacity: $opacity;
+  border-radius: $borderRadius;
+  cursor: pointer;
 }

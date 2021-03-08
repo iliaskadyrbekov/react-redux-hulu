@@ -10,9 +10,7 @@
     }
   }
   .crew-pop-up__list {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    grid-gap: 30px;
+    @include gridSet(repeat(4, 1fr), 30px);
     margin-bottom: 40px;
     @media only screen and (max-width: $laptopBreakpoint) {
       grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));

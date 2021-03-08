@@ -1,6 +1,5 @@
 .search {
-  display: flex;
-  align-items: center;
+  @include flexBoxSet(flex-start, nowrap, center, normal);
   height: 37px;
   @media only screen and (max-width: $miniMobileBreakpoint) {
     width: 100%;
@@ -39,8 +38,7 @@
   }
 
   &__button-clear {
-    display: flex;
-    align-items: center;
+    @include flexBoxSet(flex-start, nowrap, center, normal);
     margin-left: 7px;
     background-color: inherit;
     border: none;

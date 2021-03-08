@@ -1,33 +1,45 @@
 .bookmark {
   @include topHeaderPadding(70px);
+
   .bookmark__back-btn {
     margin-top: 20px;
   }
 
   .bookmark__header {
-    @include flexBoxSet(flex, space-between, nowrap, center, normal);
+    @include flexBoxSet(space-between, nowrap, center, normal);
     margin-top: 30px;
+
     .bookmark__title {
       font-size: 38px;
       @media only screen and (max-width: $mobileBreakpoint) {
-       font-size: 30px;
+        font-size: 30px;
       }
       @media only screen and (max-width: $miniMobileBreakpoint) {
         font-size: 25px;
       }
     }
+
     .bookmark__clear-icon-wrapper {
       height: 30px;
       cursor: pointer;
+      background-color: inherit;
+      color: inherit;
+      border: none;
+      transition: .2s;
+
       .bookmark__clear-icon {
         font-size: 30px;
+      }
+
+      &:hover, &:active, &:focus {
+        outline: none;
+        -webkit-filter: drop-shadow(1px 1px 10px #c4c4c4);
       }
     }
   }
 
   .bookmark__message {
-    display: flex;
-    justify-content: center;
+    @include flexBoxSet(center, nowrap, stretch, normal);
     margin-top: 50px;
     font-size: 20px;
     @media only screen and (max-width: $mobileBreakpoint) {

@@ -4,8 +4,7 @@
   }
 
   .crew-pop-up__container-inner {
-    display: flex;
-    justify-content: space-between;
+    @include flexBoxSet(space-between, nowrap, stretch, normal);
     margin-left: 200px;
     @media only screen and (max-width: $desktopBreakpoint) {
       margin-left: 0;
@@ -16,7 +15,6 @@
     }
 
     .crew-pop-up__content {
-      //max-width: 520px;
       .crew-pop-up__title {
         font-size: 40px;
         margin-bottom: 40px;
@@ -66,10 +64,8 @@
         font-size: 17px;
 
         .movie-pop-up__runtime {
-          display: flex;
-          align-items: center;
+          @include flexBoxSet(flex-start, nowrap, center, normal);
           margin-bottom: 5px;
-
           &-text {
             margin-left: 5px;
           }

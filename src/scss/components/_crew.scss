@@ -10,12 +10,12 @@
   &__title {
     margin-bottom: 25px;
     @media only screen and (max-width: $mobileBreakpoint) {
-     font-size: 25px;
+      font-size: 25px;
     }
   }
 
   &__cast {
-    @include flexBoxSet(flex, flex-start, wrap, stretch, 25px);
+    @include flexBoxSet(flex-start, wrap, stretch, 25px);
     @media only screen and (max-width: $mobileBreakpoint) {
       gap: 35px;
     }
@@ -25,23 +25,16 @@
       height: 110px;
 
       .crew__full-cast-btn {
+        @include buttonSet(17px, bold, #282d32, none, $textColor, .7s, .9, 50%);
+        @include flexBoxSet(center, nowrap, center, normal);
         width: inherit;
         height: inherit;
-        color: $textColor;
-        opacity: .9;
-        font-weight: bold;
-        font-size: 17px;
-        cursor: pointer;
-        border-radius: 50%;
-        background-color: #282d32;
-        border: none;
         box-shadow: rgba(0, 0, 0, 0.24) 0 3px 8px;
-        transition: .7s;
-      }
 
-      .crew__full-cast-btn:hover {
-        background-color: #30393c;
-        box-shadow: rgba(20, 20, 20, 0.5) 2px 3px 8px;
+        &:hover{
+          background-color: #30393c;
+          box-shadow: rgba(20, 20, 20, 0.5) 2px 3px 8px;
+        }
       }
     }
   }

@@ -35,6 +35,12 @@ const CrewPopup = () => {
     setMainActors(cast.slice(0, MAX_SHOWING_PERSONS));
   }, [cast]);
 
+  useEffect(() => {
+    if (title) {
+      document.title = `Crew of ${title}`;
+    }
+  }, [title]);
+
   const castFormat = (actors) => {
     return actors && actors.map((person, index) => {
       const {name, profile_path} = person;

@@ -44,11 +44,11 @@ const Filters = () => {
       <div className="filter__wrapper">
         <div className="filter__menu">
           <Link to="/filters" className="filter__btn-wrapper">
-            <button
+            <div
               className="filter__button"
               onClick={openFilterPopup}
             >Filters
-            </button>
+            </div>
           </Link>
           <SortBy sortBy={sortBy}/>
         </div>
