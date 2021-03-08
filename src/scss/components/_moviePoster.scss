@@ -16,8 +16,7 @@
 
   &__background-blackout {
     height: inherit;
-    display: flex;
-    align-items: center;
+    @include flexBoxSet(flex-start, nowrap, center, normal);
     background-image: linear-gradient(to right, rgba(18.43%, 21.22%, 24.31%, 1.00) 150px, rgba(20.43%, 19.22%, 24.31%, 0.84) 100%);
 
     .movie-poster__container {
@@ -37,8 +36,7 @@
       }
 
       .movie-poster__content {
-        display: flex;
-        justify-content: space-between;
+        @include flexBoxSet(space-between, nowrap, stretch, normal);
         @media only screen and (max-width: $mobileBreakpoint) {
           display: block;
         }
@@ -132,8 +130,7 @@
             }
 
             .movie-poster__rating {
-              display: flex;
-              align-items: center;
+              @include flexBoxSet(flex-start, nowrap, center, normal);
               font-size: 26px;
               margin-bottom: 10px;
 

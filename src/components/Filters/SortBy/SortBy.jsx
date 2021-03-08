@@ -49,7 +49,7 @@ const SortBy = ({sortBy}) => {
 
   return (
     <div className="filter__sort" onClick={toggleSortPopupMode} ref={sortRef}>
-      <div className="filter__sort-button">
+      <button className="filter__sort-button">
             <span className="filter__sort-icon-wrapper">
               <SortIcon className="filter__sort-icon"/>
             </span>
@@ -62,7 +62,7 @@ const SortBy = ({sortBy}) => {
         })}>
           <ExpandMoreIcon className="filter__arrow-icon"/>
         </span>
-      </div>
+      </button>
       {isOpenSortPopup &&
       <div className="filter__sort-dropdown">
         <ul className="filter__sort-list">

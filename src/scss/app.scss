@@ -20,16 +20,3 @@
 @import "pages/bookmark";
 @import "pages/home";
 
-.container {
-  max-width: 1200px;
-  margin: 0 auto;
-  @media only screen and (max-width: $desktopBreakpoint) {
-   padding-left: 20px;
-   padding-right: 20px;
-  }
-  @media only screen and (max-width: $miniMobileBreakpoint) {
-    padding-left: 15px;
-    padding-right: 15px;
-  }
-}
-

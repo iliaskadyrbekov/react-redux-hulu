@@ -55,6 +55,10 @@ const ListMovies = () => {
     }
   });
 
+  useEffect(() => {
+    document.title = 'Hulu';
+  }, []);
+
   const isNotLastMovies = () => {
     const currentCountMovies = isSearching ? searchMovies.length : movies.length;
     return currentCountMovies < totalMovies;

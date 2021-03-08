@@ -1,5 +1,4 @@
 .loader {
-  display: flex;
-  justify-content: center;
+  @include flexBoxSet(center, nowrap, stretch, normal);
   margin-top: 30px;
 }
