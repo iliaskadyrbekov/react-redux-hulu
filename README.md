@@ -12,4 +12,4 @@ ___
 
 The service is designed to find out brief information about films, find and select films according to various criteria.
 
-##[View a demo](https://hulu-blond.vercel.app)
+[View a demo](https://hulu-blond.vercel.app)
