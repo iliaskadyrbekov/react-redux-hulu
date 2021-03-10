@@ -13,7 +13,7 @@ const Bookmark = () => {
 
   useEffect(() => {
     if (isClickedOnClearBtn) {
-      if (bookmarkedMovies.length) {
+      if (bookmarkedMovies && bookmarkedMovies.length) {
         const permit = window.confirm("Are you sure you want to unbookmark all your movies?");
         if (permit) {
           localStorage.setItem('bookmarkedMovies', JSON.stringify([]));
